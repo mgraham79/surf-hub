@@ -62,6 +62,24 @@ updateFieldBeach: function(id) {
 // Saves a beach to the database
 saveBeach: function(beachData) {
   return axios.post("/api/beaches", beachData);
-}
+},
+
+// Placeholders for the APIs
+
+// getSurfReport: function() {
+//   return axios.get("https://dog.ceo/api/breeds/image/random");
+// },
+
+// getWebCam: function() {
+//   return axios.get("https://dog.ceo/api/breed/" + breed + "/images");
+// },
+
+// getRentals: function() {
+//   return axios.get("https://dog.ceo/api/breeds/image/random");
+// },
+
+// getResturants: function() {
+//   return axios.get("https://dog.ceo/api/breeds/image/random");
+// },
 
 };
