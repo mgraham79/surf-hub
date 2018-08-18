@@ -4,23 +4,48 @@ const uniqueValidator = require("mongoose-unique-validator");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  title: { type: String, required: true },
-  author: { type: String, required: true },
-  synopsis: String,
-  date: { type: Date, default: Date.now },
+ 
+  // username: {
+  //   type: String,
+  //   trim: true,
+  //   required: "Username is Required",
+  //   unique: true
+  // },
 
-  username: {
+  firstName: {
     type: String,
     trim: true,
-    required: "Username is Required",
-    unique: true
+    required: "First name is Required",
   },
 
+  lastName: {
+    type: String,
+    trim: true,
+    required: "Last name is Required",
+  },
+
+  middleInitial: {
+    type: String,
+    trim: true,
+    validate: [
+      function(input) {
+        return input.length <= 1;
+      },
+      "Enter only One letter for middle initial."
+    ]
+  },
+  
   password: {
     type: String,
     trim: true,
     required: "Password is Required",
     unique: true
+  },
+
+  email: {
+    type: String,
+    trim: true,
+    validate: validators.isEmail()
   },
 
   picURL: {
