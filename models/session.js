@@ -7,14 +7,12 @@ const sessionSchema = new Schema({
  
   clientName: {
     type: String,
-    trim: true,
-    required: "Client name is required",
+    trim: true
   },
 
   instructorName: {
     type: String,
-    trim: true,
-    required: "Instructor name is Required",
+    trim: true   
   },
 
   sessionStart: {

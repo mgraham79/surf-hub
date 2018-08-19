@@ -22,6 +22,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.15.4",
     "if-env": "^1.0.4",
+    "mongoose": "^5.2.9",
     "mongoose-unique-validator": "^2.0.1",
     "mongoose-validators": "^0.1.0"
   }
