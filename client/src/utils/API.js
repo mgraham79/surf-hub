@@ -14,8 +14,8 @@ export default {
     return axios.delete("/api/users/" + id);
   },
   // Updates a user field in the database
-  updateFieldUser: function(id) {
-    return axios.put("/api/users/" + id);
+  updateFieldUser: function(id, updateField) {
+    return axios.put("/api/users/" + id, updateField);
   },
   // Saves a user to the database
   saveUser: function(userData) {
@@ -35,8 +35,8 @@ deleteSession: function(id) {
   return axios.delete("/api/sessions/" + id);
 },
 // Updates a session field in the database
-updateFieldSession: function(id) {
-  return axios.put("/api/sessions/" + id);
+updateFieldSession: function(id, updateField) {
+  return axios.put("/api/sessions/" + id, updateField);
 },
 // Saves a session to the database
 saveSession: function(sessionData) {
@@ -56,8 +56,8 @@ deleteBeach: function(id) {
   return axios.delete("/api/beaches/" + id);
 },
 // Updates a beach field in the database
-updateFieldBeach: function(id) {
-  return axios.put("/api/beaches/" + id);
+updateFieldBeach: function(id, updateField) {
+  return axios.put("/api/beaches/" + id, updateField);
 },
 // Saves a beach to the database
 saveBeach: function(beachData) {
