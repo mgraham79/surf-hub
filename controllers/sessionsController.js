@@ -25,7 +25,9 @@ module.exports = {
     let updateSessionObject = {};
 
     if (req.body.clientName) updateSessionObject.clientName = req.body.clientName;
+    if (req.body.clientID) updateSessionObject.clientID = req.body.clientID;
     if (req.body.instructorName) updateSessionObject.instructorName = req.body.instructorName;
+    if (req.body.instructorID) updateSessionObject.instructorID = req.body.instructorID;
     if (req.body.sessionStart) updateSessionObject.sessionStart = req.body.sessionStart;
     if (req.body.sessionEnd) updateSessionObject.sessionEnd = req.body.sessionEnd;
 

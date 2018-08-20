@@ -54,14 +54,14 @@ const userSchema = new Schema({
     validate: validators.isURL()
   },
 
-  location: [{
+  location: {
     lat: {
-      type: String
+      type: Number
     }, 
     lng: {
-      type: String
+      type: Number
     }
-  }],
+  },
 
   exp: {
     type: String,

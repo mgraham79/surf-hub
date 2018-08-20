@@ -8,12 +8,13 @@ router
   .post(beachesController.create);
 
 // Matches with "/api/users/:id/:updateField"
-router.route("/:id/:updateField").put(beachesController.update);
+// router.route("/:id/:updateField").put(beachesController.update);
 
 // Matches with "/api/beaches/:id"
 router
   .route("/:id")
   .get(beachesController.findById)
-  .delete(beachesController.remove);
+  .delete(beachesController.remove)
+  .put(beachesController.update)
 
 module.exports = router;
