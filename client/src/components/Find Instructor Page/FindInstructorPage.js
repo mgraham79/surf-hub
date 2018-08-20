@@ -15,3 +15,4 @@ class FindInstructorPage extends Component{
         </div>
     }
 }
+export default FindInstructorPage
