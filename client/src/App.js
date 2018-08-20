@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import FindInstructorButton from "./components/find Instructor/FindInstructorButton";
+import FindInstructorButton from "./components/find Instructor Button/FindInstructorButton";
 
 
 class App extends Component {
@@ -37,7 +37,10 @@ showPosition=(position)=>{
      console.log(this.state)
    }
 
-
+   handleFindingInstructor=(longitude, latitude)=>{
+     
+     
+   }
 
   
   
@@ -45,7 +48,7 @@ showPosition=(position)=>{
   render() {
     return (
       <div>
-        <FindInstructorButton/>
+        <FindInstructorButton onClick={()=> this.handleFindingInstructor}/>
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
