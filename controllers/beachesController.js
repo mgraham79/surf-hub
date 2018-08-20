@@ -24,10 +24,8 @@ module.exports = {
   update: function(req, res) {
     let updateBeachObject = {};
 
-    if (req.body.clientName) updateBeachObject.clientName = req.body.clientName;
-    if (req.body.instructorName) updateBeachObject.instructorName = req.body.instructorName;
-    if (req.body.sessionStart) updateBeachObject.sessionStart = req.body.sessionStart;
-    if (req.body.sessionEnd) updateBeachObject.sessionEnd = req.body.sessionEnd;
+    if (req.body.beachName) updateBeachObject.beachName = req.body.beachName;
+    if (req.body.beachloc) updateBeachObject.beachloc = req.body.beachloc;
 
     db.Beach.findOneAndUpdate({ _id: req.params.id }, updateBeachObject, {
       new: true

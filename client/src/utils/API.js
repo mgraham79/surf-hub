@@ -56,13 +56,13 @@ deleteBeach: function(id) {
   return axios.delete("/api/beaches/" + id);
 },
 // Updates a beach field in the database
-updateFieldBeach: function(id, updateField) {
-  return axios.put("/api/beaches/" + id, updateField);
+updateFieldBeach: function(id, data) {
+  return axios.put("/api/beaches/" + id, data);
 },
 // Saves a beach to the database
 saveBeach: function(beachData) {
   return axios.post("/api/beaches", beachData);
-},
+}
 
 // Placeholders for the APIs
 
@@ -83,3 +83,4 @@ saveBeach: function(beachData) {
 // },
 
 };
+// updateFieldBeach("5b7aef7d01ca7ef0dc408175", {beachName: "React Beach"});
