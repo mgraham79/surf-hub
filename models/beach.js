@@ -10,14 +10,14 @@ const beachSchema = new Schema({
     trim: true
   },
 
-  beachloc: [{
+  beachloc: {
     lat: {
-      type: String
+      type: Number
     }, 
     lng: {
-      type: String
+      type: Number
     }
-  }]
+  }
 
 });
 

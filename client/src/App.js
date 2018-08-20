@@ -5,8 +5,18 @@ import AuthService from './components/AuthService';
 import withAuth from './components/withAuth';
 const Auth = new AuthService();
 
+import API from "./utils/API";
+
 class App extends Component {
 
+  // componentDidMount() {
+  //   API.updateFieldBeach("5b7aef7d01ca7ef0dc408175", {"beachloc":{
+	//     "lat": 55,
+	//     "lng": 555
+	// }})
+  //     .then(res => console.log(res.data))
+  //     .catch(err => console.log(err));
+  // }
   state = {
     userId: this.props.user.id,
     profileLink: ""
