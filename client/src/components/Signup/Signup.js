@@ -1,5 +1,7 @@
 import React from "react";
 import "./Signup.css";
+import AuthService from './AuthService';
+import API from '../utils/API';
 
 const Signup = () => (
     <body className="login-body">
