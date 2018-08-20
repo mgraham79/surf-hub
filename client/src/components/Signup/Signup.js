@@ -1,115 +1,166 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Signup.css";
-import AuthService from './AuthService';
-import API from '../utils/API';
+import AuthService from '../AuthService';
+import API from '../../utils/API';
 
-const Signup = () => (
-    <body className="login-body">
-        <nav className="navbar navbar-default" id="nav-cover">
-            <div className="container-fluid">
-                <div className="navbar-header">
-                    <a href="/">
-                        <img src="images/DevSpace_TopBar.png" alt="DevSpace logo"/>
-                    </a>
+class Signup extends Component {
+    constructor() {
+        super();
+        this.Auth = new AuthService();
+    }
+    
+    componentWillMount() {
+        if (this.Auth.loggedIn()) {
+            this.props.history.replace('/');
+        }
+    }
+    state = {
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        middleInitial: "",
+        picURL: "",
+        location: "",
+        boardType: "",
+        exp: "",
+        favBeaches: "",
+        myBio: ""
+    };
+
+    handleInputChange = event => {
+        // Getting the value and name of the input which triggered the change
+        let value = event.target.value;
+        const name = event.target.name;
+    
+        // Updating the input's state
+        this.setState({
+          [name]: value
+        });
+      };
+    
+      handleFormSubmit = event => {
+        event.preventDefault();
+        API.signUpUser(...this.state)
+          .then(res => {
+            console.log(res.data);
+            // once the user has signed up
+            // send them to the login page
+            this.props.history.replace('/login');
+          })
+          .catch(err => alert(err));
+      };
+
+
+    createUser = (e)=>{
+        e.preventDefault()
+        //var newUser = [firstName]
+        console.log(this)
+    }
+
+
+    render() {
+        return (
+        <body className="login-body">
+            <nav className="navbar navbar-default" id="nav-cover">
+                <div className="container-fluid">
+                    <div className="navbar-header">
+                        <a href="/">
+                            <img src="" alt="Surf Hub Logo" />
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6 col-md-offset-3">
+                        <h2 id="title-text">Sign Up Form</h2>
+                        <form className="signup">
+                            <div className="form-group">
+                                <label className="text" for="email">Email Address (required)</label>
+                                <input type="email" className="form-control" name="email" value={this.state.email}placeholder="Email" />
+                            </div>
+                            <div className="form-group">
+                                <label className="text" for="password">Password (required)</label>
+                                <input type="password" className="form-control" name="password" value={this.state.password}placeholder="Password" />
+                            </div>
+                            <div className="form-group">
+                                <label className="text" for="firstName">First Name (required)</label>
+                                <input type="text" className="form-control" name="firstName" value={this.state.firstName}placeholder="First name" />
+                            </div>
+                            <div className="form-group">
+                                <label className="text" for="lastName">Last Name</label>
+                                <input type="text" className="form-control" name="lastName" value={this.state.lastName}placeholder="Last name" />
+                            </div>
+                            <div className="form-group">
+                                <label className="text" for="middleInitial">Middle Initial</label>
+                                <input type="text" className="form-control" name="middleInitial" value={this.state.middleInitial}placeholder="Middle Initial" />
+                            </div>
+                            <div className="form-group">
+                                <label className="text" for="picURL">Profile Picture URL</label>
+                                <input type="text" className="form-control" name="picURL" value={this.state.picUrl}placeholder="picURL" />
+                            </div>
+                            <div className="form-group">
+                                <label className="text" for="location">Zip Code</label>
+                                <input type="text" className="form-control" id="location" value={this.state.location}placeholder="Zip Code" />
+                            </div>
+                            <div className="form-group">
+                                <label className="text" for="boardType">Board Type / Preference</label>
+                                <br />
+                                <div className="dropList">
+                                    <select name="boardType">
+                                        <option value="Bodyboard">Bodyboard</option>
+                                        <option value="Kite Surf">Kite Surf</option>
+                                        <option value="Longboard">Longboard</option>
+                                        <option value="Shortboard">Shortboard</option>
+                                        <option value="SUP">SUP (Stand-Up Paddleboard)</option>
+                                        <option value="Windsurf">Windsurf</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label className="text" for="exp">Experience</label>
+                                <br />
+                                <div className="dropList">
+                                    <select name="exp">
+                                        <option value="1">Less than 1 year (I'm a Newb)</option>
+                                        <option value="2">1-2 years (I can hang)</option>
+                                        <option value="3">3+ years (I'm a total pro, bro!)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label className="text" for="favBeaches">Favorite Beach</label>
+                                <input type="text" className="form-control" name="favBeaches" value={this.state.favBeaches}placeholder="Favorite Beach" />
+                            </div>
+                            <p>
+                                <label>Bio</label>
+                                <textarea rows='8' cols='100' className="myBio" name="myBio" value={this.state.myBio}placeholder="Tell us a little about yourself"></textarea>
+                            </p>
+                            <label for="true_false_radio">I am interested in giving lessons</label>
+                            <p>
+                                <input type="radio" name="true_false" value={this.state.instructor} checked="True"/> <label for="HTML news">Totally!</label>
+                            </p>    
+                            <p>
+                                <input type="radio" name="true_false" value={this.state.instructor} checked="False" /> <label for="HTML news">Bogus</label>
+                            </p>
+                            <div style={{ display: "none" }} id="alert" className="alert alert-danger" role="alert">
+                                <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span className="sr-only">Error:</span>
+                                <span className="msg"></span>
+                            </div>
+                            <button className="btn btn-default" id="submit-btn" onClick={this.createUser}>Sign Up</button>
+                            <br />
+                            <br />
+                            <p className="text">Already have an account? Log in
+                            <a id="btn-link" href="/"> here</a>
+                            </p>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </nav>
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6 col-md-offset-3">
-                    <h2 id="title-text">Sign Up Form</h2>
-                    <form className="signup">
-                        <div className="form-group">
-                            <label className="text" for="email-input">Email Address (required)</label>
-                            <input type="email" className="form-control" id="email-input" placeholder="Email"/>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="password-input">Password (required)</label>
-                            <input type="password" className="form-control" id="password-input" placeholder="Password"/>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="first-name-input">First Name (required)</label>
-                            <input type="text" className="form-control" id="name-input" placeholder="First name"/>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="last-name-input">Last Name</label>
-                            <input type="text" className="form-control" id="name-input" placeholder="Last name"/>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="middle-initial-input">Middle Initial</label>
-                            <input type="text" className="form-control" id="name-input" placeholder="Middle Initial"/>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="photo-url-input">Profile Picture URL</label>
-                            <input type="text" className="form-control" id="photo-url-input" placeholder="PhotoUrl"/>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="location-input">Zip Code</label>
-                            <input type="text" className="form-control" id="location-input" placeholder="Zip Code"/>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="languages-input">Languages</label>
-                            <input type="text" className="form-control" id="languages-input" placeholder="Languages"/>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="board-type-input">Surfboard Preference</label>
-                            <br/>
-                            <div className="dropList">
-                                <select id="board-type-input">
-                                    <option value="Bodyboard">Bodyboard</option>
-                                    <option value="Kite Surf">Kite Surf</option>
-                                    <option value="Longboard">Longboard</option>
-                                    <option value="Shortboard">Shortboard</option>
-                                    <option value="SUP">SUP (Stand-Up Paddleboard)</option>
-                                    <option value="Windsurf">Windsurf</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="position-input">Position</label>
-                            <input type="text" className="form-control" id="position-input" placeholder="Position"/>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="degree-input">Degree</label>
-                            <br/>
-                            <div className="dropList">
-                                <select id="degree-input">
-                                    <option value="NA / Self-Taught">NA / Self-Taught</option>
-                                    <option value="Certificate">Certificate</option>
-                                    <option value="Associate's">Associate's</option>
-                                    <option value="Bachelor's">Bachelor's</option>
-                                    <option value="Master's">Master's</option>
-                                    <option value="Doctorate">Doctorate</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label className="text" for="experience-input">Experience</label>
-                            <br/>
-                            <div className="dropList">
-                                <select id="experience-input">
-                                    <option value="Less than 1 year">Less than 1 year</option>
-                                    <option value="1-2 years">1-2 years</option>
-                                    <option value="3-5 years">3-5 years</option>
-                                    <option value="5+ years">5+ years</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div style={{display:"none"}} id="alert" className="alert alert-danger" role="alert">
-                            <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            <span className="sr-only">Error:</span>
-                            <span className="msg"></span>
-                        </div>
-                        <button type="submit" className="btn btn-default" id="submit-btn">Sign Up</button>
-                        <br/>
-                        <p className="text">Already have an account? Log in
-                            <a id="btn-link" href="/">here</a>
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </body>
-);                                                              
-                                                                
+        </body>
+        )};
+};
+
 export default Signup;
