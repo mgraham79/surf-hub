@@ -8,12 +8,13 @@ router
   .post(sessionsController.create);
 
 // Matches with "/api/users/:id/:updateField"
-router.route("/:id/:updateField").put(sessionsController.update);
+//router.route("/:id/:updateField").put(sessionsController.update);
 
 // Matches with "/api/sessions/:id"
 router
   .route("/:id")
   .get(sessionsController.findById)
-  .delete(sessionsController.remove);
+  .delete(sessionsController.remove)
+  .put(sessionsController.update)
 
 module.exports = router;

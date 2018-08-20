@@ -10,9 +10,19 @@ const sessionSchema = new Schema({
     trim: true
   },
 
+  clientID: {
+    type: String,
+    trim: true
+  },
+
   instructorName: {
     type: String,
     trim: true   
+  },
+
+  instructorID: {
+    type: String,
+    trim: true  
   },
 
   sessionStart: {

@@ -1,6 +1,8 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import AuthService from './components/AuthService';
+import withAuth from './components/withAuth';
 import FindInstructorButton from "./components/find Instructor Button/FindInstructorButton";
 import {
   BrowserRouter as Router,
@@ -10,17 +12,31 @@ import {
 } from 'react-router-dom'
 import FindInstructorPage from "./components/Find Instructor Page/FindInstructorPage"
 import API from "./utils/API"
+
 const axios = require("axios")
+const Auth = new AuthService();
+
+
+
 
 class App extends Component {
+
+  // componentDidMount() {
+  //   API.updateFieldBeach("5b7aef7d01ca7ef0dc408175", {"beachloc":{
+	//     "lat": 55,
+	//     "lng": 555
+	// }})
+  //     .then(res => console.log(res.data))
+  //     .catch(err => console.log(err));
+  // }
   state = {
+    userId: this.props.user.id,
+    profileLink: "",
     User: "JohnDoe",
     latitude: 0,
     longitude: 0,
     beaches: []
-
-  }
-
+  };
   componentDidMount = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition);
@@ -29,6 +45,9 @@ class App extends Component {
       console.log("Geolocation is not supported by this browser.");
       console.log(this.state)
     }
+    const profileLinkURL = `/profile/${this.state.userId}`;
+    this.setState({
+      profileLink: profileLinkURL})
   }
 
   showPosition = (position) => {
@@ -47,9 +66,17 @@ class App extends Component {
   }
 
 
+  handleLogout = () => {
+    Auth.logout();
+    this.props.history.replace('/signup');
+  };
 
+  goToEditProfile = () => {
+    this.props.history.replace(this.state.profileLink);
+  };
 
   render() {
+    console.log(process.env.REACT_APP_SECRET_CODE);
     return (
       <div>
         <Router>
@@ -66,4 +93,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAuth(App);
