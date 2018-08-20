@@ -11,7 +11,7 @@ class FindInstructorButton extends Component {
 
 
 
-    render(props) {
+    render() {
         return <div className="container">
             <button className="btn-danger">Find an Instructor, Bruh!</button>
             

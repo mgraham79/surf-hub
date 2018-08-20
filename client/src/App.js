@@ -9,12 +9,14 @@ import {
   Switch
 } from 'react-router-dom'
 import FindInstructorPage from "./components/Find Instructor Page/FindInstructorPage"
+const axios= require("axios")
 
 class App extends Component {
   state = {
     User: "JohnDoe",
     latitude: 0,
-    longitude:0
+    longitude:0,
+    beaches:[]
 
   }
 
@@ -44,6 +46,11 @@ class App extends Component {
   }
 
   handleFindingInstructor = (longitude, latitude) => {
+    console.log("on click")
+    axios.get("http://api.spitcast.com/api/spot/all").then(function(result){
+    console.log(result)
+    this.setState({beaches: result})
+    })
   }
 
 
@@ -58,6 +65,7 @@ class App extends Component {
             </Link>
             <Switch>
               <Route path="/findInstructor" component={FindInstructorPage} />
+              <Route path="/findInstructor" component={this.handleFindingInstructor}/>
             </Switch>
           </div>
         </Router>
