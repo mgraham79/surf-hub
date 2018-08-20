@@ -62,8 +62,11 @@ updateFieldBeach: function(id, data) {
 // Saves a beach to the database
 saveBeach: function(beachData) {
   return axios.post("/api/beaches", beachData);
-}
+},
 
+getListOfBeaches: function(){
+  return axios.get("http://api.spitcast.com/api/spot/all")
+}
 // Placeholders for the APIs
 
 // getSurfReport: function() {
