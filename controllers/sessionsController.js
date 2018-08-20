@@ -1,0 +1,45 @@
+const db = require("../models");
+
+// Defining methods for the sessionsController
+module.exports = {
+  findAll: function(req, res) {
+    db.Session
+      .find(req.query)
+      .sort({ date: -1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findById: function(req, res) {
+    db.Session
+      .findById(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  create: function(req, res) {
+    db.Session
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  update: function(req, res) {
+    let updateSessionObject = {};
+
+    if (req.body.clientName) updateSessionObject.clientName = req.body.clientName;
+    if (req.body.instructorName) updateSessionObject.instructorName = req.body.instructorName;
+    if (req.body.sessionStart) updateSessionObject.sessionStart = req.body.sessionStart;
+    if (req.body.sessionEnd) updateSessionObject.sessionEnd = req.body.sessionEnd;
+
+    db.Session.findOneAndUpdate({ _id: req.params.id }, updateSessionObject, {
+      new: true
+    })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  remove: function(req, res) {
+    db.Session
+      .findById({ _id: req.params.id })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  }
+};
