@@ -4,9 +4,16 @@ import AuthService from '../AuthService';
 import API from '../../utils/API';
 
 class Signup extends Component {
-    f (this.Auth.loggedIn()) {
-        this.props.history.replace('/');
-      }
+    constructor() {
+        super();
+        this.Auth = new AuthService();
+    }
+    
+    componentWillMount() {
+        if (this.Auth.loggedIn()) {
+            this.props.history.replace('/');
+        }
+    }
     state = {
         email: "",
         password: "",
