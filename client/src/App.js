@@ -15,9 +15,6 @@ import API from "./utils/API"
 const axios = require("axios")
 const Auth = new AuthService();
 
-
-
-
 class App extends Component {
 
   // componentDidMount() {
