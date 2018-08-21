@@ -20,11 +20,11 @@ if(localStorage.getItem("id_token")) {
 ReactDOM.render(
     <Router>
         <div>
-            <Route exact path="/" component={App} />
+            <Route exact path="/" component={Splash} />
+            <Route exact path="/splash" component={Splash} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile/:id" component={Profile} />
-            <Route exact path="/splash" component={Splash} />
             <Route exact path="/videos" component={Videos} />
         </div>
     </Router>

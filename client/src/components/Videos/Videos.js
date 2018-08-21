@@ -7,8 +7,9 @@ const Videos = () => (
     <div>
         <Nav />
         <div className="container">
-
+            
             <div id="bg">
+            <h1>Instructional Videos</h1>
                 <div className="row">
                     <div className="col-sm">
                         <iframe width="300" height="168" src="https://www.youtube.com/embed/c6yOxWf3A6g?rel=0" frameborder="0" allow="autoplay; encrypted-media"

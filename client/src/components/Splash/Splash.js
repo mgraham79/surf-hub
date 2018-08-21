@@ -18,7 +18,7 @@ const Splash = () => (
             <li>Find surf equipment rentals</li>
         </ul>
         <a className="btn btn-primary btn-lg" href="./Signup" role="button">SIGN UP!</a>
-        <div id="rtLogin"><img src="/sfLogo.png" alt="Surf Hub" /></div>
+        
     </div>
     
 </div>
