@@ -9,6 +9,11 @@ export default {
   getUser: function(id) {
     return axios.get("/api/users/" + id);
   },
+  //Gets instructors at given beach who are available
+  getUsersAtBeach: function(beach){
+    return axios.get("api/users/available",beach)
+  },
+
   // Deletes the user with the given id
   deleteUser: function(id) {
     return axios.delete("/api/users/" + id);
@@ -65,7 +70,11 @@ saveBeach: function(beachData) {
 },
 
 getListOfBeaches: function(){
-  return axios.get("http://api.spitcast.com/api/spot/all")
+  return axios({
+    url: "http://api.spitcast.com/api/spot/all",
+    method: "get",
+    headers: {}
+  });
 }
 // Placeholders for the APIs
 

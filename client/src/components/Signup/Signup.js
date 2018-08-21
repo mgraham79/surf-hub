@@ -37,6 +37,7 @@ class Signup extends Component {
         this.setState({
           [name]: value
         });
+        console.log(this.state)
       };
     
       handleFormSubmit = event => {
@@ -75,7 +76,7 @@ class Signup extends Component {
                 <div className="row">
                     <div className="col-md-6 col-md-offset-3">
                         <h2 id="title-text">Sign Up Form</h2>
-                        <form className="signup">
+                        <form onChange={this.handleInputChange} className="signup">
                             <div className="form-group">
                                 <label className="text" for="email">Email Address (required)</label>
                                 <input type="email" className="form-control" name="email" value={this.state.email}placeholder="Email" />

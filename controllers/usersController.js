@@ -8,6 +8,12 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findAllAtBeach: function(req,res){
+    db.User.find({location:req.params.beach, available: true},)
+    .then(dbModel=> res.json(dbModel))
+    .catch(err=>res.status(422).json(err))
+  },
+
   findById: function(req, res) {
     db.User.findById(req.params.id)
       .then(dbModel => res.json(dbModel))
@@ -20,7 +26,7 @@ module.exports = {
   },
   update: function(req, res) {
     let updateUserObject = {};
-
+    console.log("updating")
     //if (req.body.username) updateUserObject.username = req.body.username;
     if (req.body.firstName) updateUserObject.firstName = req.body.firstName;
     if (req.body.lastName) updateUserObject.lastName = req.body.lastName;
@@ -37,6 +43,7 @@ module.exports = {
     if (req.body.favBeaches) updateUserObject.favBeaches = req.body.favBeaches;
     if (req.body.reserved) updateUserObject.reserved = req.body.reserved;
     if (req.body.instructor) updateUserObject.instructor = req.body.instructor;
+    if (req.body.available) updateUserObject.available = req.body.available;
 
     db.User.findOneAndUpdate({ _id: req.params.id }, updateUserObject, {
       new: true
