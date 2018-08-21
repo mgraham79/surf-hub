@@ -81,7 +81,7 @@ class App extends Component {
       <div>
         <Router>
           <div>
-            <Link to="/findInstructor"><FindInstructorButton onClick={this.getBeaches}/>
+            <Link to="/findInstructor"><FindInstructorButton/>
             </Link>
             <Switch>
               <Route path="/findInstructor" component={FindInstructorPage} />

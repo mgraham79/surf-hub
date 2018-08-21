@@ -56,12 +56,7 @@ let userSchema = new Schema({
   },
 
   location: {
-    lat: {
-      type: Number
-    }, 
-    lng: {
-      type: Number
-    }
+    type: String,
   },
 
   exp: {

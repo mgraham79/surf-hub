@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
+const axios = require("axios");
 
 const db = require("./models");
 
@@ -62,6 +63,15 @@ app.get('/api/user/:id', isAuthenticated, (req, res) => {
     }
   }).catch(err => res.status(400).send(err));
 });
+
+app.get("/api/proxy/beaches", (req, res)=>{
+  axios.get("http://api.spitcast.com/api/spot/all")
+    .then(responseData => {
+      res.json(responseData.data);
+    }).catch(err => {
+      res.status(400).json(err);
+    });
+})
 
 
 // Add routes, both API and view
