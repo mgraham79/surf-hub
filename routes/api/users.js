@@ -9,6 +9,14 @@ router
 
 // Matches with "/api/users/:id/:updateField"
 //router.route("/:id/:updateField").put(usersController.update);
+// router
+//   .route(":id/:updateField")
+//   .put(usersController.update)
+
+//Matches with "/api/users/available/:beach"
+router
+  .route("/available/:beach")
+  .get(usersController.findAllAtBeach)
 
 // Matches with "/api/users/:id"
 router
