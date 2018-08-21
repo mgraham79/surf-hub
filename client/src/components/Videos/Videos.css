@@ -1,0 +1,13 @@
+body {
+    background-image: url(wave.jpg);
+    margin-top: 50px;
+    font-family: 'Roboto Slab', serif;
+}
+
+#jumbo {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+li {
+    font-size: 1.6rem;
+}
