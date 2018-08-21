@@ -1,6 +1,7 @@
 import React from "react";
 import "./Videos.css";
 import Nav from "../Nav";
+import withAuth from '../withAuth';
 
 const Videos = () => (
     <div>
@@ -54,3 +55,4 @@ const Videos = () => (
     </div>
 );
 export default Videos;
+//export default withAuth(Videos)

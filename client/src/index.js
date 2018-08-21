@@ -11,6 +11,7 @@ import axios from "axios";
 import Login from './components/Login';
 import Profile from './components/Profile';
 import Signup from './components/Signup/Signup';
+import Splash from './components/Splash';
 import Videos from './components/Videos';
 
 if(localStorage.getItem("id_token")) {
@@ -23,6 +24,7 @@ ReactDOM.render(
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile/:id" component={Profile} />
+            <Route exact path="/splash" component={Splash} />
             <Route exact path="/videos" component={Videos} />
         </div>
     </Router>
