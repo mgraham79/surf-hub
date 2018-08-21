@@ -39,6 +39,15 @@ class Login extends Component {
   render() {
     return (
       <div className="container">
+        <nav className="navbar navbar-default" id="nav-cover">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <a href="/">
+                <img src="" alt="Surf Hub Logo" />
+              </a>
+            </div>
+          </div>
+        </nav>
         <h1>Login</h1>
         <form onSubmit={this.handleFormSubmit}>
           <div className="form-group">
