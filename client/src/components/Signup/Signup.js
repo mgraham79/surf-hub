@@ -25,8 +25,13 @@ class Signup extends Component {
         boardType: "",
         exp: "",
         favBeaches: "",
-        myBio: ""
+        myBio: "",
+        instructor: false
     };
+
+    handleRadioButton = event => {
+        event.target.value === 'option2' ? this.setState({ instructor: false }) : this.setState({ instructor: true })
+    }
 
     handleInputChange = event => {
         // Getting the value and name of the input which triggered the change
@@ -41,7 +46,7 @@ class Signup extends Component {
     
       handleFormSubmit = event => {
         event.preventDefault();
-        API.signUpUser(...this.state)
+        API.saveUser({ ...this.state })
           .then(res => {
             console.log(res.data);
             // once the user has signed up
@@ -75,7 +80,7 @@ class Signup extends Component {
                 <div className="row">
                     <div className="col-md-6 col-md-offset-3">
                         <h2 id="title-text">Sign Up Form</h2>
-                        <form className="signup">
+                        <form onChange={this.handleInputChange} className="signup">
                             <div className="form-group">
                                 <label className="text" for="email">Email Address (required)</label>
                                 <input type="email" className="form-control" name="email" value={this.state.email}placeholder="Email" />
@@ -102,7 +107,7 @@ class Signup extends Component {
                             </div>
                             <div className="form-group">
                                 <label className="text" for="location">Zip Code</label>
-                                <input type="text" className="form-control" id="location" value={this.state.location}placeholder="Zip Code" />
+                                <input type="text" className="form-control" name="location" value={this.state.location}placeholder="Zip Code" />
                             </div>
                             <div className="form-group">
                                 <label className="text" for="boardType">Board Type / Preference</label>
@@ -139,21 +144,21 @@ class Signup extends Component {
                             </p>
                             <label for="true_false_radio">I am interested in giving lessons</label>
                             <p>
-                                <input type="radio" name="true_false" value={this.state.instructor} checked="True"/> <label for="HTML news">Totally!</label>
+                                <input type="radio" name="true" onChange={this.handleRadioButton} value='option1' checked={this.state.instructor}/> <label for="HTML news">Totally!</label>
                             </p>    
                             <p>
-                                <input type="radio" name="true_false" value={this.state.instructor} checked="False" /> <label for="HTML news">Bogus</label>
+                                <input type="radio" name="true" onChange={this.handleRadioButton} value='option2' checked={!this.state.instructor} /> <label for="HTML news">No way!</label>
                             </p>
                             <div style={{ display: "none" }} id="alert" className="alert alert-danger" role="alert">
                                 <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 <span className="sr-only">Error:</span>
                                 <span className="msg"></span>
                             </div>
-                            <button className="btn btn-default" id="submit-btn" onClick={this.createUser}>Sign Up</button>
+                            <button className="btn btn-primary" id="submit-btn" onClick={this.handleFormSubmit}>Sign Up</button>
                             <br />
                             <br />
                             <p className="text">Already have an account? Log in
-                            <a id="btn-link" href="/"> here</a>
+                            <a id="btn-link" href="/login"> here</a>
                             </p>
                         </form>
                     </div>
