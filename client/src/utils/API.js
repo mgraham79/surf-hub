@@ -70,11 +70,7 @@ saveBeach: function(beachData) {
 },
 
 getListOfBeaches: function(){
-  return axios({
-    url: "http://api.spitcast.com/api/spot/all",
-    method: "get",
-    headers: {}
-  });
+  return axios.get("/api/proxy/beaches");
 }
 // Placeholders for the APIs
 

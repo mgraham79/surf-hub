@@ -12,9 +12,8 @@ class FindInstructorPage extends Component {
     //spitcast API Endpoint api/spot/nearby?longitude=...?latitude=...
 
    componentWillMount() {
-       this.setState({beaches: Beaches});
-        console.log(this.state.beaches)
         this.getBeaches()
+        console.log(this.state.beaches)
     }
         
     handleButtonCLick= ()=>{
@@ -48,9 +47,9 @@ class FindInstructorPage extends Component {
 render(){
     return <div className="container">
         <label name="Beach">Choose a Beach</label>
-        <select >
+        <select onClick={this.handleSelectChange}>
             {this.state.beaches.map(beach=>(
-                <option onClick={this.handleSelectChange} key={beach.spot_id}>{beach.spot_name}</option>
+                <option key={beach.spot_id}>{beach.spot_name}</option>
             ))}
         </select>
         <button className="btn btn-success" onClick={this.handleButtonCLick}>Go</button>
