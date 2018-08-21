@@ -16,11 +16,6 @@ import API from "./utils/API"
 const axios = require("axios")
 const Auth = new AuthService();
 
-
-
-
-import Nav from "./components/Nav";
-
 class App extends Component {
 
   // componentDidMount() {
