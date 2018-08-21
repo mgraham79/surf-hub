@@ -3,9 +3,10 @@ import logo from './logo.svg';
 import './App.css';
 import AuthService from './components/AuthService';
 import withAuth from './components/withAuth';
+import API from "./utils/API";
 const Auth = new AuthService();
 
-import API from "./utils/API";
+
 
 class App extends Component {
 
