@@ -26,8 +26,4 @@ router
   .put(usersController.update)
 
 
-  router
-    .route("/test1")
-    .get(usersController.findInstructors)
-
 module.exports = router;
