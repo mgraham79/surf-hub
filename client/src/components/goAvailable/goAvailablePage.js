@@ -28,7 +28,16 @@ class goAvailablePage extends Component {
         .catch(err => console.log(err))
     }
 
-    
+    handleButtonCLickNotAvailable= ()=>{
+        API.updateFieldUser(localStorage.getItem("user"), 
+        {"location": this.state.location},
+        {"available": false}
+        )
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => console.log(err))
+    }
     
       
 
@@ -72,6 +81,7 @@ render(){
             ))}
         </select>
         <button className="btn btn-success" onClick={this.handleButtonCLick}>I'm available to teach, Bruh!</button>
+        <button className="btn btn-success" onClick={this.handleButtonCLickNotAvailable}>I'm not available to teach, Bruh!</button>
     </div>
 }
 }

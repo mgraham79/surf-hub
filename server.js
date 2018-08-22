@@ -23,7 +23,8 @@ if (process.env.NODE_ENV === "production") {
 
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/surfHub");
+//mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/surfHub");
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/surfHub', { useNewUrlParser: true });
 
 const isAuthenticated = exjwt({
   secret: 'surfs up moondoggies'

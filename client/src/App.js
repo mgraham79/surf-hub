@@ -10,6 +10,7 @@ import {
   Switch
 } from 'react-router-dom'
 import FindInstructorPage from "./components/Find Instructor Page/FindInstructorPage"
+import goAvailablePage from "./components/goAvailable/goAvailablePage"
 import API from "./utils/API"
 
 const axios = require("axios")
