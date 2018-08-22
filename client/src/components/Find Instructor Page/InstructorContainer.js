@@ -10,7 +10,7 @@ import {
 const InstructorContainer= (props)=>{
     return (
         
-            <div className="container" style={{backgroundColor:"lightgray", opacity: ".8", borderRadius: "20px"}}>
+            <div className="container" style={{backgroundColor:"lightgray", opacity: ".7", borderRadius: "20px"}}>
                 {props.instructors.map(instructor => (
                     
                         <Link instructorId={instructor._id} to={`/viewprofile/${instructor._id}`}>
@@ -20,10 +20,10 @@ const InstructorContainer= (props)=>{
                         </div>
                         <div>
                             <ul>
-                                <li>{instructor.firstName} {instructor.lastName}</li>
-                                <li>Experience Level: {instructor.exp}</li>
-                                <li>Bio: {instructor.bio}</li>
-                                <li>Rating: {instructor.rating}</li>
+                                <li style={{textDecoration:"none"}}>{instructor.firstName} {instructor.lastName}</li>
+                                <li style={{textDecoration:"none"}}>Experience Level: {instructor.exp}</li>
+                                <li style={{textDecoration:"none"}}>Bio: {instructor.bio}</li>
+                                <li style={{textDecoration:"none"}}>Rating: {instructor.rating}</li>
                             </ul>
                         </div>
                     </div>

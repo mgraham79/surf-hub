@@ -22,7 +22,7 @@ const Nav = () => (
           <a className="nav-link" href="#">Beach Cams</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="./Videos">Videos</a>
+          <a className="nav-link" href="/Videos">Videos</a>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">Surf Rentals</a>
