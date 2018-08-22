@@ -14,14 +14,14 @@ class goAvailable extends Component {
    componentWillMount() {
         this.getBeaches()
         console.log(this.state.beaches)
-        localStorage.setItem("user", "5b7cf350ce82af16010bcd41");
+        //localStorage.setItem("user", "5b7cf350ce82af16010bcd41");
     }
 
   
     handleButtonCLick= ()=>{
         console.log(this.state.location)
         const newData = {
-            location: this.state.location,
+            location: this.state.location.replace(" ","_"),
             available: "true"
         }
         API.updateFieldUser(localStorage.getItem("user"), newData)
@@ -35,7 +35,7 @@ class goAvailable extends Component {
     handleButtonCLickNotAvailable= ()=>{
         console.log(this.state.location)
         const newData = {
-            location: this.state.location,
+            location: this.state.location.replace(" ","_"),
             available: "false"
         }
         API.updateFieldUser(localStorage.getItem("user"), newData)
