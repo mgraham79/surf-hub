@@ -2,10 +2,13 @@ import React from "react";
 import "./Videos.css";
 import Nav from "../Nav";
 import withAuth from '../withAuth';
+import FindInstructorButton from "../findInstructorButton/FindInstructorButton"
+
 
 const Videos = () => (
     <div>
         <Nav />
+        <FindInstructorButton/>
         <div className="container">
             
             <div id="bg">
