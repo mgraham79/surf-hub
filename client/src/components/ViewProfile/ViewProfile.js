@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import withAuth from '../withAuth';
 import API from '../../utils/API';
 import { Link } from 'react-router-dom';
-import FindInstructorButton from "../find Instructor Button/FindInstructorButton"
+import FindInstructorButton from "../findInstructorButton/FindInstructorButton"
 import Nav from "../Nav"
 
 class ViewProfile extends Component {

@@ -19,7 +19,7 @@ import Signup from './components/Signup/Signup';
 import ViewProfile from "./components/ViewProfile/ViewProfile"
 import Splash from './components/Splash';
 import Videos from './components/Videos';
-import FindInstructorPage from './components/Find Instructor Page/FindInstructorPage'
+import FindInstructorPage from './components/FindInstructorPage/FindInstructorPage'
 
 if(localStorage.getItem("id_token")) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('id_token')}`;

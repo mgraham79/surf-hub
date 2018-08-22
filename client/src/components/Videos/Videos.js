@@ -2,7 +2,7 @@ import React from "react";
 import "./Videos.css";
 import Nav from "../Nav";
 import withAuth from '../withAuth';
-import FindInstructorButton from "../find Instructor Button/FindInstructorButton"
+import FindInstructorButton from "../findInstructorButton/FindInstructorButton"
 
 
 const Videos = () => (
