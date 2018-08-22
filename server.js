@@ -12,8 +12,8 @@ const axios = require("axios");
 const db = require("./models");
 
 // Define middleware here
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {

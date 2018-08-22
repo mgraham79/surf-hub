@@ -54,7 +54,9 @@ class App extends Component {
       profileLink: profileLinkURL})
 
       // Storing the user id in local storage
-      localStorage.setItem("user", this.props.user.id);
+      //localStorage.setItem("user", this.props.user.id);
+      localStorage.setItem("user", "5b7cf350ce82af16010bcd41");
+      console.log(localStorage.getItem("user"));
   }
 
   showPosition = (position) => {
