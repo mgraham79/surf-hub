@@ -1,39 +1,45 @@
 import React, { Component } from "react"
 import API from "../../utils/API"
 import Beaches from "../../beaches/beachesJson"
+import InstructorContainer from "./InstructorContainer"
 
 
 class FindInstructorPage extends Component {
-    state= {
+    state = {
         beaches: [],
-        location: 0
+        location: "",
+        instructors:[]
     }
     // have a function that goes to the api that give us nearest beaches
     //spitcast API Endpoint api/spot/nearby?longitude=...?latitude=...
 
-   componentWillMount() {
+    componentWillMount() {
         this.getBeaches()
         console.log(this.state.beaches)
     }
-        
-    handleButtonCLick= ()=>{
 
-
+    handleButtonCLick = () => {
+        API.getUsersAtBeach(this.state.location)
+            .then(result => {
+                this.setState({instructors: result.data})
+                console.log(result.data)
+            })
+            console.log(this.state.instructors)
+         
     }
-    
-    
-   
+
+
+
     handleSelectChange = (event) => {
+        let selectedLocation = event.target.value;
         this.setState({
-          location: event.target.value
-        })
-        console.log(this.state.location)
-
-      }
+            location: selectedLocation
+        });
+    }
 
 
 
-      getBeaches = () => {
+    getBeaches = () => {
         API.getListOfBeaches()
             .then(res => {
                 this.setState({ beaches: res.data })
@@ -44,16 +50,19 @@ class FindInstructorPage extends Component {
 
 
 
-render(){
-    return <div className="container">
-        <label name="Beach">Choose a Beach</label>
-        <select onClick={this.handleSelectChange}>
-            {this.state.beaches.map(beach=>(
-                <option key={beach.spot_id}>{beach.spot_name}</option>
-            ))}
-        </select>
-        <button className="btn btn-success" onClick={this.handleButtonCLick}>Go</button>
-    </div>
-}
+    render() {
+        return <div className="container">
+            <label name="Beach">Choose a Beach</label>
+            <select value={this.state.location} onChange={this.handleSelectChange}>
+                {this.state.beaches.map(beach => (
+                    <option key={beach.spot_id} value={beach.spot_name}>{beach.spot_name}</option>
+                ))}
+            </select>
+            <button className="btn btn-success" onClick={this.handleButtonCLick}>Go</button>
+        
+        
+        <InstructorContainer instructors={this.state.instructors}/>
+        </div>
+    }
 }
 export default FindInstructorPage

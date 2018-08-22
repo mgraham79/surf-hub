@@ -11,7 +11,8 @@ export default {
   },
   //Gets instructors at given beach who are available
   getUsersAtBeach: function(beach){
-    return axios.get("api/users/available",beach)
+    var string= beach.replace(" ", "_")
+    return axios.get("api/users/available/"+beach)
   },
 
   // Deletes the user with the given id
