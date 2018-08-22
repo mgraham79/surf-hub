@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import withAuth from '../withAuth';
 import API from '../../utils/API';
 import { Link } from 'react-router-dom';
+import FindInstructorButton from "../find Instructor Button/FindInstructorButton"
+import Nav from "../Nav"
 
 class ViewProfile extends Component {
 
@@ -22,11 +24,15 @@ class ViewProfile extends Component {
   render() {
     console.log(this.props)
     return (
+      <div>
+        <Nav/>
       <div className="container Profile">
+        <FindInstructorButton/>
         <h1>On the profile page!</h1>
         <p>Username: {this.state.username}</p>
         <p>Email: {this.state.email}</p>
-        <Link to="/">Go home</Link>
+        <Link to="/home">Go home</Link>
+      </div>
       </div>
     )
   }

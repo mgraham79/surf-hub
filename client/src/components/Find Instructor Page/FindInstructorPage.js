@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import API from "../../utils/API"
 import Beaches from "../../beaches/beachesJson"
 import InstructorContainer from "./InstructorContainer"
-
+import Nav from "../Nav"
 
 class FindInstructorPage extends Component {
     state = {
@@ -51,7 +51,9 @@ class FindInstructorPage extends Component {
 
 
     render() {
-        return <div className="container">
+        return <div> 
+            <Nav/>
+        <div className="container" style={{marginTop: "20px"}}>
             <label name="Beach">Choose a Beach</label>
             <select value={this.state.location} onChange={this.handleSelectChange}>
                 {this.state.beaches.map(beach => (
@@ -62,6 +64,7 @@ class FindInstructorPage extends Component {
         
         
         <InstructorContainer instructors={this.state.instructors}/>
+        </div>
         </div>
     }
 }

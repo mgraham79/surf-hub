@@ -12,10 +12,10 @@ class FindInstructorButton extends Component {
 
 
     render() {
-        return <div className="container">
+        return <Link to="/FindInstructor"><div className="container" style={{marginTop: "20px"}}>
             <button className="btn-danger">Find an Instructor, Bruh!</button>
             
-        </div>
+        </div></Link>
 
     }
 }

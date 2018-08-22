@@ -10,7 +10,7 @@ import {
 const InstructorContainer= (props)=>{
     return (
         
-            <div className="container">
+            <div className="container" style={{backgroundColor:"lightgray", opacity: ".8", borderRadius: "20px"}}>
                 {props.instructors.map(instructor => (
                     
                         <Link instructorId={instructor._id} to={`/viewprofile/${instructor._id}`}>
