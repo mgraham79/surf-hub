@@ -13,7 +13,7 @@ const Nav = () => (
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mr-auto">
         <li className="nav-item active">
-          <a className="nav-link" href="#">My Hub <span class="sr-only">(current)</span></a>
+          <a className="nav-link" href="#">My Hub <span className="sr-only">(current)</span></a>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">Surf Reports</a>
@@ -22,7 +22,7 @@ const Nav = () => (
           <a className="nav-link" href="#">Beach Cams</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="./Videos">Videos</a>
+          <a className="nav-link" href="/Videos">Videos</a>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">Surf Rentals</a>
