@@ -1,9 +1,10 @@
 import React, { Component } from "react"
 import API from "../../utils/API"
 import Beaches from "../../beaches/beachesJson"
+import "./goAvailable.css"
 
 
-class goAvailablePage extends Component {
+class goAvailable extends Component {
     state= {
         beaches: [],
         location: 0
@@ -80,9 +81,9 @@ render(){
                 <option key={beach.spot_id}>{beach.spot_name}</option>
             ))}
         </select>
-        <button className="btn btn-success" onClick={this.handleButtonCLick}>I'm available to teach, Bruh!</button>
-        <button className="btn btn-success" onClick={this.handleButtonCLickNotAvailable}>I'm not available to teach, Bruh!</button>
+        <button className="avail-btn btn btn-success" onClick={this.handleButtonCLick}>I&#39;m available to teach, Bruh!</button>
+        <button className="not-avail-btn btn btn-success" onClick={this.handleButtonCLickNotAvailable}>I&#39;m <span style={{textDecoration: 'underline'}}>not</span> available to teach, Bruh!</button>
     </div>
 }
 }
-export default goAvailablePage
+export default goAvailable

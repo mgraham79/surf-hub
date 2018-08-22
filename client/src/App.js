@@ -10,7 +10,7 @@ import {
   Switch
 } from 'react-router-dom'
 import FindInstructorPage from "./components/Find Instructor Page/FindInstructorPage"
-import goAvailablePage from "./components/goAvailable/goAvailablePage"
+import goAvailable from "./components/goAvailable/goAvailable"
 import API from "./utils/API"
 
 const axios = require("axios")
@@ -92,7 +92,7 @@ class App extends Component {
             </Link>
             <Switch>
               <Route path="/findInstructor" component={FindInstructorPage} />
-              <Route path="/goAvailable" component={goAvailablePage} />
+              <Route path="/goAvailable" component={goAvailable} />
             </Switch>
           </div>
         </Router>
