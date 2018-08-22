@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import withAuth from './withAuth';
 import API from '../utils/API';
 import { Link } from 'react-router-dom';
+import "./Profile.css";
 
 class Profile extends Component {
 
