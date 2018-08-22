@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import AuthService from './components/AuthService';
 import withAuth from './components/withAuth';
@@ -37,6 +36,10 @@ class App extends Component {
     longitude: 0,
     beaches: []
   };
+
+  
+
+
   componentDidMount = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition);
@@ -48,6 +51,9 @@ class App extends Component {
     const profileLinkURL = `/profile/${this.state.userId}`;
     this.setState({
       profileLink: profileLinkURL})
+
+      // Storing the user id in local storage
+      localStorage.setItem("user", this.props.user.id);
   }
 
   showPosition = (position) => {
@@ -85,6 +91,7 @@ class App extends Component {
             </Link>
             <Switch>
               <Route path="/findInstructor" component={FindInstructorPage} />
+              <Route path="/goAvailable" component={goAvailablePage} />
             </Switch>
           </div>
         </Router>

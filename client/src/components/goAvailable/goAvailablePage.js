@@ -3,7 +3,7 @@ import API from "../../utils/API"
 import Beaches from "../../beaches/beachesJson"
 
 
-class FindInstructorPage extends Component {
+class goAvailablePage extends Component {
     state= {
         beaches: [],
         location: 0
@@ -15,13 +15,31 @@ class FindInstructorPage extends Component {
         this.getBeaches()
         console.log(this.state.beaches)
     }
-        
+
+  
     handleButtonCLick= ()=>{
-
-
+        API.updateFieldUser(localStorage.getItem("user"), 
+        {"location": this.state.location},
+        {"available": true}
+        )
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => console.log(err))
     }
+
     
     
+      
+
+        // componentDidMount() {
+  //   API.updateFieldBeach("5b7aef7d01ca7ef0dc408175", {"beachloc":{
+	//     "lat": 55,
+	//     "lng": 555
+	// }})
+  //     .then(res => console.log(res.data))
+  //     .catch(err => console.log(err));
+        
    
     handleSelectChange = (event) => {
         this.setState({
@@ -42,13 +60,7 @@ class FindInstructorPage extends Component {
             .catch(err => console.log(err))
     }
 
-    // componentDidMount() {
-  //   API.updateFieldBeach("5b7aef7d01ca7ef0dc408175", {"beachloc":{
-	//     "lat": 55,
-	//     "lng": 555
-	// }})
-  //     .then(res => console.log(res.data))
-  //     .catch(err => console.log(err));
+  
 
 
 render(){
@@ -59,8 +71,8 @@ render(){
                 <option key={beach.spot_id}>{beach.spot_name}</option>
             ))}
         </select>
-        <button className="btn btn-success" onClick={this.handleButtonCLick}>Go</button>
+        <button className="btn btn-success" onClick={this.handleButtonCLick}>I'm available to teach, Bruh!</button>
     </div>
 }
 }
-export default FindInstructorPage
+export default goAvailablePage

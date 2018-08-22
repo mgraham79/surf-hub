@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import "./FindInstructorButton.css";
+import "./goAvailableButton.css";
 import {
     BrowserRouter as Router,
     Route,
@@ -7,16 +7,16 @@ import {
 } from 'react-router-dom'
 //this will be the button and beach container
 
-class FindInstructorButton extends Component {
+class goAvailableButtonButton extends Component {
 
 
 
     render() {
         return <div className="container">
-            <button className="btn-danger">Find an Instructor, Bruh!</button>
+            <button className="btn-danger">I'm available to teach, Bruh!</button>
             
         </div>
 
     }
 }
-export default FindInstructorButton 
+export default goAvailableButtonButton 
