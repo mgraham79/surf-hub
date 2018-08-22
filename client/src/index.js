@@ -13,6 +13,8 @@ import Profile from './components/Profile';
 import Signup from './components/Signup/Signup';
 import Splash from './components/Splash';
 import Videos from './components/Videos';
+import ProfileEdit from './components/ProfileEdit';
+import ProfileUsers from './components/ProfileUsers';
 
 if(localStorage.getItem("id_token")) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('id_token')}`;
@@ -26,6 +28,8 @@ ReactDOM.render(
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile/:id" component={Profile} />
             <Route exact path="/videos" component={Videos} />
+            <Route exact path="/editprofile" component={ProfileEdit} />
+            <Route exact path="/viewprofile/:id" component={ProfileUsers} /> 
         </div>
     </Router>
     , document.getElementById('root')

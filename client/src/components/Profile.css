@@ -21,3 +21,24 @@
   #w3-content {
       max-width: 1400px;
   }
+
+  #userphoto {
+    width: 100%;
+  }
+
+  .w3-twothird {
+    width: 55%;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #nav-cover {
+    padding: auto;
+   }
+
+   h2 {
+     text-decoration: underline;
+   }

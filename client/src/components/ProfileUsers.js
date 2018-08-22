@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import withAuth from './withAuth';
 import API from '../utils/API';
 import { Link } from 'react-router-dom';
-import "./Profile.css";
 
-class Profile extends Component {
+class ProfileUsers extends Component {
 
   state = {
     picURL: "",
@@ -20,7 +19,7 @@ class Profile extends Component {
   };
 
   componentDidMount() {
-    API.getUser(this.props.user.id).then(res => {
+    API.getUser(this.props.match.params.id).then(res => {
       this.setState({
         picURL: res.data.picURL,
         firstName: res.data.firstName,
@@ -151,4 +150,4 @@ class Profile extends Component {
   }
 }
 
-export default withAuth(Profile);
+export default withAuth(ProfileUsers);
