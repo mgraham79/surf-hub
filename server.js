@@ -77,7 +77,7 @@ app.get("/api/proxy/beaches", (req, res)=>{
 })
 
 app.get("/api/proxy/forecast/:spot_id", (req, res)=>{
-  axios.get("http://api.spitcast.com/api/spot/forecast/" + req.params.spot_id)
+  axios.get("http://api.spitcast.com/api/spot/forecast/"+ req.params.spot_id)
     .then(responseData => {
       res.json(responseData.data);
     }).catch(err => {
