@@ -33,7 +33,7 @@ class FindInstructorPage extends Component {
     handleSelectChange = (event) => {
         let selectedLocation = event.target.value;
         this.setState({
-            location: selectedLocation
+            location: selectedLocation.replace(" ", "_")
         });
     }
 
@@ -55,7 +55,7 @@ class FindInstructorPage extends Component {
             <Nav/>
         <div className="container" style={{marginTop: "20px"}}>
             <label name="Beach">Choose a Beach</label>
-            <select value={this.state.location} onChange={this.handleSelectChange}>
+            <select onChange={this.handleSelectChange}>
                 {this.state.beaches.map(beach => (
                     <option key={beach.spot_id} value={beach.spot_name}>{beach.spot_name}</option>
                 ))}

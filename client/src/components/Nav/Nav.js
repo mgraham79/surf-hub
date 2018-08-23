@@ -1,5 +1,6 @@
 import React from "react";
 import "./Nav.css";
+import {Link} from "react-router-dom"
 
 const Nav = () => (
 
@@ -22,7 +23,7 @@ const Nav = () => (
           <a className="nav-link" href="#">Beach Cams</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/Videos">Videos</a>
+          <Link to="/Videos"><a className="nav-link" >Videos</a></Link>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">Surf Rentals</a>
@@ -33,7 +34,7 @@ const Nav = () => (
         
       </ul>
       
-          <button className="btn btn-outline-success my-2 my-sm-0" type="button">Find Students</button>
+          <Link to="/goAvailable"><button className="btn btn-outline-success my-2 my-sm-0" type="button">Go Available</button></Link>
 </div>
 </nav>
 
