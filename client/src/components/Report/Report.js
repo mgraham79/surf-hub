@@ -33,7 +33,8 @@ class Report extends Component {
 
 
     handleSelectChange = (event) => {
-        let selectedLocationKey = event.target.key;
+        let selectedLocationKey = event.target.value;
+        console.log(event.target.value)
         this.setState({
             location: selectedLocationKey
         });
@@ -55,13 +56,14 @@ class Report extends Component {
             <div>
                 <Nav />
 
-                <div className="container" style={{ marginTop: "20px" }}>
+                <div className="container" id="bg" style={{ marginTop: "20px" }}>
+                <h1>Surf Report</h1>
                     <label name="Beach">Choose a Beach</label>
                     <select value={this.state.location} onChange={this.handleSelectChange}>
                     {this.state.beaches.map(beach => (
-                        <option key={beach.spot_id} value={beach.spotID}>{beach.spotID}</option>
+                        <option key={beach.spot_id} value={beach.spot_id}>{beach.spot_name}</option>
                     ))}
-                    </select>
+                    </select>&#160;
                     <button className="btn btn-success" onClick={this.handleButtonCLick}>Go</button>
                     <ForecastContainer forecast={this.state.forecast}/>
             </div>
