@@ -24,7 +24,7 @@ class Splash extends Component {
             <div>&nbsp;</div>
             <div className="jumbotron" id="jumbo">
                 <h1 className="display-4">Surf Hub</h1>
-                <h2>Connecting Barney's with expert surfers</h2>
+                <h2>Connecting Barney&#39;s with expert surfers</h2>
                 <ul>
                     <li>Teach surfing and make money!</li>
                     <li>Find aninstructor &amp; learn to surf</li>

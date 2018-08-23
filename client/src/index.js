@@ -20,6 +20,7 @@ import goAvailable from "./components/goAvailable/goAvailable"
 import ViewProfile from "./components/ViewProfile/ViewProfile"
 import Splash from './components/Splash';
 import Videos from './components/Videos';
+import Report from './components/Report';
 import FindInstructorPage from './components/FindInstructorPage/FindInstructorPage'
 
 if(localStorage.getItem("id_token")) {
@@ -39,6 +40,7 @@ ReactDOM.render(
             <Route exact path="/goAvailable" component={goAvailable} />
             
             <Route exact path="/videos" component={Videos} />
+            <Route exact path="/report" component={Report} />
             <Route path="/findInstructor" component={FindInstructorPage} />
             </Switch>
         </div>
