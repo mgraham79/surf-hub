@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import './App.css';
 import AuthService from './components/AuthService';
 import withAuth from './components/withAuth';
-import FindInstructorButton from "./components/find Instructor Button/FindInstructorButton";
+import FindInstructorButton from "./components/findInstructorButton/FindInstructorButton";
 import {
   BrowserRouter as Router,
   Route,
   Link,
   Switch
 } from 'react-router-dom'
-import FindInstructorPage from "./components/Find Instructor Page/FindInstructorPage"
+import FindInstructorPage from "./components/FindInstructorPage/FindInstructorPage"
 import API from "./utils/API"
+import Nav from "./components/Nav"
 
 const axios = require("axios")
 const Auth = new AuthService();
@@ -75,15 +76,8 @@ class App extends Component {
     console.log(process.env.REACT_APP_SECRET_CODE);
     return (
       <div>
-        <Router>
-          <div>
-            <Link to="/findInstructor"><FindInstructorButton/>
-            </Link>
-            <Switch>
-              <Route path="/findInstructor" component={FindInstructorPage} />
-            </Switch>
-          </div>
-        </Router>
+        <Nav/>
+           <FindInstructorButton/>
       </div>
     );
   }

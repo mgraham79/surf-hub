@@ -73,6 +73,15 @@ app.get("/api/proxy/beaches", (req, res)=>{
     });
 })
 
+app.get("/api/proxy/forecast/:spotId", (req, res)=>{
+  axios.get("http://api.spitcast.com/api/spot/forecast/"+ "653")
+    .then(responseData => {
+      res.json(responseData.data);
+    }).catch(err => {
+      res.status(400).json(err);
+    });
+})
+
 
 // Add routes, both API and view
 app.use(routes);
