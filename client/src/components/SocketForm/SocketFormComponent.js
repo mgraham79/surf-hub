@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {sockets} from '../../utils/Sockets';
-import './SocketForm.css'
+import './SocketForm.css';
 
 class SocketForm extends Component {
   state = {
@@ -9,12 +9,17 @@ class SocketForm extends Component {
     messages: []
   };
 
+  componentDidMount() {
+  }
+
   constructor(props) {
     super(props);
     sockets.listenForMessage(data => {
       let messages = [...this.state.messages, data];
       this.setState({messages: messages})
     });
+    console.log(props)
+    sockets.join(props.instructor || localStorage.getItem('user'))
   }
 
   handleInputChange = event => {
@@ -28,7 +33,11 @@ class SocketForm extends Component {
 
   submitForm = event => {
     event.preventDefault();
-    sockets.sendMessage(this.state.message);
+    console.log(this.props);
+    sockets.sendMessage({
+        text:this.state.message,
+        to: this.props.instructor || localStorage.getItem('user')
+    });
     this.setState({message: ""});
   };
 

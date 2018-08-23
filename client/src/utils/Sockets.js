@@ -3,6 +3,10 @@ const socketUrl = process.env.REACT_APP_SOCKET_URL || 'http://localhost:3001/';
 const socket = openSocket(socketUrl);
 
 const sockets = {
+    join: (instructorsRoom)=>{
+        socket.emit('join', instructorsRoom)
+    },
+
     listenForMessage: (callback) => {
         // us listening for any event for message
         socket.on('message', (data) => {

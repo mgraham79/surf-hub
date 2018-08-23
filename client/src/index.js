@@ -37,7 +37,6 @@ ReactDOM.render(
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile/:id" component={Profile} />
             <Route exact path="/goAvailable" component={goAvailable} />
-            
             <Route exact path="/videos" component={Videos} />
             <Route path="/findInstructor" component={FindInstructorPage} />
             </Switch>

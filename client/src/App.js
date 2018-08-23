@@ -13,6 +13,7 @@ import goAvailable from "./components/goAvailable/goAvailable"
 import FindInstructorPage from "./components/FindInstructorPage/FindInstructorPage"
 import API from "./utils/API"
 import Nav from "./components/Nav"
+import SocketFormComponent from './components/SocketForm/SocketFormComponent';
 
 const axios = require("axios")
 const Auth = new AuthService();
@@ -86,11 +87,17 @@ class App extends Component {
 
   render() {
     console.log(process.env.REACT_APP_SECRET_CODE);
+    var conditionalChat;
+    if(this.props.isInstructor){
+      conditionalChat= <SocketFormComponent/>
+    }
+     
     return (
       <div>
         <Nav/>
            <FindInstructorButton/>
-      </div>
+           {conditionalChat}
+       </div>
     );
   }
 }
