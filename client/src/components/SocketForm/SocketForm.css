@@ -1,0 +1,22 @@
+.message-container {
+    height: 300px;
+    width: 100%;
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    background-color: lightgray;
+    opacity: .8;
+    overflow-y: scroll
+}
+.message-container li{
+    font-size: 12px;
+}
+
+.form-group {
+    width: 90%;
+}
+
+.form-group input.form-control {
+    width: 100%;
+}

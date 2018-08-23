@@ -9,6 +9,7 @@ import {
   Link,
   Switch
 } from 'react-router-dom'
+import goAvailable from "./components/goAvailable/goAvailable"
 import FindInstructorPage from "./components/FindInstructorPage/FindInstructorPage"
 import API from "./utils/API"
 import Nav from "./components/Nav"
@@ -34,6 +35,10 @@ class App extends Component {
     longitude: 0,
     beaches: []
   };
+
+  
+
+
   componentDidMount = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition);
@@ -45,6 +50,13 @@ class App extends Component {
     const profileLinkURL = `/profile/${this.state.userId}`;
     this.setState({
       profileLink: profileLinkURL})
+
+      // Storing the user id in local storage
+      localStorage.setItem("user", this.props.user.id);
+
+      console.log(this.props.user.id)
+      //localStorage.setItem("user", "5b7cf350ce82af16010bcd41");
+      console.log(localStorage.getItem("user"));
   }
 
   showPosition = (position) => {

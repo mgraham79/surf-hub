@@ -16,13 +16,13 @@ let userSchema = new Schema({
   firstName: {
     type: String,
     trim: true,
-    required: "First name is Required",
+    required: "First name is Required"
   },
 
   lastName: {
     type: String,
     trim: true,
-    required: "Last name is Required",
+    required: "Last name is Required"
   },
 
   middleInitial: {
@@ -56,12 +56,12 @@ let userSchema = new Schema({
   },
 
   location: {
-    type: String,
+    type: String
   },
 
   exp: {
     type: String,
-    trim: true,
+    trim: true
   },
 
   rating: {
@@ -70,7 +70,7 @@ let userSchema = new Schema({
 
   board: {
     type: String,
-    trim: true,
+    trim: true
   },
 
   available: {
@@ -80,12 +80,12 @@ let userSchema = new Schema({
 
   bio: {
     type: String,
-    trim: true,
+    trim: true
   },
 
   favBeaches: {
     type: String,
-    trim: true,
+    trim: true
   },
 
   reserved: {
