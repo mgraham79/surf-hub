@@ -4,6 +4,7 @@ import API from '../../utils/API';
 import { Link } from 'react-router-dom';
 import FindInstructorButton from "../findInstructorButton/FindInstructorButton"
 import Nav from "../Nav"
+import SocketFormComponent from "../SocketForm/SocketFormComponent"
 
 class ViewProfile extends Component {
 
@@ -32,6 +33,9 @@ class ViewProfile extends Component {
         <p>Username: {this.state.username}</p>
         <p>Email: {this.state.email}</p>
         <Link to="/home">Go home</Link>
+      </div>
+      <div className="container">
+      <SocketFormComponent/>
       </div>
       </div>
     )
