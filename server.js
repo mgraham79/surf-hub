@@ -8,6 +8,9 @@ const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 const axios = require("axios");
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 
 const db = require("./models");
 
@@ -19,7 +22,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-
 
 
 // Connect to the Mongo DB
@@ -103,7 +105,18 @@ app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-app.listen(PORT, function () {
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+  socket.on('message', (message) => {
+    // and emitting the message event for any client listening to it
+    io.emit('message', message);
+  });
+});
+
+http.listen(PORT, function () {
   console.log(`🌎 ==> Server now on port ${PORT}!`);
 });
  
