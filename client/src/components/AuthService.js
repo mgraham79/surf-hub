@@ -52,6 +52,9 @@ export default class AuthService {
         // Clear user token and profile data from localStorage
         axios.defaults.headers.common['Authorization'] = null;
         localStorage.removeItem('id_token');
+
+        // Storing the user id in local storage
+         localStorage.removeItem('user');
     }
 
 

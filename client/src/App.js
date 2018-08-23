@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import AuthService from './components/AuthService';
 import withAuth from './components/withAuth';
-import FindInstructorButton from "./components/find Instructor Button/FindInstructorButton";
+import FindInstructorButton from "./components/findInstructorButton/FindInstructorButton";
 import {
   BrowserRouter as Router,
   Route,
   Link,
   Switch
 } from 'react-router-dom'
-import FindInstructorPage from "./components/Find Instructor Page/FindInstructorPage"
+import goAvailable from "./components/goAvailable/goAvailable"
+import FindInstructorPage from "./components/FindInstructorPage/FindInstructorPage"
 import API from "./utils/API"
+import Nav from "./components/Nav"
 
 const axios = require("axios")
 const Auth = new AuthService();
@@ -33,6 +35,10 @@ class App extends Component {
     longitude: 0,
     beaches: []
   };
+
+  
+
+
   componentDidMount = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition);
@@ -44,6 +50,13 @@ class App extends Component {
     const profileLinkURL = `/profile/${this.state.userId}`;
     this.setState({
       profileLink: profileLinkURL})
+
+      // Storing the user id in local storage
+      localStorage.setItem("user", this.props.user.id);
+
+      console.log(this.props.user.id)
+      //localStorage.setItem("user", "5b7cf350ce82af16010bcd41");
+      console.log(localStorage.getItem("user"));
   }
 
   showPosition = (position) => {
@@ -75,15 +88,8 @@ class App extends Component {
     console.log(process.env.REACT_APP_SECRET_CODE);
     return (
       <div>
-        <Router>
-          <div>
-            <Link to="/findInstructor"><FindInstructorButton/>
-            </Link>
-            <Switch>
-              <Route path="/findInstructor" component={FindInstructorPage} />
-            </Switch>
-          </div>
-        </Router>
+        <Nav/>
+           <FindInstructorButton/>
       </div>
     );
   }
