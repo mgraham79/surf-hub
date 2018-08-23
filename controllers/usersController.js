@@ -31,8 +31,7 @@ module.exports = {
     //if (req.body.username) updateUserObject.username = req.body.username;
     if (req.body.firstName) updateUserObject.firstName = req.body.firstName;
     if (req.body.lastName) updateUserObject.lastName = req.body.lastName;
-    if (req.body.middleInitial)
-      updateUserObject.middleInitial = req.body.middleInitial;
+    if (req.body.middleInitial) updateUserObject.middleInitial = req.body.middleInitial;
     if (req.body.password) updateUserObject.password = req.body.password;
     if (req.body.email) updateUserObject.email = req.body.email;
     if (req.body.picURL) updateUserObject.picURL = req.body.picURL;
@@ -45,7 +44,7 @@ module.exports = {
     if (req.body.reserved) updateUserObject.reserved = req.body.reserved;
     if (req.body.instructor) updateUserObject.instructor = req.body.instructor;
     if (req.body.available) updateUserObject.available = req.body.available;
-
+    console.log(updateUserObject);
     db.User.findOneAndUpdate({ _id: req.params.id }, updateUserObject, {
       new: true
     })
@@ -57,5 +56,5 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
+  },
 };
