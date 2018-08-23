@@ -16,6 +16,7 @@ import axios from "axios";
 import Login from './components/Login';
 import Profile from './components/Profile';
 import Signup from './components/Signup/Signup';
+import goAvailable from "./components/goAvailable/goAvailable"
 import ViewProfile from "./components/ViewProfile/ViewProfile"
 import Splash from './components/Splash';
 import Videos from './components/Videos';
@@ -35,6 +36,8 @@ ReactDOM.render(
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile/:id" component={Profile} />
+            <Route exact path="/goAvailable" component={goAvailable} />
+            
             <Route exact path="/videos" component={Videos} />
             <Route path="/findInstructor" component={FindInstructorPage} />
             </Switch>

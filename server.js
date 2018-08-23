@@ -15,8 +15,8 @@ const io = require('socket.io')(http);
 const db = require("./models");
 
 // Define middleware here
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -25,7 +25,8 @@ if (process.env.NODE_ENV === "production") {
 
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/surfHub");
+//mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/surfHub");
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/surfHub', { useNewUrlParser: true });
 
 const isAuthenticated = exjwt({
   secret: 'surfs up moondoggies'
