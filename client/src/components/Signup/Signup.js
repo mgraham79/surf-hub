@@ -107,7 +107,7 @@ class Signup extends Component {
                                 <label className="text" for="boardType">Board Type / Preference</label>
                                 <br />
                                 <div className="dropList">
-                                    <select name="boardType">
+                                    <select name="board">
                                         <option value="Bodyboard">Bodyboard</option>
                                         <option value="Kite Surf">Kite Surf</option>
                                         <option value="Longboard">Longboard</option>

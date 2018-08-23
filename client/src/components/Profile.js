@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import withAuth from './withAuth';
 import API from '../utils/API';
 import { Link } from 'react-router-dom';
-import "./Profile.css";
+import Nav from "./Nav"
+import FindInstructorButton from "./findInstructorButton/FindInstructorButton"
+import "./Profile.css"
 
 class Profile extends Component {
 
@@ -41,41 +43,8 @@ class Profile extends Component {
     return (
       <div>
         <div className="container Profile">
-          <nav className="navbar">
-            <li className="nav-item">
-              <a href="/splash">
-                <img src="#" alt="Surf Hub Logo" />
-              </a>
-            </li>
-            <li className="nav-item active-page">
-              <a className="nav-link" href="#">Home</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Profile</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Surf Reports</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Beach Cams</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Instructional Videos</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Surf Rentals</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Good Eats</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/editprofile">Edit Profile</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Log Out</a>
-            </li>
-          </nav>
-
+          <Nav/>
+          <FindInstructorButton/>
           <div className="w3-content w3-margin-top" id="w3-content">
             <div className="w3-row-padding">
               <div className="w3-third">
@@ -143,10 +112,6 @@ class Profile extends Component {
             </div>
           </div>
         </div>
-
-
-
-
       </div>
     )
   }
