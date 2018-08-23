@@ -33,7 +33,7 @@ class FindInstructorPage extends Component {
     handleSelectChange = (event) => {
         let selectedLocation = event.target.value;
         this.setState({
-            location: selectedLocation.replace(" ", "_")
+            location: selectedLocation.replace(/ /g, "_")
         });
     }
 

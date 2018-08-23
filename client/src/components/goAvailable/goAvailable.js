@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import API from "../../utils/API"
 import "./goAvailable.css"
 import Nav from "../Nav"
+import withAuth from "../withAuth"
 
 
 class goAvailable extends Component {
@@ -22,10 +23,10 @@ class goAvailable extends Component {
     handleButtonCLick = () => {
         console.log(this.state.location)
         const newData = {
-            location: this.state.location.replace(" ", "_"),
+            location: this.state.location.replace(/ /g, "_"),
             available: "true"
         }
-        API.updateFieldUser(localStorage.getItem("user"), newData)
+        API.updateFieldUser(this.props.user.id, newData)
             .then(res => {
                 console.log(res.data)
                 console.log("Available")
@@ -36,10 +37,10 @@ class goAvailable extends Component {
     handleButtonCLickNotAvailable = () => {
         console.log(this.state.location)
         const newData = {
-            location: this.state.location.replace(" ", "_"),
+            location: this.state.location.replace(/ /g, "_"),
             available: "false"
         }
-        API.updateFieldUser(localStorage.getItem("user"), newData)
+        API.updateFieldUser(this.props.user.id, newData)
             .then(res => {
                 console.log(res.data)
                 console.log("Not Available")
@@ -91,4 +92,4 @@ class goAvailable extends Component {
         </div>
     }
 }
-export default goAvailable
+export default withAuth(goAvailable)
