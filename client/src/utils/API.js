@@ -74,9 +74,11 @@ getListOfBeaches: function(){
   return axios.get("/api/proxy/beaches");
 },
 
-getForecast: function(spotID){
-  return axios.get("/api/proxy/forecast/" + spotID);
+getForecast: function(spot_id){
+  return axios.get("/api/proxy/forecast/" + spot_id);
 }
+
+
 // Placeholders for the APIs
 
 // getSurfReport: function() {
