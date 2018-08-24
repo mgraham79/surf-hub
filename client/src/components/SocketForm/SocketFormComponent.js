@@ -47,7 +47,7 @@ class SocketForm extends Component {
       <div>
         <p>Received Messages:</p>
         <ul className="message-container">
-          {this.state.messages.map(message => <li key={message}>{message}</li>)}
+          {this.state.messages.map(message => <li className={(message.from === "instructor")} key={message}>{message}</li>)}
         </ul>
         <form className="form-inline">
           <div className="form-group">

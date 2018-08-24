@@ -9,7 +9,11 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findAllAtBeach: function(req,res){
-    db.User.find({location: req.params.location, available: true},)
+    var object= {
+      location: req.params.beach,
+      available: true
+    }
+    db.User.find(object)
     .then(dbModel=> res.json(dbModel))
     .catch(err=>res.status(422).json(err))
   },
