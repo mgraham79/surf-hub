@@ -10,6 +10,9 @@ router
 // Matches with "/api/users/:id/:updateField"
 //router.route("/:id/:updateField").put(sessionsController.update);
 
+router
+.route("/open/:id")
+.get(sessionsController.findByInstructor)
 // Matches with "/api/sessions/:id"
 router
   .route("/:id")
