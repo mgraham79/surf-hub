@@ -4,7 +4,7 @@ import Nav from "../Nav";
 import withAuth from '../withAuth';
 import FindInstructorButton from "../findInstructorButton/FindInstructorButton"
 import API from "../../utils/API"
-import ForecastContainer from "../Report/ForecastContainer"
+import ForecastContainer from "./ForecastContainer"
 import {LineChart, AreaChart} from "react-chartkick"
 import Chart from "chart.js"
 
@@ -22,33 +22,33 @@ class Report extends Component {
 
     componentDidMount() {
         this.getBeaches()
-        console.log(this.state.beaches)
+        console.log("component did mount: ", this.state.beaches)
     }
 
     handleButtonCLick = () => {
         API.getForecast(this.state.location)
             .then(result => {
                 this.setState({ forecast: result.data })
-                
+                console.log("Forecast: ",result.data)
                 // Creating an Array of Wave Heights
-                const NewWaveHeight = forecast.map(function(forecastData) {
-                    return forecastData.size;
-                  });
-                  this.setState({ waveHeight: NewWaveHeight })
-                  console.log("Wave Heights (ft): ", waveHeight);
+                // const NewWaveHeight = forecast.map(function(forecastData) {
+                //     return forecastData.size;
+                //   });
+                //   this.setState({ waveHeight: NewWaveHeight })
+                //   console.log("Wave Heights (ft): ", waveHeight);
 
-                  // Determining the maximum wave height
-                  const NewMaxWaveHeight = Math.max(...waveHeight);
-                  this.setState({ maxWaveHeight: NewMaxWaveHeight })
+                //   // Determining the maximum wave height
+                //   const NewMaxWaveHeight = Math.max(...waveHeight);
+                //   this.setState({ maxWaveHeight: NewMaxWaveHeight })
 
-                  // Determining the minimum wave height
-                  const NewMinWaveHeight = Math.min(...waveHeight);
-                  this.setState({ minWaveHeight: NewMinWaveHeight })
+                //   // Determining the minimum wave height
+                //   const NewMinWaveHeight = Math.min(...waveHeight);
+                //   this.setState({ minWaveHeight: NewMinWaveHeight })
                   
 
-                console.log(result.data)
+                // console.log(result.data)
             })
-        console.log(this.state.forecast)
+        console.log("Total Forecast: ", this.state.forecast)
 
     }
 
@@ -68,7 +68,7 @@ class Report extends Component {
         API.getListOfBeaches()
             .then(res => {
                 this.setState({ beaches: res.data })
-                console.log(res.data)
+                console.log("Beaches: ", res.data)
             })
             .catch(err => console.log(err))
     }

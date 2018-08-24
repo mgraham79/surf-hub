@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./Report.css";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { LineChart, AreaChart } from "react-chartkick";
@@ -41,8 +42,20 @@ const ForecastContainer = props => {
           ))}
         </div>
         <div className="col col-lg-4">
-          <div id="ChartLocation">{report.spot_name}</div>
-          <div id="ChartDate">{report.date}</div>
+        {props.forecast.map( report => (
+          <div>
+            <div id="ChartLocation">{report.spot_name}</div>
+            <div id="ChartDate">{report.date}</div>
+          </div>
+        ))}
+        </div>
+        {/* <div className="col col-lg-4">
+          {props.forecast.map(report => (
+            <div id="ChartLocation">{report.spot_name}</div>
+            <div id="ChartDate">{report.date}</div>
+          ))}
+        </div> */}
+        {/*
           <div id="ChartMaxMin">The Waves Range from {props.minWaveHeight} to {props.maxWaveHeight} feet</div>
           <AreaChart
             title="Wave Height During the Day"
@@ -79,9 +92,9 @@ const ForecastContainer = props => {
           <p>Data Source: Spitcast</p>
           <a href=" http://www.spitcast.com/">Spitcast Link</a>
           </div>
-        </div>
-      </div>
-    </div>
+        </div> */}
+        </div> {/* ---- row ---- */}
+      </div>  
   );
 };
 
