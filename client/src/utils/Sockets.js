@@ -3,6 +3,11 @@ const socketUrl = process.env.REACT_APP_SOCKET_URL || 'http://localhost:3001/';
 const socket = openSocket(socketUrl);
 
 const sockets = {
+    disconnect:()=>{
+        socket.emit('disconnect')
+        alert("disconnected from room")
+    },
+
     join: (instructorsRoom)=>{
         socket.emit('join', instructorsRoom)
     },

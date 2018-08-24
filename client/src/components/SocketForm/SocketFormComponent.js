@@ -9,7 +9,8 @@ class SocketForm extends Component {
     messages: []
   };
 
-  componentDidMount() {
+  componentWillUnmount() {
+    sockets.disconnect()
   }
 
   constructor(props) {
