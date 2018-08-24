@@ -31,17 +31,20 @@ class Report extends Component {
                 this.setState({ forecast: result.data })
                 
                 // Creating an Array of Wave Heights
-                const NewWaveHeight = forecast.map(function(princess) {
-                    return forecast.size;
+                const NewWaveHeight = forecast.map(function(forecastData) {
+                    return forecastData.size;
                   });
                   this.setState({ waveHeight: NewWaveHeight })
                   console.log("Wave Heights (ft): ", waveHeight);
 
                   // Determining the maximum wave height
-                  maxWaveHeight = Math.max(...waveHeight);
+                  const NewMaxWaveHeight = Math.max(...waveHeight);
+                  this.setState({ maxWaveHeight: NewMaxWaveHeight })
 
                   // Determining the minimum wave height
-                  minWaveHeight = Math.min(...waveHeight);
+                  const NewMinWaveHeight = Math.min(...waveHeight);
+                  this.setState({ minWaveHeight: NewMinWaveHeight })
+                  
 
                 console.log(result.data)
             })
