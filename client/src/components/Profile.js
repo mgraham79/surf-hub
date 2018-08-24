@@ -42,9 +42,9 @@ class Profile extends Component {
     console.log(this.props)
     return (
       <div>
+        <Nav />
         <div className="container Profile">
-          <Nav/>
-          <FindInstructorButton/>
+          <FindInstructorButton />
           <div className="w3-content w3-margin-top" id="w3-content">
             <div className="w3-row-padding">
               <div className="w3-third">
