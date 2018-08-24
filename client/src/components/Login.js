@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import AuthService from './AuthService';
 import {Link} from 'react-router-dom';
+import "./Login.css"
 
 class Login extends Component {
   constructor() {
@@ -43,7 +44,7 @@ class Login extends Component {
           <div className="container-fluid">
             <div className="navbar-header">
               <a href="/">
-                <img src="" alt="Surf Hub Logo" />
+                <img src="/images/SurfHub_Nav_Logo.png" alt="Surf Hub Logo" />
               </a>
             </div>
           </div>
@@ -70,7 +71,7 @@ class Login extends Component {
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
-        <p><Link to="/signup">Go to Signup</Link></p>
+        <p>Don't have an account yet? <Link to="/signup">Sign up here</Link></p>
       </div>
 
     );
