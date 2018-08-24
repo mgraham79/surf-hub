@@ -13,6 +13,7 @@ import goAvailable from "./components/goAvailable/goAvailable"
 import FindInstructorPage from "./components/FindInstructorPage/FindInstructorPage"
 import API from "./utils/API"
 import Nav from "./components/Nav"
+import SocketFormComponent from './components/SocketForm/SocketFormComponent';
 
 const axios = require("axios")
 const Auth = new AuthService();
@@ -33,7 +34,8 @@ class App extends Component {
     User: "JohnDoe",
     latitude: 0,
     longitude: 0,
-    beaches: []
+    beaches: [],
+    sessionAvailable: false,
   };
 
   
@@ -57,6 +59,7 @@ class App extends Component {
       console.log(this.props.user.id)
       //localStorage.setItem("user", "5b7cf350ce82af16010bcd41");
       console.log(localStorage.getItem("user"));
+
   }
 
   showPosition = (position) => {
@@ -86,11 +89,23 @@ class App extends Component {
 
   render() {
     console.log(process.env.REACT_APP_SECRET_CODE);
+    var conditionalSession
+    var conditionalChat;
+    if(this.props.isInstructor){
+      conditionalChat= <SocketFormComponent/>
+    }
+
+    if (!this.sessionAvailable){
+      conditionalSession=<button type="button" className="btn-primary btn-success">Start Session</button>
+    }
+     
     return (
       <div>
         <Nav/>
            <FindInstructorButton/>
-      </div>
+           {conditionalSession}
+           {conditionalChat}
+       </div>
     );
   }
 }

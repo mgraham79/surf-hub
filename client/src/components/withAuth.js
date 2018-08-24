@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AuthService from './AuthService';
+import API from "../utils/API"
 
 export default function withAuth(AuthComponent) {
     const Auth = new AuthService();
@@ -17,8 +18,11 @@ export default function withAuth(AuthComponent) {
             else {
                 try {
                     const profile = Auth.getProfile();
+                    API.getUser(profile.id).then(result=>{
+                        this.setState({instructor: result.data.instructor})
+                    })
                     this.setState({
-                        user: profile
+                        user: profile,
                     });
                 }
                 catch(err){
@@ -31,7 +35,7 @@ export default function withAuth(AuthComponent) {
         render() {
             if (this.state.user) {
                 return (
-                    <AuthComponent match={this.props.match} history={this.props.history} user={this.state.user} />
+                    <AuthComponent match={this.props.match} history={this.props.history} user={this.state.user} isInstructor={this.state.instructor} />
                 );
             }
             else {

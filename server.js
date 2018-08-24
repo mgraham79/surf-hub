@@ -110,9 +110,14 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
-  socket.on('message', (message) => {
+  socket.on('join', function(instructorRoom){
+    console.log(`${instructorRoom} joined`)
+    socket.join(instructorRoom)
+  })
+  socket.on('message', (data) => {
     // and emitting the message event for any client listening to it
-    io.emit('message', message);
+    console.log(data.text)
+    io.to(data.to).emit('message', data.text);
   });
 });
 

@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 import Nav from "../Nav"
 import SocketFormComponent from "../SocketForm/SocketFormComponent"
 import "./ViewProfile.css";
+import {sockets} from "../../utils/Sockets"
 
 class ViewProfile extends Component {
 
   state = {
+    instructorId: "",
     picURL: "",
     firstName: "",
     middleInitial: "",
@@ -19,12 +21,28 @@ class ViewProfile extends Component {
     exp: "",
     favBeaches: "",
     bio: "",
-    connect: false
+    connect: false,
+    sessionStarted: false
   };
+
+  handleCreateLesson = () => {
+    console.log("clicked create lesson")
+    API.saveSession({clientID:localStorage.getItem('user'), instructorID: this.props.match.params.id})
+    .then(result=>{
+      this.setState({sessionStarted:true})
+      console.log(result.data._id)
+    })
+    sockets.sendMessage({
+      text: `User Id ${localStorage.getItem('user')} created a session... Waiting for reply to start`,
+      to: this.props.match.params.id
+    })
+  }
+
 
   componentDidMount() {
     API.getUser(this.props.match.params.id).then(res => {
       this.setState({
+        instructorId: res.data._id,
         picURL: res.data.picURL,
         firstName: res.data.firstName,
         middleInitial: res.data.middleInitial,
@@ -40,7 +58,15 @@ class ViewProfile extends Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.state);
+    var buttonSession;
+    if(!this.state.sessionStarted){
+      buttonSession=<button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-success">Create Lesson With This Instructor</button>
+    }
+    else{
+      buttonSession=<button type="button" className="btn-primary btn-danger">End Lesson With This Instructor</button>
+    }
+
     return (
       <div>
         <Nav />
@@ -108,12 +134,13 @@ class ViewProfile extends Component {
                   <span id="myBio">{this.state.bio}</span>
                 </div>
                 <button type="button" className="btn-primary">Start Chat</button>
+                {buttonSession}
               </div>
             </div>
           </div>
         </div>
         <div className="container">
-          <SocketFormComponent />
+          <SocketFormComponent instructor={this.props.match.params.id}/>
         </div>
       </div>
     )
