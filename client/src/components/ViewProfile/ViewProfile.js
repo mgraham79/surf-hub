@@ -22,7 +22,8 @@ class ViewProfile extends Component {
     favBeaches: "",
     bio: "",
     connect: false,
-    sessionStarted: false
+    sessionStarted: false,
+    instructorReserved: false
   };
 
   handleCreateLesson = () => {
@@ -36,6 +37,11 @@ class ViewProfile extends Component {
       text: `User Id ${localStorage.getItem('user')} created a session... Waiting for reply to start`,
       to: this.props.match.params.id
     })
+    API.updateFieldUser(this.props.match.params.id, {reserved: true})
+    .then(result => {
+      this.setState({instructorReserved: true})
+    })
+    .catch(err => console.log(err))
   }
 
 
@@ -52,13 +58,15 @@ class ViewProfile extends Component {
         board: res.data.board,
         exp: res.data.exp,
         favBeaches: res.data.favBeaches,
-        bio: res.data.bio
+        bio: res.data.bio,
+        instructorReserved: res.data.reserved
       })
     });
   }
 
   render() {
     console.log(this.state);
+    if(!this.state.instructorReserved){
     var buttonSession;
     if(!this.state.sessionStarted){
       buttonSession=<button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-success">Create Lesson With This Instructor</button>
@@ -66,6 +74,10 @@ class ViewProfile extends Component {
     else{
       buttonSession=<button type="button" className="btn-primary btn-danger">End Lesson With This Instructor</button>
     }
+  }
+  else{
+    var buttonSession= <button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-secondary" disabled>Create Lesson With This Instructor</button>
+  }
 
     return (
       <div>

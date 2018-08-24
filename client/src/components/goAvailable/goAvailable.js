@@ -24,7 +24,8 @@ class goAvailable extends Component {
         console.log(this.state.location)
         const newData = {
             location: this.state.location.replace(/ /g, "_"),
-            available: "true"
+            available: "true",
+            reserved: "false"
         }
         API.updateFieldUser(this.props.user.id, newData)
             .then(res => {
@@ -38,7 +39,8 @@ class goAvailable extends Component {
         console.log(this.state.location)
         const newData = {
             location: this.state.location.replace(/ /g, "_"),
-            available: "false"
+            available: "false",
+            reserved: "false"
         }
         API.updateFieldUser(this.props.user.id, newData)
             .then(res => {
