@@ -6,12 +6,16 @@ import FindInstructorButton from "../findInstructorButton/FindInstructorButton"
 import API from "../../utils/API"
 import ForecastContainer from "../Report/ForecastContainer"
 import {LineChart, AreaChart} from "react-chartkick"
+import Chart from "chart.js"
 
 class Report extends Component {
     state = {
         beaches: [],
         location: "",
-        forecast: []
+        forecast: [],
+        waveHeight: [],
+        maxWaveHeight: 0,
+        minWaveHeight: 0
     }
     // have a function that goes to the api that give us nearest beaches
     //spitcast API Endpoint api/spot/nearby?longitude=...?latitude=...
@@ -25,6 +29,20 @@ class Report extends Component {
         API.getForecast(this.state.location)
             .then(result => {
                 this.setState({ forecast: result.data })
+                
+                // Creating an Array of Wave Heights
+                const NewWaveHeight = forecast.map(function(princess) {
+                    return forecast.size;
+                  });
+                  this.setState({ waveHeight: NewWaveHeight })
+                  console.log("Wave Heights (ft): ", waveHeight);
+
+                  // Determining the maximum wave height
+                  maxWaveHeight = Math.max(...waveHeight);
+
+                  // Determining the minimum wave height
+                  minWaveHeight = Math.min(...waveHeight);
+
                 console.log(result.data)
             })
         console.log(this.state.forecast)
@@ -66,7 +84,13 @@ class Report extends Component {
                     ))}
                     </select>&#160;
                     <button className="btn btn-success" onClick={this.handleButtonCLick}>Go</button>
-                    <ForecastContainer forecast={this.state.forecast}/>
+                    <ForecastContainer 
+                        forecast={this.state.forecast}
+                        waveHeight={this.state.waveHeight}
+                        maxWaveHeight={this.state.maxWaveHeight}
+                        minWaveHeight={this.state.minWaveHeight}
+                        
+                    />
             </div>
         </div >
     )

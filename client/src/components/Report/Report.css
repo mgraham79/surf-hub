@@ -4,3 +4,15 @@
     height: 360px;
     overflow: scroll;
 }
+
+#ChartLocation {
+    text-align: center;
+}
+
+#ChartDate {
+    text-align: center;
+}
+
+#ChartMaxMin {
+    text-align: center;
+}

@@ -41,38 +41,37 @@ const ForecastContainer = props => {
           ))}
         </div>
         <div className="col col-lg-4">
-          <div id="ChartLocation">{report.spot_name}</div>
-          <div id="ChartDate">{report.date}</div>
-          <div id="ChartMaxMin">The Waves Range from {props.minWaveHeight} to {props.maxWaveHeight} feet</div>
           <AreaChart
-            title="Wave Height During the Day"
+            title="Chart Title"
             xtitle="Time (hours)"
             ytitle="Wave Height (ft)"
             data={{
-              "12am": props.waveHeight[0],
-              "1am": props.waveHeight[1],
-              "2am": props.waveHeight[2],
-              "3am": props.waveHeight[3],
-              "4am": props.waveHeight[4],
-              "5am": props.waveHeight[5],
-              "6am": props.waveHeight[6],
-              "7am": props.waveHeight[7],
-              "8am": props.waveHeight[8],
-              "9am": props.waveHeight[9],
-              "10am": props.waveHeight[9],
-              "11am": props.waveHeight[10],
-              "12pm": props.waveHeight[11],
-              "1pm": props.waveHeight[12],
-              "2pm": props.waveHeight[13],
-              "3pm": props.waveHeight[14],
-              "4pm": props.waveHeight[15],
-              "5pm": props.waveHeight[16],
-              "6pm": props.waveHeight[17],
-              "7pm": props.waveHeight[18],
-              "8pm": props.waveHeight[19],
-              "9pm": props.waveHeight[20],
-              "10pm": props.waveHeight[21],
-              "11pm": props.waveHeight[22]
+              "2017-01-01 00:00:00 -800": 1,
+              "2017-01-01 01:00:00 -800": 2,
+              "2017-01-01 02:00:00 -800": 3,
+              "2017-01-01 03:00:00 -800": 4,
+              "2017-01-01 04:00:00 -800": 5,
+              "2017-01-01 05:00:00 -800": 6,
+              "2017-01-01 06:00:00 -800": 7,
+              "2017-01-01 07:00:00 -800": 8,
+              "2017-01-01 08:00:00 -800": 9,
+              "2017-01-01 09:00:00 -800": 10,
+              "2017-01-01 10:00:00 -800": 11,
+              "2017-01-01 11:00:00 -800": 12,
+              "2017-01-01 12:00:00 -800": 13,
+              "2017-01-01 13:00:00 -800": 14,
+              "2017-01-01 14:00:00 -800": 15,
+              "2017-01-01 15:00:00 -800": 16,
+              "2017-01-01 16:00:00 -800": 17,
+              "2017-01-01 17:00:00 -800": 18,
+              "2017-01-01 18:00:00 -800": 19,
+              "2017-01-01 19:00:00 -800": 20,
+              "2017-01-01 20:00:00 -800": 21,
+              "2017-01-01 21:00:00 -800": 22,
+              "2017-01-01 22:00:00 -800": 23,
+              "2017-01-01 23:00:00 -800": 24,
+              "2017-01-01 24:00:00 -800": 25,
+              "2017-01-02 00:00:00 -800": 26
             }}
           />
         </div>
