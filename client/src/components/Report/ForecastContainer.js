@@ -50,9 +50,9 @@ const ForecastContainer= (props)=>{
         <div>
 
       <div id="ChartLocation">{(props.forecast.length) ? props.forecast[0].spot_name : ""}</div>
-        
 
-      <div id="ChartDate">{props.forecast.date}</div>
+      <div id="ChartDate">{(props.forecast.length) ? props.forecast[0].date : ""}</div>
+
       <div id="ChartMaxMin">The Waves Range from {props.minWaveHeight.toFixed(1)} to {props.maxWaveHeight.toFixed(1)} feet</div>
       <AreaChart
         title="Wave Height During the Day"
