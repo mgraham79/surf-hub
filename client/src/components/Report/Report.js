@@ -29,21 +29,25 @@ class Report extends Component {
   handleButtonCLick = () => {
     API.getForecast(this.state.location).then(result => {
       this.setState({ forecast: result.data });
-      console.log("Forecast: ", result.data);
+      console.log("Forecast: ", this.state.forecast);
       // Creating an Array of Wave Heights
-      // const NewWaveHeight = forecast.map(function(forecastData) {
-      //     return forecastData.size_ft;
-      //   });
-      //   this.setState({ waveHeight: NewWaveHeight })
-      //   console.log("Wave Heights (ft): ", waveHeight);
 
-      //   // Determining the maximum wave height
-      //   const NewMaxWaveHeight = Math.max(...waveHeight);
-      //   this.setState({ maxWaveHeight: NewMaxWaveHeight })
+      const NewWaveHeight = result.data.map( forecastData => {
+          return forecastData.size_ft;
+        });
+       
+         this.setState({ waveHeight: NewWaveHeight })
+         //console.log("Wave Heights (ft): ", waveHeight);
 
-      //   // Determining the minimum wave height
-      //   const NewMinWaveHeight = Math.min(...waveHeight);
-      //   this.setState({ minWaveHeight: NewMinWaveHeight })
+    //     // Determining the maximum wave height
+         const NewMaxWaveHeight = Math.max( ...NewWaveHeight );
+         this.setState({ maxWaveHeight: NewMaxWaveHeight })
+         console.log("maxWaveHeight (ft): ", this.state.maxWaveHeight);
+
+    //     // Determining the minimum wave height
+         const NewMinWaveHeight = Math.min( ...NewWaveHeight );
+         this.setState({ minWaveHeight: NewMinWaveHeight })
+         console.log("minWaveHeight (ft): ", this.state.minWaveHeight);
 
       // console.log(result.data)
       let newObj = {};
@@ -51,7 +55,7 @@ class Report extends Component {
         const hour = data.hour;
         const height = data.size_ft;
         newObj[hour] = height
-        console.log(newObj);
+       // console.log(newObj);
         this.setState({ chartObj: newObj })
       });
     });
@@ -97,13 +101,13 @@ class Report extends Component {
           <button className="btn btn-success" onClick={this.handleButtonCLick}>
             Go
           </button>
-          <ForecastContainer
+          { <ForecastContainer
             chartObj={this.state.chartObj}
             forecast={this.state.forecast}
             waveHeight={this.state.waveHeight}
             maxWaveHeight={this.state.maxWaveHeight}
             minWaveHeight={this.state.minWaveHeight}
-          />
+          /> }
         </div>
       </div>
     );

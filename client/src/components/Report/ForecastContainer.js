@@ -5,14 +5,13 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { LineChart, AreaChart, ScatterChart } from "react-chartkick";
 import Chart from "chart.js";
 
-class ForecastContainer extends Component {
-
-  state = {
-      forecastChart: [],
-  };
-
-render() {
+const ForecastContainer= (props)=>{
+  console.log(props);
+  
+  
+  console.log((props.forecast.length) ? props.forecast[0].spot_name : "");
   return (
+
     <div className="container">
       <div>
         <br />
@@ -20,7 +19,7 @@ render() {
       </div>
       <div className="row">
         <div id="ex3" className="col col-lg-6">
-          {this.props.forecast.map(report => (
+          {props.forecast.map(report => (
             <div key={report._id} className="row">
               <div>
                 <table class="table">
@@ -49,64 +48,28 @@ render() {
         </div>
         <div className="col col-lg-4">
         <div>
-      <div id="ChartLocation">{this.props.forecast.spot_name}</div>
-      <div id="ChartDate">{this.props.forecast.date}</div>
+
+      <div id="ChartLocation">{(props.forecast.length) ? props.forecast[0].spot_name : ""}</div>
+        
+
+      <div id="ChartDate">{props.forecast.date}</div>
+      <div id="ChartMaxMin">The Waves Range from {props.minWaveHeight.toFixed(1)} to {props.maxWaveHeight.toFixed(1)} feet</div>
       <AreaChart
         title="Wave Height During the Day"
         xtitle="Time (hours)"
         ytitle="Wave Height (ft)"
-        data={this.props.chartObj}
+        data={props.chartObj}
       />
     </div>
         </div>
-        {/* <div className="col col-lg-4">
-          {props.forecast.map(report => (
-            <div id="ChartLocation">{report.spot_name}</div>
-            <div id="ChartDate">{report.date}</div>
-          ))}
-        </div> */}
-        {/*
-          <div id="ChartMaxMin">The Waves Range from {props.minWaveHeight.toFixed(1)} to {props.maxWaveHeight.toFixed(1)} feet</div>
-          <AreaChart
-            title="Wave Height During the Day"
-            xtitle="Time (hours)"
-            ytitle="Wave Height (ft)"
-            data={{
-              "12am": props.waveHeight[0],
-              "1am": props.waveHeight[1],
-              "2am": props.waveHeight[2],
-              "3am": props.waveHeight[3],
-              "4am": props.waveHeight[4],
-              "5am": props.waveHeight[5],
-              "6am": props.waveHeight[6],
-              "7am": props.waveHeight[7],
-              "8am": props.waveHeight[8],
-              "9am": props.waveHeight[9],
-              "10am": props.waveHeight[9],
-              "11am": props.waveHeight[10],
-              "12pm": props.waveHeight[11],
-              "1pm": props.waveHeight[12],
-              "2pm": props.waveHeight[13],
-              "3pm": props.waveHeight[14],
-              "4pm": props.waveHeight[15],
-              "5pm": props.waveHeight[16],
-              "6pm": props.waveHeight[17],
-              "7pm": props.waveHeight[18],
-              "8pm": props.waveHeight[19],
-              "9pm": props.waveHeight[20],
-              "10pm": props.waveHeight[21],
-              "11pm": props.waveHeight[22]
-            }}
-          />
-          <div id="DataSource">
+        
+          {/* <div id="DataSource">
           <p>Data Source: Spitcast</p>
           <a href=" http://www.spitcast.com/">Spitcast Link</a>
           </div>
-        </div> */}
-        </div> {/* ---- row ---- */}
+         */}
+        </div> 
       </div>  
   );
 };
-};
-
 export default ForecastContainer;
