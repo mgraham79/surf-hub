@@ -17,7 +17,7 @@ const Nav = () => (
           <Link to="/home"><a className="nav-link">My Hub <span className="sr-only">(current)</span></a></Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Surf Reports</a>
+        <Link to="/Report"><a className="nav-link">Surf Reports</a></Link>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">Beach Cams</a>

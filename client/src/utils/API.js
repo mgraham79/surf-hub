@@ -72,7 +72,13 @@ saveBeach: function(beachData) {
 
 getListOfBeaches: function(){
   return axios.get("/api/proxy/beaches");
+},
+
+getForecast: function(spot_id){
+  return axios.get("/api/proxy/forecast/" + spot_id);
 }
+
+
 // Placeholders for the APIs
 
 // getSurfReport: function() {
