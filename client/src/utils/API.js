@@ -11,7 +11,6 @@ export default {
   },
   //Gets instructors at given beach who are available
   getUsersAtBeach: function(beach){
-    var string= beach.replace(" ", "_")
     return axios.get("api/users/available/"+beach)
   },
 

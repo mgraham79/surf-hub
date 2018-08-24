@@ -134,7 +134,7 @@ class Signup extends Component {
                             </div>
                             <p>
                                 <label>Bio</label>
-                                <textarea rows='8' cols='100' className="myBio" name="myBio" value={this.state.bio}placeholder="Tell us a little about yourself"></textarea>
+                                <textarea rows='8' cols='100' className="myBio" name="bio" value={this.state.bio}placeholder="Tell us a little about yourself"></textarea>
                             </p>
                             <label for="true_false_radio">I am interested in giving lessons</label>
                             <p>

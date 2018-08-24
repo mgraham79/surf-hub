@@ -31,6 +31,12 @@ const Nav = () => (
         <li className="nav-item">
           <a className="nav-link" href="#">Good Eats</a>
         </li>
+        <li className="nav-item">
+          <Link to="/editprofile"><a className="nav-link">Edit Profile</a></Link>        
+        </li>
+        <li className="nav-item">
+          <Link to="/editprofile"><a className="nav-link">Logout</a></Link>
+        </li>
         
       </ul>
       

@@ -3,6 +3,7 @@ import withAuth from './withAuth';
 import API from '../utils/API';
 import { Link } from 'react-router-dom';
 import "./ProfileEdit.css";
+import Nav from "./Nav";
 
 class ProfileEdit extends Component {
 
@@ -56,6 +57,7 @@ class ProfileEdit extends Component {
             })
         });
         alert("Your changes have been saved");
+        this.props.history.replace(`/profile/${this.state.userID}`);
     }
 
     handleInputChange = event => {
@@ -74,15 +76,7 @@ class ProfileEdit extends Component {
     render() {
         return (
             <body className="login-body">
-                <nav className="navbar navbar-default" id="nav-cover">
-                    <div className="container-fluid">
-                        <div className="navbar-header">
-                            <a href="/">
-                                <img src="" alt="Surf Hub Logo" />
-                            </a>
-                        </div>
-                    </div>
-                </nav>
+                <Nav />
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 col-md-offset-3">
