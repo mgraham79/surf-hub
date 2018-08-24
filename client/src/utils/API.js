@@ -48,6 +48,10 @@ updateFieldSession: function(id, updateField) {
 saveSession: function(sessionData) {
   return axios.post("/api/sessions", sessionData);
 },
+//Gets a session based on Instructor ID
+getOpenSessionByInstructorID: function(id){
+  return axios.get("/api/sessions/open/"+id)
+},
 
 // Gets all beaches
 getBeaches: function() {

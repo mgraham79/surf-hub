@@ -36,6 +36,8 @@ class App extends Component {
     longitude: 0,
     beaches: [],
     sessionAvailable: false,
+    availableSessionData:{},
+    instructor: this.props.isInstructor
   };
 
   
@@ -47,7 +49,6 @@ class App extends Component {
       console.log(this.state)
     } else {
       console.log("Geolocation is not supported by this browser.");
-      console.log(this.state)
     }
     const profileLinkURL = `/profile/${this.state.userId}`;
     this.setState({
@@ -56,10 +57,25 @@ class App extends Component {
       // Storing the user id in local storage
       localStorage.setItem("user", this.props.user.id);
 
-      console.log(this.props.user.id)
       //localStorage.setItem("user", "5b7cf350ce82af16010bcd41");
-      console.log(localStorage.getItem("user"));
-
+      console.log("here")
+    API.getUser(this.props.user.id)
+    .then(result=>{
+      this.setState({instructor:result.data.instructor})
+    if(result.data.instructor){
+      console.log(this.props.user.id)
+      API.getOpenSessionByInstructorID(this.props.user.id)
+      .then(res=>{
+        if(res.data){
+          this.setState({sessionAvailable: true})
+          this.setState({availableSessionData:res.data})
+        }
+        console.log(this.state)
+      })
+      .catch(err => console.log(err))
+      }
+    })
+    .catch(err => console.log(err))
   }
 
   showPosition = (position) => {
@@ -67,7 +83,6 @@ class App extends Component {
       " Longitude: " + position.coords.longitude);
     this.setState({ latitude: position.coords.latitude })
     this.setState({ longitude: position.coords.longitude })
-    console.log(this.state)
   }
 
   setStateLocation = (latitude, longitude) => {
@@ -76,7 +91,6 @@ class App extends Component {
     console.log(latitude)
     console.log(this.state)
   }
-
 
   handleLogout = () => {
     Auth.logout();
@@ -88,15 +102,17 @@ class App extends Component {
   };
 
   render() {
-    console.log(process.env.REACT_APP_SECRET_CODE);
     var conditionalSession
     var conditionalChat;
     if(this.props.isInstructor){
       conditionalChat= <SocketFormComponent/>
     }
 
-    if (!this.sessionAvailable){
-      conditionalSession=<button type="button" className="btn-primary btn-success">Start Session</button>
+    if (this.state.sessionAvailable){
+      conditionalSession=<div className="container"><button type="button" className="btn-primary btn-success">Start Session With ClientID {this.state.availableSessionData.clientID}</button></div>
+    }
+    else{
+      conditionalSession=<div disabled className="container"><button type="button" className="btn-primary btn-secondary">Refresh Page To Start Session When Request Is Made In Chat</button></div>
     }
      
     return (
