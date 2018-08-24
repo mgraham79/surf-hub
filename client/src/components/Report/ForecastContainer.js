@@ -75,6 +75,10 @@ const ForecastContainer = props => {
               "11pm": props.waveHeight[22]
             }}
           />
+          <div id="DataSource">
+          <p>Data Source: Spitcast</p>
+          <a href=" http://www.spitcast.com/">Spitcast Link</a>
+          </div>
         </div>
       </div>
     </div>

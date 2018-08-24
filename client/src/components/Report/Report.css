@@ -16,3 +16,8 @@
 #ChartMaxMin {
     text-align: center;
 }
+
+#DataSource {
+    text-align: center;
+    font-size: small;
+}
