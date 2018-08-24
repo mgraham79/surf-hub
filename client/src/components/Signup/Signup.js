@@ -151,8 +151,8 @@ class Signup extends Component {
                             <button className="btn btn-primary" id="submit-btn" onClick={this.handleFormSubmit}>Sign Up</button>
                             <br />
                             <br />
-                            <p className="text">Already have an account? Log in
-                            <a id="btn-link" href="/login"> here</a>
+                            <p className="text">Already have an account?
+                            <a id="btn-link" href="/login">  Log in here</a>
                             </p>
                         </form>
                     </div>
