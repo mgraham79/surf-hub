@@ -1,0 +1,48 @@
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: dimgrey;
+    width: 100%;
+  }
+  
+  .nav-item {
+    float: right;
+  }
+  
+  .nav-link {
+    display: block;
+    color: white;
+    text-align: right;
+    text-decoration: none;
+  }
+
+  #w3-content {
+      max-width: 1400px;
+  }
+
+  #userphoto {
+    width: 100%;
+  }
+
+  .w3-twothird {
+    width: 55%;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #nav-cover {
+    padding: auto;
+   }
+
+   h2 {
+     text-decoration: underline;
+   }
+
+   #myBio {
+     padding-bottom: 100px;
+   }
