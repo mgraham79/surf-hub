@@ -9,8 +9,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findAllAtBeach: function(req,res){
-    var string= req.params.beach.replace(" ", "_")
-    db.User.find({location: string, available: true},)
+    db.User.find({location: req.params.location, available: true},)
     .then(dbModel=> res.json(dbModel))
     .catch(err=>res.status(422).json(err))
   },
