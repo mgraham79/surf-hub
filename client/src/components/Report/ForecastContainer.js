@@ -1,11 +1,17 @@
-import React from "react";
+import React, {Component} from "react";
 
 import "./Report.css";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { LineChart, AreaChart } from "react-chartkick";
+import { LineChart, AreaChart, ScatterChart } from "react-chartkick";
 import Chart from "chart.js";
 
-const ForecastContainer = props => {
+class ForecastContainer extends Component {
+
+  state = {
+      forecastChart: [],
+  };
+
+render() {
   return (
     <div className="container">
       <div>
@@ -14,7 +20,7 @@ const ForecastContainer = props => {
       </div>
       <div className="row">
         <div id="ex3" className="col col-lg-6">
-          {props.forecast.map(report => (
+          {this.props.forecast.map(report => (
             <div key={report._id} className="row">
               <div>
                 <table class="table">
@@ -42,12 +48,16 @@ const ForecastContainer = props => {
           ))}
         </div>
         <div className="col col-lg-4">
-        {props.forecast.map( report => (
-          <div>
-            <div id="ChartLocation">{report.spot_name}</div>
-            <div id="ChartDate">{report.date}</div>
-          </div>
-        ))}
+        <div>
+      <div id="ChartLocation">{this.props.forecast.spot_name}</div>
+      <div id="ChartDate">{this.props.forecast.date}</div>
+      <AreaChart
+        title="Wave Height During the Day"
+        xtitle="Time (hours)"
+        ytitle="Wave Height (ft)"
+        data={this.props.chartObj}
+      />
+    </div>
         </div>
         {/* <div className="col col-lg-4">
           {props.forecast.map(report => (
@@ -56,7 +66,7 @@ const ForecastContainer = props => {
           ))}
         </div> */}
         {/*
-          <div id="ChartMaxMin">The Waves Range from {props.minWaveHeight} to {props.maxWaveHeight} feet</div>
+          <div id="ChartMaxMin">The Waves Range from {props.minWaveHeight.toFixed(1)} to {props.maxWaveHeight.toFixed(1)} feet</div>
           <AreaChart
             title="Wave Height During the Day"
             xtitle="Time (hours)"
@@ -96,6 +106,7 @@ const ForecastContainer = props => {
         </div> {/* ---- row ---- */}
       </div>  
   );
+};
 };
 
 export default ForecastContainer;
