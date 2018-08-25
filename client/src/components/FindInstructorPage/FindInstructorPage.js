@@ -35,6 +35,7 @@ class FindInstructorPage extends Component {
         this.setState({
             location: selectedLocation.replace(/ /g, "_")
         });
+        console.log(this.state.location)
     }
 
 

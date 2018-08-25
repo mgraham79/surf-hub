@@ -33,6 +33,11 @@ const sessionSchema = new Schema({
     type: Date
   },
 
+  ended:{
+    type: Boolean,
+    default: false
+  }
+
 });
 
 const Session = mongoose.model("Session", sessionSchema);

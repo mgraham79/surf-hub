@@ -11,7 +11,6 @@ export default {
   },
   //Gets instructors at given beach who are available
   getUsersAtBeach: function(beach){
-    var string= beach.replace(" ", "_")
     return axios.get("api/users/available/"+beach)
   },
 
@@ -47,6 +46,10 @@ updateFieldSession: function(id, updateField) {
 // Saves a session to the database
 saveSession: function(sessionData) {
   return axios.post("/api/sessions", sessionData);
+},
+//Gets a session based on Instructor ID
+getOpenSessionByInstructorID: function(id){
+  return axios.get("/api/sessions/open/"+id)
 },
 
 // Gets all beaches

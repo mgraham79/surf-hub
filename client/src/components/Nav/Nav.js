@@ -6,7 +6,7 @@ const Nav = () => (
 
 
   <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a className="navbar-brand" href="./Splash">SURF HUB</a>
+    <a className="navbar-brand" href="/Splash">SURF HUB</a>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
@@ -30,6 +30,12 @@ const Nav = () => (
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">Good Eats</a>
+        </li>
+        <li className="nav-item">
+          <Link to="/editprofile"><a className="nav-link">Edit Profile</a></Link>        
+        </li>
+        <li className="nav-item">
+          <Link to="/editprofile"><a className="nav-link">Logout</a></Link>
         </li>
         
       </ul>

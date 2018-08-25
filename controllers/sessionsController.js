@@ -15,6 +15,12 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findByInstructor: function(req, res){
+    db.Session
+      .findOne({instructorID:req.params.id, ended:false})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   create: function(req, res) {
     db.Session
       .create(req.body)
@@ -30,6 +36,7 @@ module.exports = {
     if (req.body.instructorID) updateSessionObject.instructorID = req.body.instructorID;
     if (req.body.sessionStart) updateSessionObject.sessionStart = req.body.sessionStart;
     if (req.body.sessionEnd) updateSessionObject.sessionEnd = req.body.sessionEnd;
+    if (req.body.ended) updateSessionObject.ended= req.body.ended
 
     db.Session.findOneAndUpdate({ _id: req.params.id }, updateSessionObject, {
       new: true

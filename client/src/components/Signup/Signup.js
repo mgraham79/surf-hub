@@ -22,10 +22,10 @@ class Signup extends Component {
         middleInitial: "",
         picURL: "",
         location: "",
-        boardType: "",
+        board: "",
         exp: "",
         favBeaches: "",
-        myBio: "",
+        bio: "",
         instructor: false
     };
 
@@ -56,13 +56,6 @@ class Signup extends Component {
           })
           .catch(err => alert(err));
       };
-
-
-    createUser = (e)=>{
-        e.preventDefault()
-        //var newUser = [firstName]
-        console.log(this)
-    }
 
 
     render() {
@@ -119,7 +112,7 @@ class Signup extends Component {
                                         <option value="Kite Surf">Kite Surf</option>
                                         <option value="Longboard">Longboard</option>
                                         <option value="Shortboard">Shortboard</option>
-                                        <option value="SUP">SUP (Stand-Up Paddleboard)</option>
+                                        <option value="SUP (Stand-Up Paddleboard)">SUP (Stand-Up Paddleboard)</option>
                                         <option value="Windsurf">Windsurf</option>
                                     </select>
                                 </div>
@@ -129,9 +122,9 @@ class Signup extends Component {
                                 <br />
                                 <div className="dropList">
                                     <select name="exp">
-                                        <option value="1">Less than 1 year (I'm a Newb)</option>
-                                        <option value="2">1-2 years (I can hang)</option>
-                                        <option value="3">3+ years (I'm a total pro, bro!)</option>
+                                        <option value="Less than 1 year (I'm a Newb)">Less than 1 year (I'm a Newb)</option>
+                                        <option value="1-2 years (I can hang)">1-2 years (I can hang)</option>
+                                        <option value="3+ years (I'm a total pro, bro!)">3+ years (I'm a total pro, bro!)</option>
                                     </select>
                                 </div>
                             </div>
@@ -141,7 +134,7 @@ class Signup extends Component {
                             </div>
                             <p>
                                 <label>Bio</label>
-                                <textarea rows='8' cols='100' className="myBio" name="myBio" value={this.state.myBio}placeholder="Tell us a little about yourself"></textarea>
+                                <textarea rows='8' cols='100' className="myBio" name="bio" value={this.state.bio}placeholder="Tell us a little about yourself"></textarea>
                             </p>
                             <label for="true_false_radio">I am interested in giving lessons</label>
                             <p>
@@ -158,8 +151,8 @@ class Signup extends Component {
                             <button className="btn btn-primary" id="submit-btn" onClick={this.handleFormSubmit}>Sign Up</button>
                             <br />
                             <br />
-                            <p className="text">Already have an account? Log in
-                            <a id="btn-link" href="/login"> here</a>
+                            <p className="text">Already have an account?
+                            <a id="btn-link" href="/login">  Log in here</a>
                             </p>
                         </form>
                     </div>

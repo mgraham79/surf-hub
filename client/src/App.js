@@ -13,6 +13,7 @@ import goAvailable from "./components/goAvailable/goAvailable"
 import FindInstructorPage from "./components/FindInstructorPage/FindInstructorPage"
 import API from "./utils/API"
 import Nav from "./components/Nav"
+import SocketFormComponent from './components/SocketForm/SocketFormComponent';
 
 const axios = require("axios")
 const Auth = new AuthService();
@@ -21,9 +22,9 @@ class App extends Component {
 
   // componentDidMount() {
   //   API.updateFieldBeach("5b7aef7d01ca7ef0dc408175", {"beachloc":{
-	//     "lat": 55,
-	//     "lng": 555
-	// }})
+  //     "lat": 55,
+  //     "lng": 555
+  // }})
   //     .then(res => console.log(res.data))
   //     .catch(err => console.log(err));
   // }
@@ -33,10 +34,13 @@ class App extends Component {
     User: "JohnDoe",
     latitude: 0,
     longitude: 0,
-    beaches: []
+    beaches: [],
+    sessionAvailable: false,
+    availableSessionData: {},
+    instructor: this.props.isInstructor
   };
 
-  
+
 
 
   componentDidMount = () => {
@@ -45,18 +49,34 @@ class App extends Component {
       console.log(this.state)
     } else {
       console.log("Geolocation is not supported by this browser.");
-      console.log(this.state)
     }
     const profileLinkURL = `/profile/${this.state.userId}`;
     this.setState({
-      profileLink: profileLinkURL})
+      profileLink: profileLinkURL
+    })
 
-      // Storing the user id in local storage
-      localStorage.setItem("user", this.props.user.id);
+    // Storing the user id in local storage
+    localStorage.setItem("user", this.props.user.id);
 
-      console.log(this.props.user.id)
-      //localStorage.setItem("user", "5b7cf350ce82af16010bcd41");
-      console.log(localStorage.getItem("user"));
+    //localStorage.setItem("user", "5b7cf350ce82af16010bcd41");
+    console.log("here")
+    API.getUser(this.props.user.id)
+      .then(result => {
+        this.setState({ instructor: result.data.instructor })
+        if (result.data.instructor) {
+          console.log(this.props.user.id)
+          API.getOpenSessionByInstructorID(this.props.user.id)
+            .then(res => {
+              if (res.data) {
+                this.setState({ sessionAvailable: true })
+                this.setState({ availableSessionData: res.data })
+              }
+              console.log(this.state)
+            })
+            .catch(err => console.log(err))
+        }
+      })
+      .catch(err => console.log(err))
   }
 
   showPosition = (position) => {
@@ -64,7 +84,6 @@ class App extends Component {
       " Longitude: " + position.coords.longitude);
     this.setState({ latitude: position.coords.latitude })
     this.setState({ longitude: position.coords.longitude })
-    console.log(this.state)
   }
 
   setStateLocation = (latitude, longitude) => {
@@ -72,6 +91,32 @@ class App extends Component {
     this.setState({ longitude: longitude })
     console.log(latitude)
     console.log(this.state)
+  }
+
+  handleStartSession = () => {
+    API.updateFieldSession(this.state.availableSessionData._id, { sessionStart: Date.now() })
+      .then(result => {
+        this.setState({ availableSessionData: result.data })
+      })
+      .catch(err => (console.log(err)))
+  }
+
+  handleEndSession = () => {
+    var updateData= {
+      sessionEnd: Date.now(),
+      ended: "true"
+    }
+    API.updateFieldSession(this.state.availableSessionData._id, updateData)
+      .then(result => {
+        alert(`Ended session with ClientID ${result.data.clientID} 
+      time from ${result.data.sessionStart}
+      to ${result.data.sessionEnd}
+      Don't forget to Go Available to Continue Teaching!`)
+        this.setState({
+          sessionAvailable: false,
+          availableSessionData: {}
+        })
+      })
   }
 
 
@@ -85,11 +130,30 @@ class App extends Component {
   };
 
   render() {
-    console.log(process.env.REACT_APP_SECRET_CODE);
+    var conditionalSession
+    var conditionalChat;
+    if (this.props.isInstructor) {
+      conditionalChat = <SocketFormComponent />
+    }
+
+    if (this.state.sessionAvailable && this.state.availableSessionData.sessionStart && !this.state.availableSessionData.sessionEnd) {
+      // if (this.state.availableSessionData.sessionStart && !this.state.availableSessionData.sessionEnd){
+      conditionalSession = <div className="container"><button type="button" onClick={this.handleEndSession} className="btn-primary btn-danger">End Session With ClientID {this.state.availableSessionData.clientID}</button></div>
+      //break
+    }
+    else if (this.state.sessionAvailable) {
+      conditionalSession = <div className="container"><button type="button" onClick={this.handleStartSession} className="btn-primary btn-success">Start Session With ClientID {this.state.availableSessionData.clientID}</button></div>
+    }
+    else {
+      conditionalSession = <div disabled className="container"><button type="button" className="btn-primary btn-secondary">Refresh Page To Start Session When Request Is Made In Chat</button></div>
+    }
+
     return (
       <div>
-        <Nav/>
-           <FindInstructorButton/>
+        <Nav />
+        <FindInstructorButton />
+        {conditionalSession}
+        {conditionalChat}
       </div>
     );
   }
