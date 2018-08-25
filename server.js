@@ -117,7 +117,7 @@ io.on('connection', function(socket){
   socket.on('message', (data) => {
     // and emitting the message event for any client listening to it
     console.log(data.text)
-    io.to(data.to).emit('message', data.text);
+    io.to(data.to).emit('message', data);
   });
 });
 

@@ -36,6 +36,7 @@ class SocketForm extends Component {
     event.preventDefault();
     console.log(this.props);
     sockets.sendMessage({
+        from: window.location.pathname.startsWith("/v") ? "client" : 'instructor',
         text:this.state.message,
         to: this.props.instructor || localStorage.getItem('user')
     });
@@ -47,7 +48,7 @@ class SocketForm extends Component {
       <div>
         <p>Received Messages:</p>
         <ul className="message-container">
-          {this.state.messages.map(message => <li className={(message.from === "instructor")} key={message}>{message}</li>)}
+          {this.state.messages.map(message => <li key={message.text}>{(message.from==="client" ? `Client : ${message.text}`: `Instructor: ${message.text}`)}</li>)}
         </ul>
         <form className="form-inline">
           <div className="form-group">
