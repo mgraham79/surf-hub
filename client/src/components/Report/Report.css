@@ -6,17 +6,21 @@
 }
 
 #ChartLocation {
+    margin: auto;
     text-align: center;
     font-size: x-large;
     font-weight: bold;
+    margin-left: 0px;
 }
 
 #ChartDate {
     text-align: center;
+    margin-left: 0px;
 }
 
 #ChartMaxMin {
     text-align: center;
+    margin-left: 0px;
 }
 
 #DataSource {
@@ -25,9 +29,11 @@
     font-size: small;
     margin-top: 10px;
     padding-top: 0px;
+    margin-left: 0px;
 }
 
 #SpitcastLink a {
     color: black;
     text-decoration: underline;
+    margin-left: 0px;
 }
