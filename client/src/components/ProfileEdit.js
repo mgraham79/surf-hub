@@ -19,6 +19,7 @@ class ProfileEdit extends Component {
         exp: "",
         favBeaches: "",
         bio: "",
+        instructor:false
     };
 
     componentDidMount() {
@@ -39,6 +40,11 @@ class ProfileEdit extends Component {
         });
     }
 
+    handleRadioButton = event => {
+        event.target.value === 'option2' ? this.setState({ instructor: false }) : this.setState({ instructor: true })
+        console.log(this.state.instructor)
+    }
+
     handleSubmitButton = event => {
         event.preventDefault();
         API.updateFieldUser(this.state.userID, this.state).then(res => {
@@ -53,7 +59,8 @@ class ProfileEdit extends Component {
                 board: this.state.board,
                 exp: this.state.exp,
                 favBeaches: this.state.favBeaches,
-                bio: this.state.bio
+                bio: this.state.bio,
+                instructor:this.state.instructor
             })
         });
         alert("Your changes have been saved");
@@ -141,7 +148,7 @@ class ProfileEdit extends Component {
                                 </div>
                                 <p>
                                     <label>Bio</label>
-                                    <textarea rows='8' cols='100' className="myBio" name="myBio" value={this.state.bio} placeholder="Tell us a little about yourself"></textarea>
+                                    <textarea rows='8' cols='100' className="myBio" name="bio" value={this.state.bio} placeholder="Tell us a little about yourself"></textarea>
                                 </p>
                                 <label for="true_false_radio">I am interested in giving lessons</label>
                                 <p>
