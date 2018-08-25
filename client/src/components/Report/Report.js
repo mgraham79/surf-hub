@@ -32,22 +32,22 @@ class Report extends Component {
       console.log("Forecast: ", this.state.forecast);
       // Creating an Array of Wave Heights
 
-      const NewWaveHeight = result.data.map( forecastData => {
-          return forecastData.size_ft;
-        });
-       
-         this.setState({ waveHeight: NewWaveHeight })
-         //console.log("Wave Heights (ft): ", waveHeight);
+      const NewWaveHeight = result.data.map(forecastData => {
+        return forecastData.size_ft;
+      });
 
-    //     // Determining the maximum wave height
-         const NewMaxWaveHeight = Math.max( ...NewWaveHeight );
-         this.setState({ maxWaveHeight: NewMaxWaveHeight })
-         console.log("maxWaveHeight (ft): ", this.state.maxWaveHeight);
+      this.setState({ waveHeight: NewWaveHeight })
+      //console.log("Wave Heights (ft): ", waveHeight);
 
-    //     // Determining the minimum wave height
-         const NewMinWaveHeight = Math.min( ...NewWaveHeight );
-         this.setState({ minWaveHeight: NewMinWaveHeight })
-         console.log("minWaveHeight (ft): ", this.state.minWaveHeight);
+      //     // Determining the maximum wave height
+      const NewMaxWaveHeight = Math.max(...NewWaveHeight);
+      this.setState({ maxWaveHeight: NewMaxWaveHeight })
+      console.log("maxWaveHeight (ft): ", this.state.maxWaveHeight);
+
+      //     // Determining the minimum wave height
+      const NewMinWaveHeight = Math.min(...NewWaveHeight);
+      this.setState({ minWaveHeight: NewMinWaveHeight })
+      console.log("minWaveHeight (ft): ", this.state.minWaveHeight);
 
       // console.log(result.data)
       let newObj = {};
@@ -55,7 +55,7 @@ class Report extends Component {
         const hour = data.hour;
         const height = data.size_ft;
         newObj[hour] = height
-       // console.log(newObj);
+        // console.log(newObj);
         this.setState({ chartObj: newObj })
       });
     });
@@ -84,7 +84,7 @@ class Report extends Component {
     return (
       <div>
         <Nav />
-
+        <FindInstructorButton />
         <div className="container" id="bg" style={{ marginTop: "20px" }}>
           <h1>Surf Report</h1>
           <label name="Beach">Choose a Beach</label>
@@ -102,13 +102,13 @@ class Report extends Component {
           <button className="btn btn-success" onClick={this.handleButtonCLick}>
             Go
           </button>
-          { <ForecastContainer
+          {<ForecastContainer
             chartObj={this.state.chartObj}
             forecast={this.state.forecast}
             waveHeight={this.state.waveHeight}
             maxWaveHeight={this.state.maxWaveHeight}
             minWaveHeight={this.state.minWaveHeight}
-          /> }
+          />}
         </div>
       </div>
     );
