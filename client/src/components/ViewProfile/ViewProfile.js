@@ -6,6 +6,7 @@ import Nav from "../Nav"
 import SocketFormComponent from "../SocketForm/SocketFormComponent"
 import "./ViewProfile.css";
 import {sockets} from "../../utils/Sockets"
+import FindInstructorButton from "../findInstructorButton/FindInstructorButton"
 
 class ViewProfile extends Component {
 
@@ -83,6 +84,7 @@ class ViewProfile extends Component {
       <div>
         <Nav />
         <div className="container Profile">
+        <FindInstructorButton />
           <div className="w3-content w3-margin-top" id="w3-content">
             <div className="w3-row-padding">
               <div className="w3-third">
