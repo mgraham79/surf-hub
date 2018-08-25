@@ -47,6 +47,7 @@ const ForecastContainer= (props)=>{
           ))}
         </div>
         <div className="col col-lg-4">
+
         <div>
 
       <div id="ChartLocation">{(props.forecast.length) ? props.forecast[0].spot_name : ""}</div>
@@ -60,15 +61,18 @@ const ForecastContainer= (props)=>{
         ytitle="Wave Height (ft)"
         data={props.chartObj}
       />
-    </div>
         </div>
-        
-          {/* <div id="DataSource">
-          <p>Data Source: Spitcast</p>
-          <a href=" http://www.spitcast.com/">Spitcast Link</a>
+
+          <div id="DataSource">
+          Data Source: Spitcast<br></br>
+          <div id="SpitcastLink"><a href=" http://www.spitcast.com/">Spitcast Link</a></div>
           </div>
-         */}
+        
         </div> 
+
+      </div>
+        
+          
       </div>  
   );
 };

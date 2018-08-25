@@ -7,6 +7,8 @@
 
 #ChartLocation {
     text-align: center;
+    font-size: x-large;
+    font-weight: bold;
 }
 
 #ChartDate {
@@ -18,6 +20,14 @@
 }
 
 #DataSource {
+    color: black;
     text-align: center;
     font-size: small;
+    margin-top: 10px;
+    padding-top: 0px;
+}
+
+#SpitcastLink a {
+    color: black;
+    text-decoration: underline;
 }
