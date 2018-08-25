@@ -55,20 +55,20 @@ class Report extends Component {
         return (
             <div>
                 <Nav />
-
+                <FindInstructorButton />
                 <div className="container" id="bg" style={{ marginTop: "20px" }}>
-                <h1>Surf Report</h1>
+                    <h1>Surf Report</h1>
                     <label name="Beach">Choose a Beach</label>
                     <select value={this.state.location} onChange={this.handleSelectChange}>
-                    {this.state.beaches.map(beach => (
-                        <option key={beach.spot_id} value={beach.spot_id}>{beach.spot_name}</option>
-                    ))}
+                        {this.state.beaches.map(beach => (
+                            <option key={beach.spot_id} value={beach.spot_id}>{beach.spot_name}</option>
+                        ))}
                     </select>&#160;
                     <button className="btn btn-success" onClick={this.handleButtonCLick}>Go</button>
-                    <ForecastContainer forecast={this.state.forecast}/>
-            </div>
-        </div >
-    )
+                    <ForecastContainer forecast={this.state.forecast} />
+                </div>
+            </div >
+        )
 
     }
 
