@@ -19,7 +19,7 @@ class ProfileEdit extends Component {
         exp: "",
         favBeaches: "",
         bio: "",
-        instructor:false
+        instructor: false
     };
 
     componentDidMount() {
@@ -42,42 +42,41 @@ class ProfileEdit extends Component {
 
     handleRadioButton = event => {
         event.target.value === 'option2' ? this.setState({ instructor: false }) : this.setState({ instructor: true })
-        console.log(this.state.instructor)
     }
 
     handleSubmitButton = event => {
         event.preventDefault();
         API.updateFieldUser(this.state.userID, this.state).then(res => {
             console.log(this.state)
-            this.setState({
-                picURL: this.state.picURL,
-                firstName: this.state.firstName,
-                middleInitial: this.state.middleInitial,
-                lastName: this.state.lastName,
-                email: this.state.email,
-                location: this.state.location,
-                board: this.state.board,
-                exp: this.state.exp,
-                favBeaches: this.state.favBeaches,
-                bio: this.state.bio,
-                instructor:this.state.instructor
-            })
+            // this.setState({
+            //     picURL: this.state.picURL,
+            //     firstName: this.state.firstName,
+            //     middleInitial: this.state.middleInitial,
+            //     lastName: this.state.lastName,
+            //     email: this.state.email,
+            //     location: this.state.location,
+            //     board: this.state.board,
+            //     exp: this.state.exp,
+            //     favBeaches: this.state.favBeaches,
+            //     bio: this.state.bio,
+            //     instructor: this.state.instructor
+            // })
+            alert("Your changes have been saved");
+            this.props.history.replace(`/profile/${this.state.userID}`);
         });
-        alert("Your changes have been saved");
-        this.props.history.replace(`/profile/${this.state.userID}`);
+
     }
 
     handleInputChange = event => {
         // Getting the value and name of the input which triggered the change
         let value = event.target.value;
         const name = event.target.name;
-    
+
         // Updating the input's state
         this.setState({
-          [name]: value
+            [name]: value
         });
-        console.log(this.state)
-      };
+    };
 
 
     render() {

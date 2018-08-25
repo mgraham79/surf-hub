@@ -31,6 +31,7 @@ module.exports = {
   update: function(req, res) {
     let updateUserObject = {};
     console.log("updating")
+    req.body.instructor= req.body.instructor.toString()
     //if (req.body.username) updateUserObject.username = req.body.username;
     if (req.body.firstName) updateUserObject.firstName = req.body.firstName;
     if (req.body.lastName) updateUserObject.lastName = req.body.lastName;
