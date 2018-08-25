@@ -70,6 +70,7 @@ class Report extends Component {
     });
   };
 
+
   getBeaches = () => {
     API.getListOfBeaches()
       .then(res => {
