@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Nav from "../Nav"
 import SocketFormComponent from "../SocketForm/SocketFormComponent"
 import "./ViewProfile.css";
-import {sockets} from "../../utils/Sockets"
+import { sockets } from "../../utils/Sockets"
 import FindInstructorButton from "../findInstructorButton/FindInstructorButton"
 
 class ViewProfile extends Component {
@@ -24,25 +24,26 @@ class ViewProfile extends Component {
     bio: "",
     connect: false,
     sessionStarted: false,
-    instructorReserved: false
+    instructorReserved: false,
+    chatting: false
   };
 
   handleCreateLesson = () => {
     console.log("clicked create lesson")
-    API.saveSession({clientID:localStorage.getItem('user'), instructorID: this.props.match.params.id})
-    .then(result=>{
-      this.setState({sessionStarted:true})
-      console.log(result.data._id)
-    })
+    API.saveSession({ clientID: localStorage.getItem('user'), instructorID: this.props.match.params.id })
+      .then(result => {
+        this.setState({ sessionStarted: true })
+        console.log(result.data._id)
+      })
     sockets.sendMessage({
       text: `User Id ${localStorage.getItem('user')} created a session... Waiting for reply to start`,
       to: this.props.match.params.id
     })
-    API.updateFieldUser(this.props.match.params.id, {reserved: true})
-    .then(result => {
-      this.setState({instructorReserved: true})
-    })
-    .catch(err => console.log(err))
+    API.updateFieldUser(this.props.match.params.id, { reserved: true })
+      .then(result => {
+        this.setState({ instructorReserved: true })
+      })
+      .catch(err => console.log(err))
   }
 
 
@@ -65,26 +66,41 @@ class ViewProfile extends Component {
     });
   }
 
+  handleButtonChat = () => {
+    if (!this.state.chatting) {
+      this.setState({ chatting: true })
+    }
+    else {
+      this.setState({ chatting: false })
+    }
+  }
+
   render() {
     console.log(this.state);
-    if(!this.state.instructorReserved){
-    var buttonSession;
-    if(!this.state.sessionStarted){
-      buttonSession=<button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-success">Create Lesson With This Instructor</button>
+    if (!this.state.chatting) {
+      var buttonChat = <button onClick={this.handleButtonChat} type="button" className="btn-primary">Start Chat</button>
+    } else {
+      var buttonChat = <button onClick={this.handleButtonChat} type="button" className="btn-primary">Close Chat</button>
     }
-    else{
-      buttonSession=<button type="button" className="btn-primary btn-danger">End Lesson With This Instructor</button>
+
+    if (!this.state.instructorReserved&& this.state.chatting) {
+      var buttonSession;
+      if (!this.state.sessionStarted) {
+        buttonSession = <button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-success">Create Lesson With This Instructor</button>
+      }
+      else {
+        buttonSession = <button type="button" className="btn-primary btn-danger">End Lesson With This Instructor</button>
+      }
     }
-  }
-  else{
-    var buttonSession= <button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-secondary" disabled>Create Lesson With This Instructor</button>
-  }
+    else {
+      var buttonSession = <button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-secondary" disabled>Create Lesson With This Instructor</button>
+    }
 
     return (
       <div>
         <Nav />
         <div className="container Profile">
-        <FindInstructorButton />
+          {this.props.isInstructor ?<div></div>:<FindInstructorButton />}
           <div className="w3-content w3-margin-top" id="w3-content">
             <div className="w3-row-padding">
               <div className="w3-third">
@@ -147,14 +163,14 @@ class ViewProfile extends Component {
                     <i className="fa fa-clipboard fa-fw w3-margin-right w3-xxlarge text-dark-blue"></i>About Me</h2>
                   <span id="myBio">{this.state.bio}</span>
                 </div>
-                <button type="button" className="btn-primary">Start Chat</button>
+                {buttonChat}
                 {buttonSession}
               </div>
             </div>
           </div>
         </div>
         <div className="container">
-          <SocketFormComponent instructor={this.props.match.params.id}/>
+          {(this.state.chatting === true) ? <SocketFormComponent instructor={this.props.match.params.id} /> : <div> </div>}>
         </div>
       </div>
     )
