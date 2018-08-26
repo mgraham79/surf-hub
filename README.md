@@ -1,29 +1,44 @@
-# Create React Express App
+# SURF HUB
 
-## About This Boilerplate
+## Connecting those who want to learn how to surf with surf instructors
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+* SURF HUB allows you to immediately get in touch with the surf instructors that are availble to teach you at the beach of your choice.
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+    SURF HUB's Splash page:
+    ![SURF HUB's Splash page](/client/public/imagesREADME/SplashPage.JPG)
 
-## Starting the app locally
+* SURF HUB lists the available surf instructors at the beach you select. You do not need to wait. You can see who is available to to teach you right now at the beach that you select.
 
-Start by installing front and backend dependencies. While in this directory, run the following command:
+    SURF HUB's Available Instructors at the Beach of Your Choice:
+    ![SURF HUB's Available Instructors at the Beach of Your Choice:](/client/public/imagesREADME/ListOfInstructors.JPG)
 
-```
-yarn install
-```
+* SURF HUB has a real-time chat system that allows you to chat with an available instructor and set up a lesson.
 
-This should install node modules within the server and the client folder.
+    SURF HUB's Chat page:
+    ![SURF HUB's Chat page](/client/public/imagesREADME/ChatPage.JPG)
 
-After both installations complete, run the following command in your terminal:
+* SURF HUB has a profile page where you can view an instructor's profile.
 
-```
-yarn start
-```
+    Instructor's Profile page:
+    ![Instructor's Profile page](/client/public/imagesREADME/InstructorProfile.JPG)
 
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+* Each user of SURF HUB will have their own has a profile page.
 
-## Deployment (Heroku)
+    User's Profile page:
+    ![User's Profile page](/client/public/imagesREADME/UserProfile.JPG)    
 
-To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest.
+* If you are a surf instructor, SURF HUB connects you with available students that want a lesson at your current beach location. The real-time chat system allows you to set up the time and terms of the lesson.
+
+    Instructor's Chat page:
+    ![Instructor's Chat page](/client/public/imagesREADME/InstructorsChatPage.JPG)    
+
+
+* The SURF HUB site has surf reports for various beaches.
+
+    SURF HUB's Splash page:
+    ![SURF HUB's Splash page](/client/public/imagesREADME/SurfReport.JPG)    
+
+* The SURF HUB site also has instructional surfing videos to watch.
+
+    SURF HUB's Instructional Videos page:
+    ![SURF HUB's Instructional Videos page](/client/public/imagesREADME/InstructionalVideos.JPG)    
