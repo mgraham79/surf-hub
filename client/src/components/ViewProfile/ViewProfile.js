@@ -83,7 +83,7 @@ class ViewProfile extends Component {
       var buttonChat = <button onClick={this.handleButtonChat} type="button" className="btn-primary">Close Chat</button>
     }
 
-    if (!this.state.instructorReserved&& this.state.chatting) {
+    if (!this.state.instructorReserved && this.state.chatting) {
       var buttonSession;
       if (!this.state.sessionStarted) {
         buttonSession = <button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-success">Create Lesson With This Instructor</button>
@@ -100,7 +100,7 @@ class ViewProfile extends Component {
       <div>
         <Nav />
         <div className="container Profile">
-          {this.props.isInstructor ?<div></div>:<FindInstructorButton />}
+          {this.props.isInstructor ? <div></div> : <FindInstructorButton />}
           <div className="w3-content w3-margin-top" id="w3-content">
             <div className="w3-row-padding">
               <div className="w3-third">
@@ -165,13 +165,17 @@ class ViewProfile extends Component {
                 </div>
                 {buttonChat}
                 {buttonSession}
+                <br />
+                <br />
+                <br />
+                <div className="container" id="view-messages">
+                  {(this.state.chatting === true) ? <SocketFormComponent instructor={this.props.match.params.id} /> : <div> </div>}>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="container">
-          {(this.state.chatting === true) ? <SocketFormComponent instructor={this.props.match.params.id} /> : <div> </div>}>
-        </div>
+
       </div>
     )
   }
