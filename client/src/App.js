@@ -153,6 +153,9 @@ class App extends Component {
         <Nav />
         <FindInstructorButton />
         {conditionalSession}
+        <br />
+        <br />
+        <br />
         {conditionalChat}
       </div>
     );

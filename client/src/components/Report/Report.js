@@ -86,7 +86,11 @@ class Report extends Component {
         <Nav />
         <FindInstructorButton />
         <div className="container" id="bg" style={{ marginTop: "20px" }}>
-          <h1>Surf Report</h1>
+          <div id="DataSource">
+            <h1>Surf Report</h1>
+            Data Source: Spitcast<br></br>
+            <div id="SpitcastLink"><a href=" http://www.spitcast.com/">www.spitcast.com</a></div>
+          </div>
           <label name="Beach">Choose a Beach</label>
           <select
             value={this.state.location}

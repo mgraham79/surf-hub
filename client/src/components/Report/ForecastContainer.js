@@ -63,12 +63,6 @@ const ForecastContainer= (props)=>{
         data={props.chartObj}
       />
         
-
-          <div id="DataSource">
-          Data Source: Spitcast<br></br>
-          <div id="SpitcastLink"><a href=" http://www.spitcast.com/">Spitcast Link</a></div>
-          </div>
-        
         </div> 
 
       </div>
