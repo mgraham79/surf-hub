@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {sockets} from '../../utils/Sockets';
+import React, { Component } from 'react';
+import { sockets } from '../../utils/Sockets';
 import './SocketForm.css';
 
 class SocketForm extends Component {
@@ -17,7 +17,7 @@ class SocketForm extends Component {
     super(props);
     sockets.listenForMessage(data => {
       let messages = [...this.state.messages, data];
-      this.setState({messages: messages})
+      this.setState({ messages: messages })
     });
     console.log(props)
     sockets.join(props.instructor || localStorage.getItem('user'))
@@ -25,7 +25,7 @@ class SocketForm extends Component {
 
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     // Updating the input's state
     this.setState({
       [name]: value
@@ -36,19 +36,32 @@ class SocketForm extends Component {
     event.preventDefault();
     console.log(this.props);
     sockets.sendMessage({
-        from: window.location.pathname.startsWith("/v") ? "client" : 'instructor',
-        text:this.state.message,
-        to: this.props.instructor || localStorage.getItem('user')
+      from: window.location.pathname.startsWith("/v") ? "client" : 'instructor',
+      text: this.state.message,
+      to: this.props.instructor || localStorage.getItem('user')
     });
-    this.setState({message: ""});
+    this.setState({ message: "" });
   };
 
   render() {
     return (
-      <div>
-        <p>Received Messages:</p>
-        <ul className="message-container">
-          {this.state.messages.map(message => <li key={message.text}>{(message.from==="client" ? `Client : ${message.text}`: `Instructor: ${message.text}`)}</li>)}
+      <section className="module">
+        <header className="top-bar">
+          <h1>Received Messages:</h1>
+        </header>
+        <ul className="conversation">
+          {this.state.messages.map(message =>
+            <li className={(message.from === 'client' ? `client` : `instructor`)} key={message.text}>
+              <div className="avatar">
+          <img src={(message.from === `client` ? "https://clinicforspecialchildren.org/wp-content/uploads/2016/08/avatar-placeholder.gif" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR1IUKek7WvFiEbnJ9AuWyZTI5TYmaGC5e7KV8LIz-I2xV8wHj5Q")} alt="avatar"/>
+                
+              </div>
+              <div className="messages">
+                <p>{message.text}</p>
+              </div>
+            </li>
+            
+          )}
         </ul>
         <form className="form-inline">
           <div className="form-group">
@@ -63,7 +76,7 @@ class SocketForm extends Component {
           </div>
           <button type="submit" className="btn btn-primary" onClick={this.submitForm}>Submit</button>
         </form>
-      </div>
+      </section>
     );
   }
 }
