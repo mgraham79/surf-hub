@@ -158,6 +158,9 @@ if(!this.state.instructor){
         {this.state.instructor ? <div></div> :<FindInstructorButton />}
         {conditionalSession}
         {videoEmbed}
+        <br />
+        <br />
+        <br />
         {conditionalChat}
       </div>
     );
