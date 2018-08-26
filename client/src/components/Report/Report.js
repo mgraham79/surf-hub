@@ -18,8 +18,7 @@ class Report extends Component {
     minWaveHeight: 0,
     chartObj: [],
   };
-  // have a function that goes to the api that give us nearest beaches
-  //spitcast API Endpoint api/spot/nearby?longitude=...?latitude=...
+ 
 
   componentDidMount() {
     this.getBeaches();
@@ -30,8 +29,8 @@ class Report extends Component {
     API.getForecast(this.state.location).then(result => {
       this.setState({ forecast: result.data });
       console.log("Forecast: ", this.state.forecast);
-      // Creating an Array of Wave Heights
 
+      // Creating an Array of Wave Heights
       const NewWaveHeight = result.data.map(forecastData => {
         return forecastData.size_ft;
       });
@@ -39,12 +38,12 @@ class Report extends Component {
       this.setState({ waveHeight: NewWaveHeight })
       //console.log("Wave Heights (ft): ", waveHeight);
 
-      //     // Determining the maximum wave height
+      // Determining the maximum wave height
       const NewMaxWaveHeight = Math.max(...NewWaveHeight);
       this.setState({ maxWaveHeight: NewMaxWaveHeight })
       console.log("maxWaveHeight (ft): ", this.state.maxWaveHeight);
 
-      //     // Determining the minimum wave height
+      // Determining the minimum wave height
       const NewMinWaveHeight = Math.min(...NewWaveHeight);
       this.setState({ minWaveHeight: NewMinWaveHeight })
       console.log("minWaveHeight (ft): ", this.state.minWaveHeight);
@@ -119,4 +118,4 @@ class Report extends Component {
   }
 }
 export default Report;
-//export default withAuth(Report)
+
