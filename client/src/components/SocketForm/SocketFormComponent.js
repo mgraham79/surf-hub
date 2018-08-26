@@ -47,20 +47,20 @@ class SocketForm extends Component {
     return (
       <section className="module">
         <header className="top-bar">
-          <h1>Received Messages:</h1>
+          <h1>Messages:</h1>
         </header>
         <ul className="conversation">
           {this.state.messages.map(message =>
             <li className={(message.from === 'client' ? `client` : `instructor`)} key={message.text}>
               <div className="avatar">
-          <img src={(message.from === `client` ? "https://clinicforspecialchildren.org/wp-content/uploads/2016/08/avatar-placeholder.gif" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR1IUKek7WvFiEbnJ9AuWyZTI5TYmaGC5e7KV8LIz-I2xV8wHj5Q")} alt="avatar"/>
-                
+                <img src={(message.from === `client` ? "https://clinicforspecialchildren.org/wp-content/uploads/2016/08/avatar-placeholder.gif" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR1IUKek7WvFiEbnJ9AuWyZTI5TYmaGC5e7KV8LIz-I2xV8wHj5Q")} alt="avatar" />
+
               </div>
               <div className="messages">
                 <p>{message.text}</p>
               </div>
             </li>
-            
+
           )}
         </ul>
         <form className="form-inline">
@@ -70,11 +70,11 @@ class SocketForm extends Component {
               name="message"
               onChange={this.handleInputChange}
               type="text"
-              placeholder="your message"
-              className="form-control"
+              placeholder="Type messages here"
+              className="form-control" id="type-messages"
             />
           </div>
-          <button type="submit" className="btn btn-primary" onClick={this.submitForm}>Submit</button>
+          <button type="submit" className="btn-primary" onClick={this.submitForm}>Submit</button>
         </form>
       </section>
     );

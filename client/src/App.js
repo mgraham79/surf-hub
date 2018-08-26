@@ -132,9 +132,11 @@ class App extends Component {
   render() {
     var conditionalSession
     var conditionalChat;
-    if (this.props.isInstructor) {
-      conditionalChat = <SocketFormComponent />
-    }
+    <div className="jumbotron" id="jumbo-messages">
+      if (this.props.isInstructor) {
+        conditionalChat = <SocketFormComponent />
+      }
+    </div>
 
     if(this.props.isInstructor){
     if (this.state.sessionAvailable && this.state.availableSessionData.sessionStart && !this.state.availableSessionData.sessionEnd) {
