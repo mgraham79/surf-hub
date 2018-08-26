@@ -1,8 +1,9 @@
 import React from "react";
 import "./Nav.css";
 import {Link} from "react-router-dom"
+import withAuth from "../withAuth"
 
-const Nav = () => (
+const Nav = (props) => (
 
 
   <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -43,10 +44,10 @@ const Nav = () => (
         
       </ul>
       
-          <Link to="/goAvailable"><button className="btn btn-outline-success my-2 my-sm-0" type="button">Go Available</button></Link>
+{props.isInstructor ? <Link to="/goAvailable"><button className="btn btn-outline-success my-2 my-sm-0" type="button">Go Available</button></Link>:<button onClick={()=>alert("You do not have Instructor privileges")} className="btn btn-outline-danger my-2 my-sm-0" type="button">Go Available</button>}
 </div>
 </nav>
 
     );
     
-    export default Nav;
+    export default withAuth(Nav);

@@ -11,7 +11,8 @@ module.exports = {
   findAllAtBeach: function(req,res){
     var object= {
       location: req.params.beach,
-      available: true
+      available: true,
+      instructor: true
     }
     db.User.find(object)
     .then(dbModel=> res.json(dbModel))

@@ -136,6 +136,7 @@ class App extends Component {
       conditionalChat = <SocketFormComponent />
     }
 
+    if(this.props.isInstructor){
     if (this.state.sessionAvailable && this.state.availableSessionData.sessionStart && !this.state.availableSessionData.sessionEnd) {
       // if (this.state.availableSessionData.sessionStart && !this.state.availableSessionData.sessionEnd){
       conditionalSession = <div className="container"><button type="button" onClick={this.handleEndSession} className="btn-primary btn-danger">End Session With ClientID {this.state.availableSessionData.clientID}</button></div>
@@ -147,12 +148,16 @@ class App extends Component {
     else {
       conditionalSession = <div disabled className="container"><button type="button" className="btn-primary btn-secondary">Refresh Page To Start Session When Request Is Made In Chat</button></div>
     }
-
+  }
+if(!this.state.instructor){
+      var videoEmbed=<div className="container"><iframe width="560" style={{marginTop:"50px"}} height="315" src="https://www.youtube.com/embed/--tz9JxNxss" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+    }
     return (
       <div>
         <Nav />
-        <FindInstructorButton />
+        {this.state.instructor ? <div></div> :<FindInstructorButton />}
         {conditionalSession}
+        {videoEmbed}
         {conditionalChat}
       </div>
     );
