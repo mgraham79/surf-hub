@@ -54,7 +54,7 @@ class SocketForm extends Component {
             <li className={(message.from === 'client' ? `client` : `instructor`)} key={message.text}>
               <div className="avatar">
           <img src={(message.from === `client` ? "https://clinicforspecialchildren.org/wp-content/uploads/2016/08/avatar-placeholder.gif" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR1IUKek7WvFiEbnJ9AuWyZTI5TYmaGC5e7KV8LIz-I2xV8wHj5Q")} alt="avatar"/>
-                
+              
               </div>
               <div className="messages">
                 <p>{message.text}</p>
