@@ -35,7 +35,8 @@ class ProfileEdit extends Component {
                 board: res.data.board,
                 exp: res.data.exp,
                 favBeaches: res.data.favBeaches,
-                bio: res.data.bio
+                bio: res.data.bio,
+                instructor: res.data.instructor
             })
         });
     }
@@ -154,7 +155,7 @@ class ProfileEdit extends Component {
                                     <input type="radio" name="true" onChange={this.handleRadioButton} value='option1' checked={this.state.instructor} /> <label for="HTML news">Totally!</label>
                                 </p>
                                 <p>
-                                    <input type="radio" name="true" onChange={this.handleRadioButton} value='option2' checked={!this.state.instructor} /> <label for="HTML news">No way!</label>
+                                    <input type="radio" name="false" onChange={this.handleRadioButton} value='option2' checked={!this.state.instructor} /> <label for="HTML news">No way!</label>
                                 </p>
                                 <div style={{ display: "none" }} id="alert" className="alert alert-danger" role="alert">
                                     <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
