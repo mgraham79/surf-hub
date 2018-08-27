@@ -47,7 +47,7 @@ const Nav = (props) => (
           <Link to="/editprofile"><a className="nav-link">Edit Profile</a></Link>        
         </li>
         <li className="nav-item">
-          <a onClick={handleLogout}className="nav-link">Logout</a>
+          <Link to="/"><a onClick={handleLogout}className="nav-link">Logout</a></Link>
         </li>
         
       </ul>
