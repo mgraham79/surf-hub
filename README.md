@@ -2,7 +2,7 @@
 
 ## Connecting those who want to learn how to surf with surf instructors
 
-* SURF HUB allows you to immediately get in touch with the surf instructors that are availble to teach you at the beach of your choice.
+* SURF HUB allows you to immediately get in touch with the surf instructors that are availble to teach you at the beach of your choice!
 
     ![SURF HUB's Splash page](/client/public/imagesREADME/SplashPage.JPG)
     
