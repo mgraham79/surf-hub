@@ -71,7 +71,7 @@ class SocketForm extends Component {
               onChange={this.handleInputChange}
               type="text"
               placeholder="Type messages here"
-              className="form-control" id="type-messages"
+              className="form-control"
             />
           </div>
           <button type="submit" className="btn-primary" onClick={this.submitForm}>Submit</button>
