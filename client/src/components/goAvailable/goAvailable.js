@@ -10,13 +10,11 @@ class goAvailable extends Component {
         beaches: [],
         location: 0
     }
-    // have a function that goes to the api that give us nearest beaches
-    //spitcast API Endpoint api/spot/nearby?longitude=...?latitude=...
+   
 
     componentWillMount() {
         this.getBeaches()
         console.log(this.state.beaches)
-        //localStorage.setItem("user", "5b7cf350ce82af16010bcd41");
     }
 
 
@@ -33,6 +31,7 @@ class goAvailable extends Component {
                 console.log("Available")
             })
             .catch(err => console.log(err))
+            this.props.history.replace("/home")
     }
 
     handleButtonCLickNotAvailable = () => {
@@ -48,6 +47,7 @@ class goAvailable extends Component {
                 console.log("Not Available")
             })
             .catch(err => console.log(err))
+            this.props.history.replace("/home")
     }
 
 

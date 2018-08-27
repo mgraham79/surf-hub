@@ -1,0 +1,103 @@
+.top-bar {
+    background: #666;
+    position: relative;
+    overflow: hidden; 
+    margin: 0 auto;
+    height: 60px;
+    text-align: center;
+  }
+
+  .top-bar::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    bottom: -100%;
+    opacity: 0.25;
+    background: radial-gradient(white, black);
+  }
+
+  .top-bar > * {
+    position: relative;
+  }
+
+  .top-bar::before {
+    animation: pulse 1s ease alternate infinite;
+  }
+
+  @keyframes pulse {
+    from { opacity: 0; }
+    to { opacity: 0.5; }
+  }
+
+  .conversation li {
+    display: flex;
+    padding: 0.5rem;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .avatar {
+    width: 40px;
+  }
+
+  .avatar img {
+    width: 100%;
+    display: block;
+  }
+
+  .client {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .instructor .avatar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid white;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+  }
+
+  .client .avatar::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid white;
+    border-right-color: transparent;
+    border-top-color: transparent;
+  }
+
+  .client .avatar::after {
+    box-shadow: 1px 1px 2px rgba(black, 0.2);
+  }
+
+  .conversation {
+    list-style: none;
+    background: #e5e5e5;
+    margin: 0;
+    padding: 0 0 50px 0;
+    height: 240px;
+    overflow-y: scroll;
+    margin: 0 auto;
+  }
+
+  .form-group {
+      margin: 0 auto;
+  }
+
+  #type-messages {
+    width: 0 auto;
+  }
+
+  p {
+      font-size: 12px;
+  }
