@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3001;
 const axios = require("axios");
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+require('dotenv').config();
 
 
 const db = require("./models");
@@ -29,7 +30,7 @@ if (process.env.NODE_ENV === "production") {
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/surfHub', { useNewUrlParser: true });
 
 const isAuthenticated = exjwt({
-  secret: 'surfs up moondoggies'
+  secret: process.env.TOKEN
 });
 
 // LOGIN ROUTE
@@ -39,7 +40,7 @@ app.post('/api/login', (req, res) => {
   }).then(user => {
     user.verifyPassword(req.body.password, (err, isMatch) => {
       if(isMatch && !err) {
-        let token = jwt.sign({ id: user._id, email: user.email }, 'surfs up moondoggies', { expiresIn: 129600 }); // Sigining the token
+        let token = jwt.sign({ id: user._id, email: user.email }, process.env.TOKEN, { expiresIn: 129600 }); // Sigining the token
         res.json({success: true, message: "Token Issued!", token: token, user: user});
       } else {
         res.status(401).json({success: false, message: "Authentication failed. Wrong password."});
