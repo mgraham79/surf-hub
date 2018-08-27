@@ -64,7 +64,7 @@ class Signup extends Component {
             //<body className="login-body">
             <div>
                 <LogoNav />
-                <div className="container" id="loginSize">&nbsp;<br />
+                <div className="container">&nbsp;<br />
                     <div id="bg">
                         <div className="row">
                             <div className="col-md-6 col-md-offset-3">
@@ -129,7 +129,7 @@ class Signup extends Component {
                                     </div>
                                     <p>
                                         <label id="lab"><strong>Bio</strong></label>
-                                        <textarea rows='5' cols='90' className="myBio" name="bio" value={this.state.bio} placeholder="Tell us a little about yourself"></textarea>
+                                        <textarea rows='5' cols='100' className="myBio" name="bio" value={this.state.bio} placeholder="Tell us a little about yourself"></textarea>
                                     </p>
                                     <label for="true_false_radio"><strong>I am interested in giving lessons</strong></label>
                                     <p>

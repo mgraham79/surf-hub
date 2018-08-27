@@ -43,8 +43,10 @@ class Profile extends Component {
     return (
       <div>
         <Nav />
+        <FindInstructorButton />&nbsp;<br />
         <div className="container Profile">
-          <FindInstructorButton />
+          
+          <div id="bg">
           <div className="w3-content w3-margin-top" id="w3-content">
             <div className="w3-row-padding">
               <div className="w3-third">
@@ -114,6 +116,7 @@ class Profile extends Component {
             </div>
           </div>
         </div>
+      </div>
       </div>
     )
   }
