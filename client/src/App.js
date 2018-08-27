@@ -13,7 +13,7 @@ import goAvailable from "./components/goAvailable/goAvailable"
 import FindInstructorPage from "./components/FindInstructorPage/FindInstructorPage"
 import API from "./utils/API"
 import Nav from "./components/Nav"
-import SocketFormComponent from './components/SocketForm/SocketFormComponent';
+import SocketFormInstructor from './components/SocketForm/SocketFormInstructor';
 
 const axios = require("axios")
 const Auth = new AuthService();
@@ -32,12 +32,14 @@ class App extends Component {
     userId: this.props.user.id,
     profileLink: "",
     User: "JohnDoe",
+    location: "",
     latitude: 0,
     longitude: 0,
     beaches: [],
     sessionAvailable: false,
     availableSessionData: {},
-    instructor: this.props.isInstructor
+    instructor: this.props.isInstructor,
+    available:""
   };
 
 
@@ -62,7 +64,12 @@ class App extends Component {
     console.log("here")
     API.getUser(this.props.user.id)
       .then(result => {
-        this.setState({ instructor: result.data.instructor })
+        this.setState({
+          instructor: result.data.instructor,
+          location: result.data.location,
+          available: result.data.available,
+          User: result.data.firstName
+        })
         if (result.data.instructor) {
           console.log(this.props.user.id)
           API.getOpenSessionByInstructorID(this.props.user.id)
@@ -99,10 +106,13 @@ class App extends Component {
         this.setState({ availableSessionData: result.data })
       })
       .catch(err => (console.log(err)))
+      API.updateFieldUser(this.props.user.id, {available: "false"})
+      .then(result=> {this.setState({available:result.data.available})})
+      .catch(err => {(console.log(err))})
   }
 
   handleEndSession = () => {
-    var updateData= {
+    var updateData = {
       sessionEnd: Date.now(),
       ended: "true"
     }
@@ -132,38 +142,60 @@ class App extends Component {
   render() {
     var conditionalSession
     var conditionalChat;
-    <div className="jumbotron" id="jumbo-messages">
+    
       if (this.props.isInstructor) {
-        conditionalChat = <SocketFormComponent />
+        conditionalChat = <SocketFormInstructor />
       }
-    </div>
+  
+
+    if (this.props.isInstructor) {
+      if (this.state.sessionAvailable && this.state.availableSessionData.sessionStart && !this.state.availableSessionData.sessionEnd) {
+        // if (this.state.availableSessionData.sessionStart && !this.state.availableSessionData.sessionEnd){
+        conditionalSession = <div className="container"><button type="button" onClick={this.handleEndSession} className="btn-primary btn-danger">End Session With ClientID {this.state.availableSessionData.clientID}</button></div>
+        //break
+      }
+      else if (this.state.sessionAvailable) {
+        conditionalSession = <div className="container"><button type="button" onClick={this.handleStartSession} className="btn-primary btn-success">Start Session With ClientID {this.state.availableSessionData.clientID}</button></div>
+      }
+      else {
+        conditionalSession = <div disabled className="container"><button type="button" className="btn-primary btn-secondary">Refresh Page To Start Session When Request Is Made In Chat</button></div>
+      }
+    }
+    if (!this.state.instructor) {
+      var videoEmbed = <div className="container"><iframe width="560" style={{ marginTop: "50px" }} height="315" src="https://www.youtube.com/embed/--tz9JxNxss" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+    }
 
     if(this.props.isInstructor){
-    if (this.state.sessionAvailable && this.state.availableSessionData.sessionStart && !this.state.availableSessionData.sessionEnd) {
-      // if (this.state.availableSessionData.sessionStart && !this.state.availableSessionData.sessionEnd){
-      conditionalSession = <div className="container"><button type="button" onClick={this.handleEndSession} className="btn-primary btn-danger">End Session With ClientID {this.state.availableSessionData.clientID}</button></div>
-      //break
-    }
-    else if (this.state.sessionAvailable) {
-      conditionalSession = <div className="container"><button type="button" onClick={this.handleStartSession} className="btn-primary btn-success">Start Session With ClientID {this.state.availableSessionData.clientID}</button></div>
-    }
-    else {
-      conditionalSession = <div disabled className="container"><button type="button" className="btn-primary btn-secondary">Refresh Page To Start Session When Request Is Made In Chat</button></div>
-    }
-  }
-if(!this.state.instructor){
-      var videoEmbed=<div className="container"><iframe width="560" style={{marginTop:"50px"}} height="315" src="https://www.youtube.com/embed/--tz9JxNxss" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+    var instructorInfo= <div><h1>S'up {this.state.User}</h1><hr/>
+    <ul style={{listStyle:"none"}}>
+      <li><b>Your visible location is:</b><br/> {this.state.location.replace(/_/g," ")}</li>
+      <li><b>Availability:</b> <br/>{this.state.available.toString()}</li>
+      <li></li>
+    </ul>
+    </div>
     }
     return (
       <div>
         <Nav />
-        {this.state.instructor ? <div></div> :<FindInstructorButton />}
+        {this.state.instructor ? <div></div> : <FindInstructorButton />}
         {conditionalSession}
         {videoEmbed}
         <br />
         <br />
         <br />
-        {conditionalChat}
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6" style={{backgroundColor: "lightgray", opacity: ".8"}}>
+              {instructorInfo}
+            </div>
+            <div className="col-md-1">
+            </div>
+            <div className="col-md-5">
+              {conditionalChat}
+            </div>
+          </div>
+
+        </div>
       </div>
     );
   }
