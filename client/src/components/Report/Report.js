@@ -58,6 +58,7 @@ class Report extends Component {
 
                 <div className="container" id="bg" style={{ marginTop: "20px" }}>
                 <h1>Surf Report</h1>
+                <h2>Hello</h2>
                     <label name="Beach">Choose a Beach</label>
                     <select value={this.state.location} onChange={this.handleSelectChange}>
                     {this.state.beaches.map(beach => (

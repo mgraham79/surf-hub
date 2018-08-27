@@ -23,7 +23,7 @@ li {
 }
 
 #logo{
-  position: absolute;
-    top: 80px;
-    right: 0;
+  
+    float: right;
+    margin: 0px 200px 0px 0px;
 }
