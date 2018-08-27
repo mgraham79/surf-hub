@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './Splash.css';
 import { Link } from "react-router-dom"
 import AuthService from '../AuthService';
+import splashImg from './SurfHub_Main_LogIn.png';
 
 class Splash extends Component {
 
@@ -26,7 +27,7 @@ class Splash extends Component {
                 <h2>Connecting people with expert surfers</h2>
                 <ul>
                     <li>Teach surfing and make money!</li>
-                    <li>Find an instructor &amp; learn to surf</li><img src="/images/SurfHub_Main_Login.png" id="logo"/>
+                    <li>Find an instructor &amp; learn to surf</li><img src={splashImg} id="logo"/>
                     <li>Check surf reports for various beaches</li>
                     {/* <li>Links to beach webcams</li>
                     <li>Find surf equipment rentals</li> */}
