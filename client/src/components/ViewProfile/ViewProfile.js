@@ -101,6 +101,7 @@ class ViewProfile extends Component {
         <Nav />
         <div className="container Profile">
           {this.props.isInstructor ? <div></div> : <FindInstructorButton />}
+          <div id="bg">
           <div className="w3-content w3-margin-top" id="w3-content">
             <div className="w3-row-padding">
               <div className="w3-third">
@@ -171,13 +172,13 @@ class ViewProfile extends Component {
                 <br />
                 <br />
                 <div className="container" id="view-messages">
-                  {(this.state.chatting === true) ? <SocketFormComponent instructor={this.props.match.params.id} /> : <div> </div>}>
+                  {(this.state.chatting === true) ? <SocketFormComponent instructor={this.props.match.params.id} /> : <div> </div>}
                 </div>
               </div>
             </div>
           </div>
         </div>
-
+        </div>
       </div>
     )
   }
