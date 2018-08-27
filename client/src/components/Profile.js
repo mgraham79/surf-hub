@@ -42,9 +42,9 @@ class Profile extends Component {
     console.log(this.props)
     return (
       <div>
+        <Nav />
         <div className="container Profile">
-          <Nav/>
-          <FindInstructorButton/>
+          <FindInstructorButton />
           <div className="w3-content w3-margin-top" id="w3-content">
             <div className="w3-row-padding">
               <div className="w3-third">
@@ -88,14 +88,16 @@ class Profile extends Component {
                         <i className="fa fa-envelope fa-fw w3-margin-right w3-large text-dark-blue"></i>Experience: </b>
                       <span id="experience">{this.state.exp}</span>
                     </p>
+                    <hr />
                   </div>
-                  <hr />
 
+                  <div className="w3-container">
                   <p>
                     <b>
                       <i className="fa fa-envelope fa-fw w3-margin-right w3-large text-dark-blue"></i>Favorite Beach: </b>
                     <span id="favBeaches">{this.state.favBeaches}</span>
                   </p>
+                </div>
                 </div>
                 <hr />
               </div>

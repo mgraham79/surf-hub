@@ -35,6 +35,7 @@ class FindInstructorPage extends Component {
         this.setState({
             location: selectedLocation.replace(/ /g, "_")
         });
+        console.log(this.state.location)
     }
 
 
@@ -42,7 +43,8 @@ class FindInstructorPage extends Component {
     getBeaches = () => {
         API.getListOfBeaches()
             .then(res => {
-                this.setState({ beaches: res.data })
+                const beachList = [{ spot_id: 12345, spot_name: 'Select a beach' }, ...res.data]
+                this.setState({ beaches: beachList })
                 console.log(res.data)
             })
             .catch(err => console.log(err))

@@ -9,8 +9,12 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findAllAtBeach: function(req,res){
-    var string= req.params.beach.replace(" ", "_")
-    db.User.find({location: string, available: true},)
+    var object= {
+      location: req.params.beach,
+      available: true,
+      instructor: true
+    }
+    db.User.find(object)
     .then(dbModel=> res.json(dbModel))
     .catch(err=>res.status(422).json(err))
   },
@@ -28,6 +32,8 @@ module.exports = {
   update: function(req, res) {
     let updateUserObject = {};
     console.log("updating")
+    if(req.body.hasOwnProperty("instructor")){
+    req.body.instructor= req.body.instructor.toString()}
     //if (req.body.username) updateUserObject.username = req.body.username;
     if (req.body.firstName) updateUserObject.firstName = req.body.firstName;
     if (req.body.lastName) updateUserObject.lastName = req.body.lastName;

@@ -1,8 +1,17 @@
 import React from "react";
 import "./Nav.css";
 import {Link} from "react-router-dom"
+import withAuth from "../withAuth"
+import AuthService from '../AuthService';
 
-const Nav = () => (
+
+const Auth = new AuthService();
+var handleLogout = () => {
+  Auth.logout();
+  window.location.reload();
+};
+
+const Nav = (props) => (
 
 
   <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -19,25 +28,34 @@ const Nav = () => (
         <li className="nav-item">
         <Link to="/Report"><a className="nav-link">Surf Reports</a></Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a className="nav-link" href="#">Beach Cams</a>
-        </li>
+        </li> */}
         <li className="nav-item">
           <Link to="/Videos"><a className="nav-link" >Videos</a></Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a className="nav-link" href="#">Surf Rentals</a>
+        </li> */}
+        {/* <li className="nav-item">
+          <a className="nav-link" href="#">Good Eats</a>
+        </li> */}
+        <li className="nav-item">
+          <Link to="/profile/My"><a className="nav-link">My Profile</a></Link>        
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Good Eats</a>
+          <Link to="/editprofile"><a className="nav-link">Edit Profile</a></Link>        
+        </li>
+        <li className="nav-item">
+          <Link to="/"><a onClick={handleLogout}className="nav-link">Logout</a></Link>
         </li>
         
       </ul>
       
-          <Link to="/goAvailable"><button className="btn btn-outline-success my-2 my-sm-0" type="button">Go Available</button></Link>
+{props.isInstructor ? <Link to="/goAvailable"><button className="btn btn-outline-success my-2 my-sm-0" type="button">Go Available</button></Link>:<button onClick={()=>alert("You do not have Instructor privileges")} className="btn btn-outline-danger my-2 my-sm-0" type="button">Go Available</button>}
 </div>
 </nav>
 
     );
     
-    export default Nav;
+    export default withAuth(Nav);

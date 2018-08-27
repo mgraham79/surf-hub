@@ -32,7 +32,7 @@ class Splash extends Component {
                     <li>Find surf equipment rentals</li>
                 </ul>
                 <a className="btn btn-primary btn-lg" href="/Signup" role="button">SIGN UP!</a>
-                <p class="text">Already have an account? Log in <a id="btn-link" href="/Signup">here</a>
+                <p class="text">Already have an account? Log in <a id="btn-link" href="/Login">here</a>
                 </p>
             </div>
 

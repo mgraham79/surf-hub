@@ -20,7 +20,7 @@ class Signup extends Component {
         firstName: "",
         lastName: "",
         middleInitial: "",
-        picURL: "",
+        picURL: "https://vignette.wikia.nocookie.net/doawk/images/1/14/Placeholder_person.jpg/revision/latest?cb=20100502070209",
         location: "",
         board: "",
         exp: "",
@@ -107,7 +107,7 @@ class Signup extends Component {
                                 <label className="text" for="boardType">Board Type / Preference</label>
                                 <br />
                                 <div className="dropList">
-                                    <select name="board">
+                                    <select name="board" id="exp">
                                         <option value="Bodyboard">Bodyboard</option>
                                         <option value="Kite Surf">Kite Surf</option>
                                         <option value="Longboard">Longboard</option>
@@ -121,7 +121,7 @@ class Signup extends Component {
                                 <label className="text" for="exp">Experience</label>
                                 <br />
                                 <div className="dropList">
-                                    <select name="exp">
+                                    <select name="exp" id="exp">
                                         <option value="Less than 1 year (I'm a Newb)">Less than 1 year (I'm a Newb)</option>
                                         <option value="1-2 years (I can hang)">1-2 years (I can hang)</option>
                                         <option value="3+ years (I'm a total pro, bro!)">3+ years (I'm a total pro, bro!)</option>
@@ -134,14 +134,14 @@ class Signup extends Component {
                             </div>
                             <p>
                                 <label>Bio</label>
-                                <textarea rows='8' cols='100' className="myBio" name="myBio" value={this.state.bio}placeholder="Tell us a little about yourself"></textarea>
+                                <textarea rows='5' cols='100' className="myBio" name="bio" value={this.state.bio}placeholder="Tell us a little about yourself"></textarea>
                             </p>
                             <label for="true_false_radio">I am interested in giving lessons</label>
                             <p>
-                                <input type="radio" name="true" onChange={this.handleRadioButton} value='option1' checked={this.state.instructor}/> <label for="HTML news">Totally!</label>
+                                <input type="radio" name="true-false" onChange={this.handleRadioButton} value='option1' checked={this.state.instructor}/> <label for="HTML news">Totally!</label>
                             </p>    
                             <p>
-                                <input type="radio" name="true" onChange={this.handleRadioButton} value='option2' checked={!this.state.instructor} /> <label for="HTML news">No way!</label>
+                                <input type="radio" name="true-false" onChange={this.handleRadioButton} value='option2' checked={!this.state.instructor} /> <label for="HTML news">No way!</label>
                             </p>
                             <div style={{ display: "none" }} id="alert" className="alert alert-danger" role="alert">
                                 <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { sockets } from '../../utils/Sockets';
-import './SocketForm.css';
+import './SocketFormInstructor.css';
 
 class SocketForm extends Component {
   state = {

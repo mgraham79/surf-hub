@@ -36,6 +36,7 @@ module.exports = {
     if (req.body.instructorID) updateSessionObject.instructorID = req.body.instructorID;
     if (req.body.sessionStart) updateSessionObject.sessionStart = req.body.sessionStart;
     if (req.body.sessionEnd) updateSessionObject.sessionEnd = req.body.sessionEnd;
+    if (req.body.ended) updateSessionObject.ended= req.body.ended
 
     db.Session.findOneAndUpdate({ _id: req.params.id }, updateSessionObject, {
       new: true

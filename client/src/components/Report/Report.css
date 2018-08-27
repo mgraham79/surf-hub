@@ -1,6 +1,40 @@
 #ex3 {
     background-color: lightblue;
     width: 510px;
-    height: 360px;
+    height: 435px;
     overflow: scroll;
 }
+
+#ChartLocation {
+    margin: auto;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    margin-left: 0px;
+}
+
+#ChartDate {
+    text-align: center;
+    margin-left: 0px;
+}
+
+#ChartMaxMin {
+    text-align: center;
+    margin-left: 0px;
+}
+
+#DataSource {
+    color: black;
+    text-align: center;
+    font-size: small;
+    margin-top: 10px;
+    padding-top: 0px;
+    margin-left: 0px;
+}
+
+#SpitcastLink a {
+    color: black;
+    text-decoration: underline;
+    margin-left: 0px;
+}
+
