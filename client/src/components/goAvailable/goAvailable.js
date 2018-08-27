@@ -31,6 +31,7 @@ class goAvailable extends Component {
                 console.log("Available")
             })
             .catch(err => console.log(err))
+            this.props.history.replace("/home")
     }
 
     handleButtonCLickNotAvailable = () => {
@@ -46,6 +47,7 @@ class goAvailable extends Component {
                 console.log("Not Available")
             })
             .catch(err => console.log(err))
+            this.props.history.replace("/home")
     }
 
 

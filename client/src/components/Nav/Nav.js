@@ -2,6 +2,14 @@ import React from "react";
 import "./Nav.css";
 import {Link} from "react-router-dom"
 import withAuth from "../withAuth"
+import AuthService from '../AuthService';
+
+
+const Auth = new AuthService();
+var handleLogout = () => {
+  Auth.logout();
+  window.location.reload();
+};
 
 const Nav = (props) => (
 
@@ -20,26 +28,26 @@ const Nav = (props) => (
         <li className="nav-item">
         <Link to="/Report"><a className="nav-link">Surf Reports</a></Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a className="nav-link" href="#">Beach Cams</a>
-        </li>
+        </li> */}
         <li className="nav-item">
           <Link to="/Videos"><a className="nav-link" >Videos</a></Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a className="nav-link" href="#">Surf Rentals</a>
-        </li>
-        <li className="nav-item">
+        </li> */}
+        {/* <li className="nav-item">
           <a className="nav-link" href="#">Good Eats</a>
-        </li>
+        </li> */}
         <li className="nav-item">
-          <Link to="/profile"><a className="nav-link">View Profile</a></Link>        
+          <Link to="/profile/My"><a className="nav-link">My Profile</a></Link>        
         </li>
         <li className="nav-item">
           <Link to="/editprofile"><a className="nav-link">Edit Profile</a></Link>        
         </li>
         <li className="nav-item">
-          <Link to="/logout"><a className="nav-link">Logout</a></Link>
+          <Link to="/"><a onClick={handleLogout}className="nav-link">Logout</a></Link>
         </li>
         
       </ul>
