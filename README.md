@@ -4,7 +4,7 @@
 
 * SURF HUB allows you to immediately get in touch with the surf instructors that are availble to teach you at the beach of your choice.
 
-    ![SURF HUB's Splash page](/client/public/imagesREADME/ListOfInstructors.JPG)
+    ![SURF HUB's Splash page](/client/public/imagesREADME/SplashPage1.JPG)
     
     SURF HUB's Splash page:
     ![SURF HUB's Available Instructors at the Beach of Your Choice:](/client/public/imagesREADME/ListOfInstructors.JPG)
