@@ -28,14 +28,13 @@
 
 * If you are a surf instructor, SURF HUB connects you with available students that want a lesson at your current beach location. The real-time chat system allows you to set up the time and terms of the lesson.
 
-    User's Profile page:
-    Instructor's Chat page:
+    Find Available Instructors at any Beach:
     ![Instructor's Chat page](/client/public/imagesREADME/InstructorsChatPage.JPG)    
 
 
 * The SURF HUB site has surf reports for various beaches.
 
-    SURF HUB's Splash page:
+    SURF HUB's Surf Reports:
     ![SURF HUB's Splash page](/client/public/imagesREADME/SurfReport.JPG)    
 
 * The SURF HUB site also has instructional surfing videos to watch.
