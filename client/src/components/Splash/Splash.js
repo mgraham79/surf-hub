@@ -28,8 +28,8 @@ class Splash extends Component {
                     <li>Teach surfing and make money!</li>
                     <li>Find an instructor &amp; learn to surf</li>
                     <li>Check surf reports for various beaches</li>
-                    <li>Links to beach webcams</li>
-                    <li>Find surf equipment rentals</li>
+                    {/* <li>Links to beach webcams</li>
+                    <li>Find surf equipment rentals</li> */}
                 </ul>
                 <a className="btn btn-primary btn-lg" href="/Signup" role="button">SIGN UP!</a>
                 <p class="text">Already have an account? Log in <a id="btn-link" href="/Login">here</a>
