@@ -93,10 +93,10 @@ class ProfileEdit extends Component {
                                     <label className="text" for="email">Email Address (required)</label>
                                     <input type="email" className="form-control" name="email" value={this.state.email} placeholder="Email" />
                                 </div>
-                                <div className="form-group">
+                                {/* <div className="form-group">
                                     <label className="text" for="password">Password (required)</label>
                                     <input type="password" className="form-control" name="password" value={this.state.password} placeholder="Password" />
-                                </div>
+                                </div> */}
                                 <div className="form-group">
                                     <label className="text" for="firstName">First Name (required)</label>
                                     <input type="text" className="form-control" name="firstName" value={this.state.firstName} placeholder="First name" />
