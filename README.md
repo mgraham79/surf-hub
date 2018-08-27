@@ -29,7 +29,7 @@
     SURF HUB's Client to Instructor Chat:
     ![Chat page](/client/public/imagesREADME/UserProfile.JPG)
 
-* If you are a surf instructor, SURF HUB connects you with available students that want a lesson at your current beach location. The real-time chat system allows you to set up the time and terms of the lesson.
+* If you are a wanting to learn how to surf, SURF HUB connects you with available instructors that are willig to give lessons at a beach location of your choice. The real-time chat system allows you to set up the time and terms of the lesson.
 
     Find Available Instructors at any Beach:
     ![Instructor's Chat page](/client/public/imagesREADME/InstructorsChatPage.JPG)    
