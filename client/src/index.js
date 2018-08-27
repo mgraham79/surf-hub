@@ -31,18 +31,18 @@ ReactDOM.render(
     <Router>
         <div>
             <Switch>
-            <Route exact path= "/viewprofile/:id" component={ViewProfile}/>
-            <Route exact path="/home" component={App} />
-            <Route exact path="/" component={Splash} />
-            <Route exact path="/splash" component={Splash} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/profile/:id" component={Profile} />
-            <Route exact path="/goAvailable" component={goAvailable} />
-            <Route exact path="/videos" component={Videos} />
-            <Route exact path="/editprofile" component={ProfileEdit} />
-            <Route exact path="/report" component={Report} />
-            <Route path="/findInstructor" component={FindInstructorPage} />
+                <Route exact path= "/viewprofile/:id" component={ViewProfile}/>
+                <Route exact path="/home" component={App} />
+                <Route exact path="/" component={Splash} />
+                <Route exact path="/splash" component={Splash} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
+                <Route exact path="/profile/:id" component={Profile} />
+                <Route exact path="/goAvailable" component={goAvailable} />
+                <Route exact path="/videos" component={Videos} />
+                <Route exact path="/editprofile" component={ProfileEdit} />
+                <Route exact path="/report" component={Report} />
+                <Route path="/findInstructor" component={FindInstructorPage} />
             </Switch>
         </div>
     </Router>
