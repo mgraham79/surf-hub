@@ -18,7 +18,7 @@
 
 * SURF HUB has a profile page where you can view an instructor's profile.
 
-    SURF HUB's Chat page:
+    Client's Profile page:
     ![Instructor's Profile page](/client/public/imagesREADME/InstructorProfile.JPG)
 
 * Each user of SURF HUB will have their own has a profile page.
