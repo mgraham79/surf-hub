@@ -84,13 +84,14 @@ class ProfileEdit extends Component {
         return (
             <body className="login-body">
                 <Nav />
-                <div className="container">
+                <div className="container">&nbsp;<br />
+                    <div id="bg">
                     <div className="row">
                         <div className="col-md-6 col-md-offset-3">
                             <h2 id="title-text">Edit Profile</h2>
                             <form onChange={this.handleInputChange} className="signup">
                                 <div className="form-group">
-                                    <label className="text" for="email">Email Address (required)</label>
+                                    <label className="text" for="email"><strong>Email</strong> (required)</label>
                                     <input type="email" className="form-control" name="email" value={this.state.email} placeholder="Email" />
                                 </div>
                                 {/* <div className="form-group">
@@ -98,27 +99,27 @@ class ProfileEdit extends Component {
                                     <input type="password" className="form-control" name="password" value={this.state.password} placeholder="Password" />
                                 </div> */}
                                 <div className="form-group">
-                                    <label className="text" for="firstName">First Name (required)</label>
+                                    <label className="text" for="firstName"><strong>First Name</strong> (required)</label>
                                     <input type="text" className="form-control" name="firstName" value={this.state.firstName} placeholder="First name" />
                                 </div>
                                 <div className="form-group">
-                                    <label className="text" for="lastName">Last Name</label>
+                                    <label className="text" for="lastName"><strong>Last Name</strong></label>
                                     <input type="text" className="form-control" name="lastName" value={this.state.lastName} placeholder="Last name" />
                                 </div>
                                 <div className="form-group">
-                                    <label className="text" for="middleInitial">Middle Initial</label>
+                                    <label className="text" for="middleInitial"><strong>Middle Initial</strong></label>
                                     <input type="text" className="form-control" name="middleInitial" value={this.state.middleInitial} placeholder="Middle Initial" />
                                 </div>
                                 <div className="form-group">
-                                    <label className="text" for="picURL">Profile Picture URL</label>
+                                    <label className="text" for="picURL"><strong>Profile Picture URL</strong></label>
                                     <input type="text" className="form-control" name="picURL" value={this.state.picUrl} placeholder="picURL" />
                                 </div>
                                 <div className="form-group">
-                                    <label className="text" for="location">Zip Code</label>
+                                    <label className="text" for="location"><strong>Zip Code</strong></label>
                                     <input type="text" className="form-control" name="location" value={this.state.location} placeholder="Zip Code" />
                                 </div>
                                 <div className="form-group">
-                                    <label className="text" for="boardType">Board Type / Preference</label>
+                                    <label className="text" for="boardType"><strong>Board Type / Preference</strong></label>
                                     <br />
                                     <div className="dropList">
                                         <select name="board" id="exp">
@@ -132,7 +133,7 @@ class ProfileEdit extends Component {
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <label className="text" for="exp">Experience</label>
+                                    <label className="text" for="exp"><strong>Experience</strong></label>
                                     <br />
                                     <div className="dropList">
                                         <select name="exp" id="exp">
@@ -143,19 +144,16 @@ class ProfileEdit extends Component {
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <label className="text" for="favBeaches">Favorite Beach</label>
+                                    <label className="text" for="favBeaches"><strong>Favorite Beach</strong></label>
                                     <input type="text" className="form-control" name="favBeaches" value={this.state.favBeaches} placeholder="Favorite Beach" />
                                 </div>
                                 <p>
-                                    <label>Bio</label>
+                                    <label id="lab"><strong>Bio</strong></label>
                                     <textarea rows='8' cols='100' className="myBio" name="bio" value={this.state.bio} placeholder="Tell us a little about yourself"></textarea>
                                 </p>
-                                <label for="true_false_radio">I am interested in giving lessons</label>
+                                <label for="true_false_radio"><strong>I am interested in giving lessons</strong></label>
                                 <p>
-                                    <input type="radio" name="true" onChange={this.handleRadioButton} value='option1' checked={this.state.instructor} /> <label for="HTML news">Totally!</label>
-                                </p>
-                                <p>
-                                    <input type="radio" name="false" onChange={this.handleRadioButton} value='option2' checked={!this.state.instructor} /> <label for="HTML news">No way!</label>
+                                    <input type="radio" name="true" onChange={this.handleRadioButton} value='option1' checked={this.state.instructor} /> <label for="HTML news" id="lab"><strong>Totally!</strong></label> &nbsp; <input type="radio" name="false" onChange={this.handleRadioButton} value='option2' checked={!this.state.instructor} /> <label for="HTML news" id="lab"><strong>No way!</strong></label>
                                 </p>
                                 <div style={{ display: "none" }} id="alert" className="alert alert-danger" role="alert">
                                     <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -165,6 +163,7 @@ class ProfileEdit extends Component {
                                 <button className="btn btn-primary" id="submit-btn" onClick={this.handleSubmitButton}>Update</button>
                             </form>
                         </div>
+                    </div>
                     </div>
                 </div>
             </body>

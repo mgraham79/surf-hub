@@ -43,8 +43,10 @@ class Profile extends Component {
     return (
       <div>
         <Nav />
+        <FindInstructorButton />&nbsp;<br />
         <div className="container Profile">
-          <FindInstructorButton />
+          
+          <div id="bg">
           <div className="w3-content w3-margin-top" id="w3-content">
             <div className="w3-row-padding">
               <div className="w3-third">
@@ -52,7 +54,7 @@ class Profile extends Component {
                   <div className="w3-display-container">
                     <img id="userphoto" src={this.state.picURL} alt="Avatar" />
                     <div className="w3-display-top w3-container w3-text-black">
-                      <h2>
+                      <h2 id="tag">
                         <b>
                           <span id="user-name">{this.state.firstName + " " + this.state.middleInitial + " " + this.state.lastName}</span>
                         </b>
@@ -114,6 +116,7 @@ class Profile extends Component {
             </div>
           </div>
         </div>
+      </div>
       </div>
     )
   }

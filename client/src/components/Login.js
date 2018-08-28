@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import AuthService from './AuthService';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import LogoNav from "./LogoNav";
 import "./Login.css"
 
 class Login extends Component {
@@ -31,49 +32,45 @@ class Login extends Component {
   };
 
   handleChange = event => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     this.setState({
-        [name]: value
+      [name]: value
     });
   };
 
   render() {
     return (
-      <div className="container">
-        <nav className="navbar navbar-default" id="nav-cover">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <a href="/">
-                <img src="/images/SurfHub_Nav_Logo.png" alt="Surf Hub Logo" />
-              </a>
+      <div>
+        <LogoNav />
+      <div className="container" id="loginSize">&nbsp;<br />
+        <div id="bg">
+         
+          <h1>Login</h1>
+          <form onSubmit={this.handleFormSubmit}>
+            <div className="form-group">
+              <label htmlFor="email"><strong>Email:</strong></label>
+              <input className="form-control"
+                placeholder="Email goes here..."
+                name="email"
+                type="email"
+                id="email"
+                onChange={this.handleChange} />
             </div>
-          </div>
-        </nav>
-        <h1>Login</h1>
-        <form onSubmit={this.handleFormSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email address:</label>
-            <input className="form-control"
-                   placeholder="Email goes here..."
-                   name="email"
-                   type="email"
-                   id="email"
-                   onChange={this.handleChange}/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="pwd">Password:</label>
-            <input className="form-control"
-                   placeholder="Password goes here..."
-                   name="password"
-                   type="password"
-                   id="pwd"
-                   onChange={this.handleChange}/>
-          </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-        <p>Don't have an account yet? <Link to="/signup">Sign up here</Link></p>
+            <div className="form-group">
+              <label htmlFor="pwd"><strong>Password:</strong></label>
+              <input className="form-control"
+                placeholder="Password goes here..."
+                name="password"
+                type="password"
+                id="pwd"
+                onChange={this.handleChange} />
+            </div>
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form>
+          <p>Don't have an account yet? <Link to="/signup">Sign up here</Link></p>
+        </div>
       </div>
-
+      </div>
     );
   }
 }
