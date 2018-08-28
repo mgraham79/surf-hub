@@ -10,10 +10,17 @@
     ![SURF HUB's Log In page](/client/public/imagesREADME/LoginPage.jpg)
     
     SURF HUB's Splash page:
+<<<<<<< HEAD
     ![SURF HUB's Splash page](/client/public/imagesREADME/Splash.jpg)
     
 * SURF HUB lists the available surf instructors at the beach you select. You do not need to wait. You can see who is available to teach you right now at the beach that you select.
     
+=======
+    ![SURF HUB's Splash page](/client/public/imagesREADME/SplashPage1.JPG)
+
+* SURF HUB lists the available surf instructors at the beach you select. You do not need to wait. You can see who is available to to teach you right now at the beach that you select.
+
+>>>>>>> 584527c6c8eb4f93abd87eda61decf4f6ddd4f67
     SURF HUB's Available Instructors at the Beach of Your Choice:
     ![SURF HUB's Available Instructors at the Beach of Your Choice](/client/public/imagesREADME/FindInstructor.jpg)
 
@@ -40,6 +47,7 @@
 * The SURF HUB site also has instructional surfing videos to watch.
 
     SURF HUB's Instructional Videos page:
+<<<<<<< HEAD
     ![SURF HUB's Instructional Videos page](/client/public/imagesREADME/InstructionalVideos.jpg)    
 
 
@@ -72,3 +80,6 @@ Surf Reports powered by http://www.spitcast.com/api/docs/
 [Click here to try *Surf-Hub* for yourself!](https://surf-hub.herokuapp.com/)
 
 
+=======
+    ![SURF HUB's Instructional Videos page](/client/public/imagesREADME/InstructionalVideos.JPG)    
+>>>>>>> 584527c6c8eb4f93abd87eda61decf4f6ddd4f67
