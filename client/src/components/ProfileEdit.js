@@ -103,7 +103,7 @@ class ProfileEdit extends Component {
                                     <input type="text" className="form-control" name="firstName" value={this.state.firstName} placeholder="First name" />
                                 </div>
                                 <div className="form-group">
-                                    <label className="text" for="lastName"><strong>Last Name</strong></label>
+                                    <label className="text" for="lastName"><strong>Last Name</strong> (required)</label>
                                     <input type="text" className="form-control" name="lastName" value={this.state.lastName} placeholder="Last name" />
                                 </div>
                                 <div className="form-group">
