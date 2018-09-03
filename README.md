@@ -20,12 +20,12 @@
 * SURF HUB has a profile page where you can view an instructor's profile.
 
     Instructor's Profile page:
-    ![Instructor's Profile page](/client/public/imagesREADME/InstructorProfile.jpg)
+    ![Instructor's Profile page](/client/public/imagesREADME/InstructorProfile.JPG)
 
 * Each user of SURF HUB will have their own profile page as well.
 
     User's Profile page:
-    ![User's Profile page](/client/public/imagesREADME/UserProfile.jpg)    
+    ![User's Profile page](/client/public/imagesREADME/UserProfile.JPG)    
     
 * If you are trying to learn how to surf, SURF HUB connects you with available instructors that are willig to give lessons at a beach location of your choice. The real-time chat system allows you to set up the time and terms of the lesson.
 
@@ -35,12 +35,12 @@
 * The SURF HUB site has surf reports for various beaches.
 
     SURF HUB's Surf Reports:
-    ![SURF HUB's Surf Reports page](/client/public/imagesREADME/SurfReport.jpg)    
+    ![SURF HUB's Surf Reports page](/client/public/imagesREADME/SurfReport.JPG)    
 
 * The SURF HUB site also has instructional surfing videos to watch.
 
     SURF HUB's Instructional Videos page:
-    ![SURF HUB's Instructional Videos page](/client/public/imagesREADME/InstructionalVideos.jpg)    
+    ![SURF HUB's Instructional Videos page](/client/public/imagesREADME/InstructionalVideos.JPG)    
 
 
 ### Demonstrates
