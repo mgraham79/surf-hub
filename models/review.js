@@ -42,7 +42,15 @@ const reviewSchema = new Schema({
 
   reviewRating: {
     type: Number
-  }
+  },
+
+  reviewDate: {
+    type: Date
+  },
+
+  sessionDateForReview: {
+    type: Date
+  },
 
 });
 

@@ -80,6 +80,8 @@ module.exports = {
     if (req.body.revieweeInstructor) updateReviewObject.revieweeInstructor = req.body.revieweeInstructor;
     if (req.body.reviewText) updateReviewObject.reviewText = req.body.reviewText;
     if (req.body.reviewRating) updateReviewObject.reviewRating = req.body.reviewRating;
+    if (req.body.reviewDate) updateReviewObject.reviewDate = req.body.reviewDate;
+    if (req.body.sessionDateForReview) updateReviewObject.sessionDateForReview = req.body.sessionDateForReview;
 
 
     db.Review.findOneAndUpdate({ _id: req.params.id }, updateReviewObject, {
