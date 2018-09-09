@@ -8,6 +8,9 @@ import "./Review.css";
 import { sockets } from "../../utils/Sockets";
 import FindInstructorButton from "../findInstructorButton/FindInstructorButton";
 
+import ReactDOM from "react-dom";
+import StarRatingComponent from "react-star-rating-component";
+
 class Review extends Component {
   state = {
     instructorId: "",
@@ -25,30 +28,13 @@ class Review extends Component {
     sessionStarted: false,
     instructorReserved: false,
     chatting: false,
-    reviewText: ""
+    reviewText: "",
+    rating: 0
   };
 
-  handleCreateLesson = () => {
-    console.log("clicked create lesson");
-    API.saveSession({
-      clientID: localStorage.getItem("user"),
-      instructorID: this.props.match.params.id
-    }).then(result => {
-      this.setState({ sessionStarted: true });
-      console.log(result.data._id);
-    });
-    sockets.sendMessage({
-      text: `User Id ${localStorage.getItem(
-        "user"
-      )} created a session... Waiting for reply to start`,
-      to: this.props.match.params.id
-    });
-    API.updateFieldUser(this.props.match.params.id, { reserved: true })
-      .then(result => {
-        this.setState({ instructorReserved: true });
-      })
-      .catch(err => console.log(err));
-  };
+  onStarClick(nextValue, prevValue, name) {
+    this.setState({ rating: nextValue });
+  }
 
   componentDidMount() {
     API.getUser(this.props.match.params.id).then(res => {
@@ -69,69 +55,8 @@ class Review extends Component {
     });
   }
 
-  handleButtonChat = () => {
-    if (!this.state.chatting) {
-      this.setState({ chatting: true });
-    } else {
-      this.setState({ chatting: false });
-    }
-  };
-
   render() {
-    console.log(this.state);
-    if (!this.state.chatting) {
-      var buttonChat = (
-        <button
-          onClick={this.handleButtonChat}
-          type="button"
-          className="btn-primary"
-        >
-          Start Chat
-        </button>
-      );
-    } else {
-      var buttonChat = (
-        <button
-          onClick={this.handleButtonChat}
-          type="button"
-          className="btn-primary"
-        >
-          Close Chat
-        </button>
-      );
-    }
-
-    if (!this.state.instructorReserved && this.state.chatting) {
-      var buttonSession;
-      if (!this.state.sessionStarted) {
-        buttonSession = (
-          <button
-            type="button"
-            onClick={this.handleCreateLesson}
-            className="btn-primary btn-success"
-          >
-            Create Lesson With This Instructor
-          </button>
-        );
-      } else {
-        buttonSession = (
-          <button type="button" className="btn-primary btn-danger">
-            End Lesson With This Instructor
-          </button>
-        );
-      }
-    } else {
-      var buttonSession = (
-        <button
-          type="button"
-          onClick={this.handleCreateLesson}
-          className="btn-primary btn-secondary"
-          disabled
-        >
-          Create Lesson With This Instructor
-        </button>
-      );
-    }
+    const { rating } = this.state;
 
     return (
       <div>
@@ -216,21 +141,32 @@ class Review extends Component {
 
                 <div className="w3-twothird">
                   <div className="w3-container w3-card w3-light-gray w3-margin-bottom">
-                    <h2 className="w3-text-grey w3-padding-16">
+                    <h2 className="w3-padding-16">
                       <i className="fa fa-clipboard fa-fw w3-margin-right w3-xxlarge text-dark-blue" />
                       Review
                     </h2>
-
-                    <strong>Write a review</strong>
-
+                    <div className="reviewMargin">Write a review</div>
                     <textarea
                       rows="5"
-                      cols="63"
+                      cols="55"
                       className="myReview"
                       name="reviewText"
                       value={this.state.reviewText}
                       placeholder="Write your review here"
                     />
+                    <div>
+                      <div className="reviewMargin">
+                        <h3>Select a Star for an Overall Rating: {rating}</h3>
+                        <div style={{ fontSize: 50}}>
+                          <StarRatingComponent
+                            name="rate1"
+                            starCount={10}
+                            value={rating}
+                            onStarClick={this.onStarClick.bind(this)}
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
