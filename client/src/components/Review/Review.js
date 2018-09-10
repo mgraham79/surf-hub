@@ -55,15 +55,14 @@ class Review extends Component {
     });
   }
 
-  handleSubmitButton = event => {
+  handleReviewSubmit = event => {
     event.preventDefault();
     API.updateFieldReview(this.state.instructorId, this.state).then(res => {
-        console.log(this.state)
-        alert("Your changes have been saved");
-        this.props.history.replace(`/profile/${this.state.instructorId}`);
+      console.log(this.state);
+      alert("Your changes have been saved");
+      this.props.history.replace(`/profile/${this.state.instructorId}`);
     });
-
-}
+  };
 
   render() {
     const { reviewRating } = this.state;
@@ -166,8 +165,10 @@ class Review extends Component {
                     />
                     <div>
                       <div className="reviewMargin">
-                        <h3>Select a Star for an Overall Rating: {reviewRating}</h3>
-                        <div style={{ fontSize: 50}}>
+                        <h3>
+                          Select a Star for an Overall Rating: {reviewRating}
+                        </h3>
+                        <div style={{ fontSize: 50 }}>
                           <StarRatingComponent
                             name="rate1"
                             starCount={10}
@@ -176,6 +177,7 @@ class Review extends Component {
                           />
                         </div>
                       </div>
+                      <button className="btn btn-primary" id="submit-review" onClick={this.handleReviewSubmit}>Submit</button>
                     </div>
                   </div>
                 </div>
