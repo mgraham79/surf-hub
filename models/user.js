@@ -64,9 +64,14 @@ let userSchema = new Schema({
     trim: true
   },
 
-  rating: {
+  ratingsAll: [{
     type: Number
-  },
+  }],
+
+  reviewsAll: [{
+    type: String,
+    trim: true
+  }],
 
   board: {
     type: String,

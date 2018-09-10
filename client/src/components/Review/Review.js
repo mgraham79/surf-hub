@@ -55,6 +55,16 @@ class Review extends Component {
     });
   }
 
+  handleSubmitButton = event => {
+    event.preventDefault();
+    API.updateFieldReview(this.state.instructorId, this.state).then(res => {
+        console.log(this.state)
+        alert("Your changes have been saved");
+        this.props.history.replace(`/profile/${this.state.instructorId}`);
+    });
+
+}
+
   render() {
     const { rating } = this.state;
 
