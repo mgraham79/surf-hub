@@ -29,11 +29,11 @@ class Review extends Component {
     instructorReserved: false,
     chatting: false,
     reviewText: "",
-    rating: 0
+    reviewRating: 0
   };
 
   onStarClick(nextValue, prevValue, name) {
-    this.setState({ rating: nextValue });
+    this.setState({ reviewRating: nextValue });
   }
 
   componentDidMount() {
@@ -66,7 +66,7 @@ class Review extends Component {
 }
 
   render() {
-    const { rating } = this.state;
+    const { reviewRating } = this.state;
 
     return (
       <div>
@@ -166,12 +166,12 @@ class Review extends Component {
                     />
                     <div>
                       <div className="reviewMargin">
-                        <h3>Select a Star for an Overall Rating: {rating}</h3>
+                        <h3>Select a Star for an Overall Rating: {reviewRating}</h3>
                         <div style={{ fontSize: 50}}>
                           <StarRatingComponent
                             name="rate1"
                             starCount={10}
-                            value={rating}
+                            value={reviewRating}
                             onStarClick={this.onStarClick.bind(this)}
                           />
                         </div>
