@@ -55,10 +55,23 @@ class Review extends Component {
     });
   }
 
+  handleInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState({
+        [name]: value
+    });
+    // console.log(this.state)
+};
+
+
   handleReviewSubmit = event => {
     event.preventDefault();
-    API.updateFieldReview(this.state.instructorId, this.state).then(res => {
-      console.log(this.state);
+    API.saveReview({ ...this.state }).then(res => {
+      // console.log(this.state);
       alert("Your changes have been saved");
       this.props.history.replace(`/profile/${this.state.instructorId}`);
     });
@@ -154,6 +167,7 @@ class Review extends Component {
                       <i className="fa fa-clipboard fa-fw w3-margin-right w3-xxlarge text-dark-blue" />
                       Review
                     </h2>
+                    <form onChange={this.handleInputChange} className="submitReviwew">
                     <div className="reviewMargin">Write a review</div>
                     <textarea
                       rows="5"
@@ -179,6 +193,7 @@ class Review extends Component {
                       </div>
                       <button className="btn btn-primary" id="submit-review" onClick={this.handleReviewSubmit}>Submit</button>
                     </div>
+                    </form>
                   </div>
                 </div>
               </div>
