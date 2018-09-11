@@ -13,7 +13,7 @@ import StarRatingComponent from "react-star-rating-component";
 
 class Review extends Component {
   state = {
-    instructorId: "",
+    userId: "",
     picURL: "",
     firstName: "",
     middleInitial: "",
@@ -29,7 +29,8 @@ class Review extends Component {
     instructorReserved: false,
     chatting: false,
     reviewText: "",
-    reviewRating: 0
+    reviewRating: 0,
+    reviewDate: "2018-08-18"
   };
 
   onStarClick(nextValue, prevValue, name) {
@@ -37,9 +38,24 @@ class Review extends Component {
   }
 
   componentDidMount() {
+
+    API.getSession(this.props.match.params.id).then(res => {
+      this.setState({
+        sessionId: res.data._id,
+        clientName: res.data.clientName,
+        clientID: res.data.clientID,
+        instructorName: res.data.instructorName,
+        instructorID: res.data.instructorID,
+        sessionStart: res.data.sessionStart,
+        sessionEnd: res.data.sessionEnd,
+        ended: res.data.ended
+      });
+    });
+
+
     API.getUser(this.props.match.params.id).then(res => {
       this.setState({
-        instructorId: res.data._id,
+        userId: res.data._id,
         picURL: res.data.picURL,
         firstName: res.data.firstName,
         middleInitial: res.data.middleInitial,
@@ -50,7 +66,7 @@ class Review extends Component {
         exp: res.data.exp,
         favBeaches: res.data.favBeaches,
         bio: res.data.bio,
-        instructorReserved: res.data.reserved
+        reserved: res.data.reserved
       });
     });
   }
@@ -70,11 +86,19 @@ class Review extends Component {
 
   handleReviewSubmit = event => {
     event.preventDefault();
+
+    // Setting the reviewDate state when the form is submitted.
+    const dnow = new Date();
+    console.log("reviewDate: "+ dnow)
+
+    this.setState({ reviewDate: dnow });
+
     API.saveReview({ ...this.state }).then(res => {
       // console.log(this.state);
       alert("Your changes have been saved");
-      this.props.history.replace(`/profile/${this.state.instructorId}`);
+      this.props.history.replace(`/profile/${this.state.userId}`);
     });
+    
   };
 
   render() {
