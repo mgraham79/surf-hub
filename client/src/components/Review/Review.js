@@ -30,7 +30,7 @@ class Review extends Component {
     chatting: false,
     reviewText: "",
     reviewRating: 0,
-    reviewDate: "2018-08-18"
+    reviewDate:  Date(2018,7)
   };
 
   onStarClick(nextValue, prevValue, name) {
@@ -88,13 +88,15 @@ class Review extends Component {
     event.preventDefault();
 
     // Setting the reviewDate state when the form is submitted.
-    const dnow = new Date();
-    console.log("reviewDate: "+ dnow)
+     const dnow = new Date();
 
-    this.setState({ reviewDate: dnow });
+     //console.log("reviewDate: "+ dnow)
+     //console.log("reviewDateInitial " + new Date(2018,7))
+
+     this.setState({ reviewDate: dnow });
 
     API.saveReview({ ...this.state }).then(res => {
-      // console.log(this.state);
+       console.log(this.state);
       alert("Your changes have been saved");
       this.props.history.replace(`/profile/${this.state.userId}`);
     });
