@@ -38,8 +38,8 @@ class Review extends Component {
   }
 
   componentDidMount() {
-
-    API.getSession(this.props.match.params.id).then(res => {
+    // Getting the session that was stored in local storage when the session ended (App.js)
+    API.getSession(localStorage.getItem("sessionIdLocStor")).then(res => {
       this.setState({
         sessionId: res.data._id,
         clientName: res.data.clientName,
@@ -53,7 +53,7 @@ class Review extends Component {
     });
 
 
-    API.getUser(this.props.match.params.id).then(res => {
+    API.getUser(this.props.user.id).then(res => {
       this.setState({
         userId: res.data._id,
         picURL: res.data.picURL,

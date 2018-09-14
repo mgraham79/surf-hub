@@ -127,6 +127,8 @@ class App extends Component {
           availableSessionData: {}
         })
       })
+      // Save Session Id to local storage
+      localStorage.setItem("sessionIdLocStor", this.state.availableSessionData._id);
   }
 
 
