@@ -28,9 +28,20 @@ class Review extends Component {
     sessionStarted: false,
     instructorReserved: false,
     chatting: false,
+    reviewerID: "",
+    revieweeID: "",
     reviewText: "",
     reviewRating: 0,
-    reviewDate:  Date(2018,7)
+    reviewDate:  Date(2018,7),
+    sessionDateForReview: Date(2018,7),
+    sessionId: "",
+    clientName: "",
+    clientID: "",
+    instructorName: "",
+    instructorID: "",
+    sessionStart:  Date(2018,7),
+    sessionEnd:  Date(2018,7),
+    ended: false
   };
 
   onStarClick(nextValue, prevValue, name) {
@@ -94,6 +105,20 @@ class Review extends Component {
      //console.log("reviewDateInitial " + new Date(2018,7))
 
      this.setState({ reviewDate: dnow });
+
+     // The reviewer ID is the ID of the current user
+     this.setState({ reviewerID: this.props.user.id });
+
+     // If the ID of the current user equals the clientID then the revieweeID equals the instructorID
+     // else the reviewee ID equals the clientID
+     // If the current user is the client
+     if(this.props.user.id === this.state.clientID) {
+      this.setState({ revieweeID: this.state.instructorID });
+      // If the current user is the instructor
+     } else {
+      this.setState({ revieweeID: this.state.clientID });
+     }
+     
 
     API.saveReview({ ...this.state }).then(res => {
        console.log(this.state);
@@ -218,6 +243,8 @@ class Review extends Component {
                         </div>
                       </div>
                       <button className="btn btn-primary" id="submit-review" onClick={this.handleReviewSubmit}>Submit</button>
+                      <br></br>
+                      <button className="btn btn-primary" id="submit-no-review" onClick={this.handleNoReview}>No thanks, I do not want to give a review</button>
                     </div>
                     </form>
                   </div>
