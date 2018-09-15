@@ -1,0 +1,18 @@
+.myReview {
+    margin-bottom: 40px;
+    margin-left: 20px;
+}
+
+.reviewMargin {
+    margin-left: 20px;
+}
+
+#submit-review {
+    margin-bottom: 10px;  
+    text-align: center;
+}
+
+#submit-no-review {
+    margin-bottom: 40px;  
+    text-align: center;
+}

@@ -79,9 +79,28 @@ getListOfBeaches: function(){
 
 getForecast: function(spot_id){
   return axios.get("/api/proxy/forecast/" + spot_id);
-}
+},
 
-
+// Gets all reviews
+getReviews: function() {
+  return axios.get("/api/reviews");
+},
+// Gets the review with the given id
+getReview: function(id) {
+  return axios.get("/api/reviews/" + id);
+},
+// Deletes the review with the given id
+deleteReview: function(id) {
+  return axios.delete("/api/reviews/" + id);
+},
+// Updates a review field in the database
+updateFieldReview: function(id, data) {
+  return axios.put("/api/reviews/" + id, data);
+},
+// Saves a review to the database
+saveReview: function(reviewData) {
+  return axios.post("/api/reviews", reviewData);
+},
 // Placeholders for the APIs
 
 // getSurfReport: function() {
