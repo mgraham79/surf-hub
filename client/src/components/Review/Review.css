@@ -8,6 +8,11 @@
 }
 
 #submit-review {
+    margin-bottom: 10px;  
+    text-align: center;
+}
+
+#submit-no-review {
     margin-bottom: 40px;  
     text-align: center;
 }

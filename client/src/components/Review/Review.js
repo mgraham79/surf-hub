@@ -106,6 +106,10 @@ class Review extends Component {
 
      this.setState({ reviewDate: dnow });
 
+     // Setting the date from the session
+     this.setState({ sessionDateForReview: this.state.sessionEnd });
+     
+
      // The reviewer ID is the ID of the current user
      this.setState({ reviewerID: this.props.user.id });
 
@@ -127,6 +131,13 @@ class Review extends Component {
     });
     
   };
+
+  handleNoReview = event => {
+    event.preventDefault();
+    alert("Your changes have been saved");
+      this.props.history.replace(`/profile/${this.state.userId}`);
+  };
+
 
   render() {
     const { reviewRating } = this.state;

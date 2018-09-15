@@ -129,6 +129,9 @@ class App extends Component {
       })
       // Save Session Id to local storage
       localStorage.setItem("sessionIdLocStor", this.state.availableSessionData._id);
+
+      // Send the user to the review page
+      this.props.history.replace('/review');
   }
 
 
