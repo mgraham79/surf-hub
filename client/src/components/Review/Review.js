@@ -58,7 +58,7 @@ class Review extends Component {
         instructorName: res.data.instructorName,
         instructorID: res.data.instructorID,
         sessionStart: res.data.sessionStart,
-        sessionEnd: res.data.sessionEnd,
+        //sessionEnd: res.data.sessionEnd,
         ended: res.data.ended
       });
     });
@@ -98,16 +98,22 @@ class Review extends Component {
   handleReviewSubmit = event => {
     event.preventDefault();
 
+
+     // Setting the date from the session
+     const dses = new Date(this.state.sessionEnd)
+     this.setState({ sessionDateForReview: dses });
+     console.log("sessionDateForReview: "+ dses)
+
+
     // Setting the reviewDate state when the form is submitted.
      const dnow = new Date();
 
-     //console.log("reviewDate: "+ dnow)
-     //console.log("reviewDateInitial " + new Date(2018,7))
+     console.log("reviewDate: "+ dnow)
+     console.log("reviewDateInitial " + new Date(2018,7))
 
      this.setState({ reviewDate: dnow });
 
-     // Setting the date from the session
-     this.setState({ sessionDateForReview: this.state.sessionEnd });
+    
      
 
      // The reviewer ID is the ID of the current user
@@ -122,7 +128,10 @@ class Review extends Component {
      } else {
       this.setState({ revieweeID: this.state.clientID });
      }
-     
+
+     console.log("clientID = "+ this.state.clientID)
+     console.log("reviewerID = "+ this.state.reviewerID)
+     console.log("revieweeID = "+ this.state.revieweeID)
 
     API.saveReview({ ...this.state }).then(res => {
        console.log(this.state);
