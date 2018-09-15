@@ -58,7 +58,7 @@ class Review extends Component {
         instructorName: res.data.instructorName,
         instructorID: res.data.instructorID,
         sessionStart: res.data.sessionStart,
-        //sessionEnd: res.data.sessionEnd,
+        sessionEnd: res.data.sessionEnd,
         ended: res.data.ended
       });
     });
@@ -79,6 +79,32 @@ class Review extends Component {
         bio: res.data.bio,
         reserved: res.data.reserved
       });
+      if(this.state.reviewerID === ""){
+        // The reviewer ID is the ID of the current user
+        this.setState({ reviewerID: this.props.user.id });
+
+        // If the ID of the current user equals the clientID then the revieweeID equals the instructorID
+        // else the reviewee ID equals the clientID
+        // If the current user is the client
+        if(this.props.user.id === this.state.clientID) {
+         this.setState({ revieweeID: this.state.instructorID });
+         // If the current user is the instructor
+        } else {
+          console.log("here")
+         this.setState({ revieweeID: this.state.clientID });
+        }
+   
+        console.log("clientID = "+ this.state.clientID)
+        console.log("reviewerID = "+ this.state.reviewerID)
+        console.log("revieweeID = "+ this.state.revieweeID)
+      }
+          // Setting the date from the session
+     const dses = new Date(this.state.sessionEnd)
+     this.setState({ sessionDateForReview: dses });
+     console.log("sessionDateForReview: "+ dses)
+
+
+
     });
   }
 
@@ -92,6 +118,8 @@ class Review extends Component {
         [name]: value
     });
     // console.log(this.state)
+
+      
 };
 
 
@@ -99,12 +127,7 @@ class Review extends Component {
     event.preventDefault();
 
 
-     // Setting the date from the session
-     const dses = new Date(this.state.sessionEnd)
-     this.setState({ sessionDateForReview: dses });
-     console.log("sessionDateForReview: "+ dses)
-
-
+ 
     // Setting the reviewDate state when the form is submitted.
      const dnow = new Date();
 
@@ -116,22 +139,7 @@ class Review extends Component {
     
      
 
-     // The reviewer ID is the ID of the current user
-     this.setState({ reviewerID: this.props.user.id });
-
-     // If the ID of the current user equals the clientID then the revieweeID equals the instructorID
-     // else the reviewee ID equals the clientID
-     // If the current user is the client
-     if(this.props.user.id === this.state.clientID) {
-      this.setState({ revieweeID: this.state.instructorID });
-      // If the current user is the instructor
-     } else {
-      this.setState({ revieweeID: this.state.clientID });
-     }
-
-     console.log("clientID = "+ this.state.clientID)
-     console.log("reviewerID = "+ this.state.reviewerID)
-     console.log("revieweeID = "+ this.state.revieweeID)
+ 
 
     API.saveReview({ ...this.state }).then(res => {
        console.log(this.state);
