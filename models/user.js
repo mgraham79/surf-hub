@@ -46,7 +46,8 @@ let userSchema = new Schema({
   email: {
     type: String,
     trim: true,
-    validate: validators.isEmail()
+    validate: validators.isEmail(),
+    unique: true
   },
 
   picURL: {
