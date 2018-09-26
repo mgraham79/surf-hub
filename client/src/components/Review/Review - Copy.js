@@ -43,9 +43,7 @@ class Review extends Component {
     instructorID: "",
     sessionStart:  Date(2018,7),
     sessionEnd:  Date(2018,7),
-    ended: false,
-    ratingsAll: [],
-    reviewsAll: []
+    ended: false
   };
 
   onStarClick(nextValue, prevValue, name) {
@@ -66,6 +64,25 @@ class Review extends Component {
         sessionEnd: res.data.sessionEnd,
         ended: res.data.ended
       });
+    });
+
+
+    API.getUser(this.props.user.id).then(res => {
+      this.setState({
+        userId: res.data._id,
+        picURL: res.data.picURL,
+        firstName: res.data.firstName,
+        middleInitial: res.data.middleInitial,
+        lastName: res.data.lastName,
+        email: res.data.email,
+        location: res.data.location,
+        board: res.data.board,
+        exp: res.data.exp,
+        favBeaches: res.data.favBeaches,
+        bio: res.data.bio,
+        reserved: res.data.reserved
+      });
+
       if(this.state.reviewerID === ""){
         // The reviewer ID is the ID of the current user
         this.setState({ reviewerID: this.props.user.id });
@@ -90,33 +107,6 @@ class Review extends Component {
      this.setState({ sessionDateForReview: dses });
      console.log("sessionDateForReview: "+ dses)
     });
-
-    
-  
-    
-
-    API.getUser(this.state.revieweeID).then(res => {
-      this.setState({
-        userId: res.data._id,
-        picURL: res.data.picURL,
-        firstName: res.data.firstName,
-        middleInitial: res.data.middleInitial,
-        lastName: res.data.lastName,
-        email: res.data.email,
-        location: res.data.location,
-        board: res.data.board,
-        exp: res.data.exp,
-        ratingsAll: res.data.ratingsAll,
-        reviewsAll: res.data.reviewsAll,
-        favBeaches: res.data.favBeaches,
-        bio: res.data.bio,
-        reserved: res.data.reserved
-      });
-
-    });
-
-     
-    // end of component did mount
   }
 
 
@@ -144,7 +134,6 @@ class Review extends Component {
      const dnow = new Date();
 
      console.log("reviewDate: "+ dnow)
-     console.log("sessionDateForReview: "+ new Date(this.state.sessionEnd))
      console.log("reviewDateInitial " + new Date(2018,7))
 
      this.setState({ reviewDate: dnow });
@@ -155,34 +144,6 @@ class Review extends Component {
     API.saveReview({ ...this.state }).then(res => {
        console.log(this.state);
       alert("Your changes have been saved");
-
-      // Adding the ratings to the ratingsAll array
-      let newRatingsAll = this.state.ratingsAll;
-      let newRating = this.state.reviewRating;
-      console.log("newRating: " + newRating)
-      newRatingsAll.push(newRating);
-      this.setState({ ratingsAll: newRatingsAll });
-
-      // Adding the reviews to the reviewsAll array
-      let newReviewsAll = this.state.reviewsAll;
-      let newReview = this.state.reviewText;
-      console.log("newReview: " + newReview)
-      newReviewsAll.push(newReview);
-      this.setState({ reviewsAll: newReviewsAll });
-
-      
-      const newArrayData = {
-        ratingsAll: this.state.ratingsAll,
-        reviewsAll: this.state.reviewsAll
-    }
-    API.updateFieldUser(this.state.revieweeID, newArrayData)
-        .then(res => {
-            console.log("Rating and Review added to Reviewee")
-            console.log(res.data)
-        })
-        .catch(err => console.log(err))
-
-
       this.props.history.replace(`/profile/${this.state.userId}`);
     });
   
