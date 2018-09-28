@@ -141,7 +141,7 @@ class Review extends Component {
     event.preventDefault();
 
     // Setting the reviewDate state when the form is submitted.
-     const dnow = new Date();
+     const dnow = new Date(Date.now()).toISOString();
 
      console.log("reviewDate: "+ dnow)
      console.log("sessionDateForReview: "+ new Date(this.state.sessionEnd))
