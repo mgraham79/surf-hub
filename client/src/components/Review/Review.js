@@ -74,18 +74,12 @@ class Review extends Component {
           this.setState({ revieweeID: this.state.instructorID });
           // If the current user is the instructor
         } else {
-          console.log("here");
           this.setState({ revieweeID: this.state.clientID });
         }
-
-        console.log("clientID = " + this.state.clientID);
-        console.log("reviewerID = " + this.state.reviewerID);
-        console.log("revieweeID = " + this.state.revieweeID);
       }
       // Setting the date from the session
       const dses = this.state.sessionEnd;
       this.setState({ sessionDateForReview: dses });
-      console.log("sessionDateForReview: " + dses);
     });
 
     // The setTimeout is needed for revieweeID to be defined
@@ -132,14 +126,7 @@ class Review extends Component {
 
     // Setting the reviewDate state when the form is submitted.
     const dnow = new Date(Date.now()).toISOString();
-
-    console.log("reviewDate: " + dnow);
-    //console.log("sessionDateForReview: " + new Date(this.state.sessionEnd));
-    //console.log("reviewDateInitial " + new Date(2018, 7));
-
     this.setState({ reviewDate: dnow });
-    console.log("state before saveReview");
-    console.log(this.state);
 
     // The setTimeout is needed for revieweeID to be defined
     setTimeout(function() {
@@ -147,33 +134,31 @@ class Review extends Component {
     }, 1000);
     var saveDelay = () => {
       API.saveReview({ ...this.state }).then(res => {
-        console.log(this.state);
+        //console.log(this.state);
         alert("Your changes have been saved");
 
-        //   // Adding the ratings to the ratingsAll array
-        //   let newRatingsAll = this.state.ratingsAll;
-        //   let newRating = this.state.reviewRating;
-        //   console.log("newRating: " + newRating)
-        //   newRatingsAll.push(newRating);
-        //   this.setState({ ratingsAll: newRatingsAll });
+        // Adding the ratings to the ratingsAll array
+        let newRatingsAll = this.state.ratingsAll;
+        let newRating = this.state.reviewRating;
+        newRatingsAll.push(newRating);
+        this.setState({ ratingsAll: newRatingsAll });
 
-        //   // Adding the reviews to the reviewsAll array
-        //   let newReviewsAll = this.state.reviewsAll;
-        //   let newReview = this.state.reviewText;
-        //   console.log("newReview: " + newReview)
-        //   newReviewsAll.push(newReview);
-        //   this.setState({ reviewsAll: newReviewsAll });
+        // Adding the reviews to the reviewsAll array
+        let newReviewsAll = this.state.reviewsAll;
+        let newReview = this.state.reviewText;
+        newReviewsAll.push(newReview);
+        this.setState({ reviewsAll: newReviewsAll });
 
-        //   const newArrayData = {
-        //     ratingsAll: this.state.ratingsAll,
-        //     reviewsAll: this.state.reviewsAll
-        // }
-        // API.updateFieldUser(this.state.revieweeID, newArrayData)
-        //     .then(res => {
-        //         console.log("Rating and Review added to Reviewee")
-        //         console.log(res.data)
-        //     })
-        //     .catch(err => console.log(err))
+        const newArrayData = {
+          ratingsAll: this.state.ratingsAll,
+          reviewsAll: this.state.reviewsAll
+        };
+        API.updateFieldUser(this.state.revieweeID, newArrayData)
+          .then(res => {
+            console.log("Rating and Review added to Reviewee");
+            console.log(res.data);
+          })
+          .catch(err => console.log(err));
 
         this.props.history.replace(`/profile/${this.state.userId}`);
       });
