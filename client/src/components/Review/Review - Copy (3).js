@@ -51,48 +51,48 @@ class Review extends Component {
   }
 
   componentDidMount() {
-    // Getting the session that was stored in local storage when the session ended (App.js)
-    API.getSession(localStorage.getItem("sessionIdLocStor")).then(res => {
-      this.setState({
-        sessionId: res.data._id,
-        clientName: res.data.clientName,
-        clientID: res.data.clientID,
-        instructorName: res.data.instructorName,
-        instructorID: res.data.instructorID,
-        sessionStart: res.data.sessionStart,
-        sessionEnd: res.data.sessionEnd,
-        ended: res.data.ended
-      });
-      if (this.state.reviewerID === "") {
-        // The reviewer ID is the ID of the current user
-        this.setState({ reviewerID: this.props.user.id });
 
-        // If the ID of the current user equals the clientID then the revieweeID equals the instructorID
-        // else the reviewee ID equals the clientID
-        // If the current user is the client
-        if (this.props.user.id === this.state.clientID) {
-          this.setState({ revieweeID: this.state.instructorID });
-          // If the current user is the instructor
-        } else {
-          console.log("here");
-          this.setState({ revieweeID: this.state.clientID });
+      // Getting the session that was stored in local storage when the session ended (App.js)
+      API.getSession(localStorage.getItem("sessionIdLocStor")).then(res => {
+        this.setState({
+          sessionId: res.data._id,
+          clientName: res.data.clientName,
+          clientID: res.data.clientID,
+          instructorName: res.data.instructorName,
+          instructorID: res.data.instructorID,
+          sessionStart: res.data.sessionStart,
+          sessionEnd: res.data.sessionEnd,
+          ended: res.data.ended
+        });
+        if (this.state.reviewerID === "") {
+          // The reviewer ID is the ID of the current user
+          this.setState({ reviewerID: this.props.user.id });
+
+          // If the ID of the current user equals the clientID then the revieweeID equals the instructorID
+          // else the reviewee ID equals the clientID
+          // If the current user is the client
+          if (this.props.user.id === this.state.clientID) {
+            this.setState({ revieweeID: this.state.instructorID });
+            // If the current user is the instructor
+          } else {
+            console.log("here");
+            this.setState({ revieweeID: this.state.clientID });
+          }
+
+          console.log("clientID = " + this.state.clientID);
+          console.log("reviewerID = " + this.state.reviewerID);
+          console.log("revieweeID = " + this.state.revieweeID);
         }
-
-        console.log("clientID = " + this.state.clientID);
-        console.log("reviewerID = " + this.state.reviewerID);
-        console.log("revieweeID = " + this.state.revieweeID);
-      }
-      // Setting the date from the session
-      const dses = this.state.sessionEnd;
-      this.setState({ sessionDateForReview: dses });
-      console.log("sessionDateForReview: " + dses);
-    });
-
+        // Setting the date from the session
+        const dses = new Date(this.state.sessionEnd);
+        this.setState({ sessionDateForReview: dses });
+        console.log("sessionDateForReview: " + dses);
+      });
+      
+    
     // The setTimeout is needed for revieweeID to be defined
-    setTimeout(function() {
-      profileInfo();
-    }, 1000);
-    var profileInfo = () => {
+    setTimeout(function(){ profileInfo(); }, 1000);
+     var profileInfo = () => {
       API.getUser(this.state.revieweeID).then(res => {
         this.setState({
           userId: res.data._id,
@@ -111,7 +111,11 @@ class Review extends Component {
           reserved: res.data.reserved
         });
       });
-    };
+      
+     }
+
+
+
   } // end of component did mount
 
   handleInputChange = event => {
@@ -134,50 +138,42 @@ class Review extends Component {
     const dnow = new Date(Date.now()).toISOString();
 
     console.log("reviewDate: " + dnow);
-    //console.log("sessionDateForReview: " + new Date(this.state.sessionEnd));
-    //console.log("reviewDateInitial " + new Date(2018, 7));
+    console.log("sessionDateForReview: " + new Date(this.state.sessionEnd));
+    console.log("reviewDateInitial " + new Date(2018, 7));
 
     this.setState({ reviewDate: dnow });
-    console.log("state before saveReview");
-    console.log(this.state);
 
-    // The setTimeout is needed for revieweeID to be defined
-    setTimeout(function() {
-      saveDelay();
-    }, 1000);
-    var saveDelay = () => {
-      API.saveReview({ ...this.state }).then(res => {
-        console.log(this.state);
-        alert("Your changes have been saved");
+    API.saveReview({ ...this.state }).then(res => {
+      console.log(this.state);
+      alert("Your changes have been saved");
 
-        //   // Adding the ratings to the ratingsAll array
-        //   let newRatingsAll = this.state.ratingsAll;
-        //   let newRating = this.state.reviewRating;
-        //   console.log("newRating: " + newRating)
-        //   newRatingsAll.push(newRating);
-        //   this.setState({ ratingsAll: newRatingsAll });
+      //   // Adding the ratings to the ratingsAll array
+      //   let newRatingsAll = this.state.ratingsAll;
+      //   let newRating = this.state.reviewRating;
+      //   console.log("newRating: " + newRating)
+      //   newRatingsAll.push(newRating);
+      //   this.setState({ ratingsAll: newRatingsAll });
 
-        //   // Adding the reviews to the reviewsAll array
-        //   let newReviewsAll = this.state.reviewsAll;
-        //   let newReview = this.state.reviewText;
-        //   console.log("newReview: " + newReview)
-        //   newReviewsAll.push(newReview);
-        //   this.setState({ reviewsAll: newReviewsAll });
+      //   // Adding the reviews to the reviewsAll array
+      //   let newReviewsAll = this.state.reviewsAll;
+      //   let newReview = this.state.reviewText;
+      //   console.log("newReview: " + newReview)
+      //   newReviewsAll.push(newReview);
+      //   this.setState({ reviewsAll: newReviewsAll });
 
-        //   const newArrayData = {
-        //     ratingsAll: this.state.ratingsAll,
-        //     reviewsAll: this.state.reviewsAll
-        // }
-        // API.updateFieldUser(this.state.revieweeID, newArrayData)
-        //     .then(res => {
-        //         console.log("Rating and Review added to Reviewee")
-        //         console.log(res.data)
-        //     })
-        //     .catch(err => console.log(err))
+      //   const newArrayData = {
+      //     ratingsAll: this.state.ratingsAll,
+      //     reviewsAll: this.state.reviewsAll
+      // }
+      // API.updateFieldUser(this.state.revieweeID, newArrayData)
+      //     .then(res => {
+      //         console.log("Rating and Review added to Reviewee")
+      //         console.log(res.data)
+      //     })
+      //     .catch(err => console.log(err))
 
-        this.props.history.replace(`/profile/${this.state.userId}`);
-      });
-    };
+      this.props.history.replace(`/profile/${this.state.userId}`);
+    });
   };
 
   handleNoReview = event => {
