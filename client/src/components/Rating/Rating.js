@@ -26,7 +26,7 @@ class Rating extends Component {
     API.getUser(this.state.revieweeID).then(res => {
       this.setState({
         userId: res.data._id,
-        ratingsAll: res.data.ratingsAll,
+        ratingsAll: res.data.ratingsAll
       });
     });
 
@@ -41,7 +41,8 @@ class Rating extends Component {
       // Calculate the total number of reviews
       const totNumRatings = ratingsAll.length;
       // Calculate the average of the ratings array
-      const arrAvg = ratingsAll => ratingsAll.reduce((a, b) => a + b, 0) / ratingsAll.length;
+      const arrAvg = ratingsAll =>
+        ratingsAll.reduce((a, b) => a + b, 0) / ratingsAll.length;
 
       // Calculate the average of the ratings to the nearest half
       const arrAvgHalf = roundHalf(arrAvg);
@@ -57,143 +58,20 @@ class Rating extends Component {
   }
 
   render() {
-    const { reviewRating } = this.state;
+    const { reviewsRatingAveHalf } = this.state;
 
     return (
       <div>
-        <Nav />
-        <div className="container Profile">
-          {this.props.isInstructor ? <div /> : <FindInstructorButton />}
-          <div id="bg">
-            <div className="w3-content w3-margin-top" id="w3-content">
-              <div className="w3-row-padding">
-                <div className="w3-third">
-                  <div className="w3-white w3-text-grey w3-card-4">
-                    <div className="w3-display-container">
-                      <img
-                        id="userphoto"
-                        src={this.state.picURL}
-                        alt="Avatar"
-                      />
-                      <div className="w3-display-top w3-container w3-text-black">
-                        <h2>
-                          <b>
-                            <span id="user-name">
-                              {this.state.firstName +
-                                " " +
-                                this.state.middleInitial +
-                                " " +
-                                this.state.lastName}
-                            </span>
-                          </b>
-                        </h2>
-                      </div>
-                    </div>
-
-                    <div className="w3-container">
-                      <p>
-                        <i className="fa fa-envelope fa-fw w3-margin-right w3-large text-dark-blue" />
-                        <span id="user-email">{this.state.email}</span>
-                      </p>
-                      <hr />
-
-                      <p>
-                        <b>
-                          <i class="fa fa-home fa-fw w3-margin-right w3-large text-dark-blue" />
-                          Location:{" "}
-                        </b>
-                        <span id="user-location">{this.state.location}</span>
-                      </p>
-                      <hr />
-                    </div>
-
-                    <div className="w3-container">
-                      <p>
-                        <b>
-                          <i className="fa fa-home fa-fw w3-margin-right w3-large text-dark-blue" />
-                          Board Type:{" "}
-                        </b>
-                        <span id="board-type">{this.state.board}</span>
-                      </p>
-                      <hr />
-
-                      <p>
-                        <b>
-                          <i className="fa fa-envelope fa-fw w3-margin-right w3-large text-dark-blue" />
-                          Experience:{" "}
-                        </b>
-                        <span id="experience">{this.state.exp}</span>
-                      </p>
-                      <hr />
-                    </div>
-
-                    <div className="w3-container">
-                      <p>
-                        <b>
-                          <i className="fa fa-envelope fa-fw w3-margin-right w3-large text-dark-blue" />
-                          Favorite Beach:{" "}
-                        </b>
-                        <span id="favBeaches">{this.state.favBeaches}</span>
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
-                </div>
-
-                <div className="w3-twothird">
-                  <div className="w3-container w3-card w3-light-gray w3-margin-bottom">
-                    <h2 className="w3-padding-16">
-                      <i className="fa fa-clipboard fa-fw w3-margin-right w3-xxlarge text-dark-blue" />
-                      Review
-                    </h2>
-                    <form
-                      onChange={this.handleInputChange}
-                      className="submitReviwew"
-                    >
-                      <div className="reviewMargin">Write a review</div>
-                      <textarea
-                        rows="5"
-                        cols="55"
-                        className="myReview"
-                        name="reviewText"
-                        value={this.state.reviewText}
-                        placeholder="Write your review here"
-                      />
-                      <div>
-                        <div className="reviewMargin">
-                          <h3>
-                            Select a Star for an Overall Rating: {reviewRating}
-                          </h3>
-                          <div style={{ fontSize: 50 }}>
-                            <StarRatingComponent
-                              name="rate1"
-                              starCount={10}
-                              value={reviewRating}
-                              onStarClick={this.onStarClick.bind(this)}
-                            />
-                          </div>
-                        </div>
-                        <button
-                          className="btn btn-primary"
-                          id="submit-review"
-                          onClick={this.handleReviewSubmit}
-                        >
-                          Submit
-                        </button>
-                        <br />
-                        <button
-                          className="btn btn-primary"
-                          id="submit-no-review"
-                          onClick={this.handleNoReview}
-                        >
-                          No thanks, I do not want to give a review
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="starsRating">
+          <div style={{ fontSize: 50 }}>
+            <StarRatingComponent
+              name="rate2"
+              editing={false}
+              renderStarIconHalf={() => <span></span>}
+              starCount={10}
+              value={reviewsRatingAveHalf}
+            />
+            <p>Total Number of Reviews: <span style="color:blue">{this.state.reviewsRatingTotNum}</span></p>
           </div>
         </div>
       </div>
