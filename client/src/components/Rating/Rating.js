@@ -4,183 +4,57 @@ import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import Nav from "../Nav";
 import SocketFormComponent from "../SocketForm/SocketFormComponent";
-import "./Review.css";
+import "./Rating.css";
 import { sockets } from "../../utils/Sockets";
 import FindInstructorButton from "../findInstructorButton/FindInstructorButton";
 
 import ReactDOM from "react-dom";
 import StarRatingComponent from "react-star-rating-component";
 
-class Review extends Component {
+class Rating extends Component {
   state = {
     userId: "",
-    picURL: "",
-    firstName: "",
-    middleInitial: "",
-    lastName: "",
-    email: "",
-    location: "",
-    board: "",
-    exp: "",
-    favBeaches: "",
-    bio: "",
-    connect: false,
-    sessionStarted: false,
-    instructorReserved: false,
-    chatting: false,
-    reviewerID: "",
     revieweeID: "",
-    reviewText: "",
-    reviewRating: 0,
-    reviewDate: Date(2018, 7),
-    sessionDateForReview: Date(2018, 7),
-    sessionId: "",
-    clientName: "",
-    clientID: "",
-    instructorName: "",
-    instructorID: "",
-    sessionStart: Date(2018, 7),
-    sessionEnd: Date(2018, 7),
-    ended: false,
     ratingsAll: [],
-    reviewsAll: []
+    reviewsRatingAve: 0,
+    reviewsRatingAveHalf: 0,
+    reviewsRatingTotNum: 0
   };
-
-  onStarClick(nextValue, prevValue, name) {
-    this.setState({ reviewRating: nextValue });
-  }
 
   componentDidMount() {
-
-      // Getting the session that was stored in local storage when the session ended (App.js)
-      API.getSession(localStorage.getItem("sessionIdLocStor")).then(res => {
-        this.setState({
-          sessionId: res.data._id,
-          clientName: res.data.clientName,
-          clientID: res.data.clientID,
-          instructorName: res.data.instructorName,
-          instructorID: res.data.instructorID,
-          sessionStart: res.data.sessionStart,
-          sessionEnd: res.data.sessionEnd,
-          ended: res.data.ended
-        });
-        if (this.state.reviewerID === "") {
-          // The reviewer ID is the ID of the current user
-          this.setState({ reviewerID: this.props.user.id });
-
-          // If the ID of the current user equals the clientID then the revieweeID equals the instructorID
-          // else the reviewee ID equals the clientID
-          // If the current user is the client
-          if (this.props.user.id === this.state.clientID) {
-            this.setState({ revieweeID: this.state.instructorID });
-            // If the current user is the instructor
-          } else {
-            console.log("here");
-            this.setState({ revieweeID: this.state.clientID });
-          }
-
-          console.log("clientID = " + this.state.clientID);
-          console.log("reviewerID = " + this.state.reviewerID);
-          console.log("revieweeID = " + this.state.revieweeID);
-        }
-        // Setting the date from the session
-        const dses = new Date(this.state.sessionEnd);
-        this.setState({ sessionDateForReview: dses });
-        console.log("sessionDateForReview: " + dses);
+    // Getting the reviews and ratings for revieweeID
+    API.getUser(this.state.revieweeID).then(res => {
+      this.setState({
+        userId: res.data._id,
+        ratingsAll: res.data.ratingsAll,
       });
-      
-    
-    // The setTimeout is needed for revieweeID to be defined
-    setTimeout(function(){ profileInfo(); }, 1000);
-     var profileInfo = () => {
-      API.getUser(this.state.revieweeID).then(res => {
-        this.setState({
-          userId: res.data._id,
-          picURL: res.data.picURL,
-          firstName: res.data.firstName,
-          middleInitial: res.data.middleInitial,
-          lastName: res.data.lastName,
-          email: res.data.email,
-          location: res.data.location,
-          board: res.data.board,
-          exp: res.data.exp,
-          ratingsAll: res.data.ratingsAll,
-          reviewsAll: res.data.reviewsAll,
-          favBeaches: res.data.favBeaches,
-          bio: res.data.bio,
-          reserved: res.data.reserved
-        });
-      });
-      
-     }
-
-
-
-  } // end of component did mount
-
-  handleInputChange = event => {
-    // Getting the value and name of the input which triggered the change
-    let value = event.target.value;
-    const name = event.target.name;
-
-    // Updating the input's state
-    this.setState({
-      [name]: value
     });
 
-    // console.log(this.state)
-  };
+    // Checking if th array is empty
+    if (this.state.ratingsAll.length === 0) {
+      this.setState({
+        reviewsRatingAve: 0,
+        reviewsRatingAveHalf: 0,
+        reviewsRatingTotNum: 0
+      });
+    } else {
+      // Calculate the total number of reviews
+      const totNumRatings = ratingsAll.length;
+      // Calculate the average of the ratings array
+      const arrAvg = ratingsAll => ratingsAll.reduce((a, b) => a + b, 0) / ratingsAll.length;
 
-  handleReviewSubmit = event => {
-    event.preventDefault();
-
-    // Setting the reviewDate state when the form is submitted.
-    const dnow = new Date(Date.now()).toISOString();
-
-    console.log("reviewDate: " + dnow);
-    console.log("sessionDateForReview: " + new Date(this.state.sessionEnd));
-    console.log("reviewDateInitial " + new Date(2018, 7));
-
-    this.setState({ reviewDate: dnow });
-
-    API.saveReview({ ...this.state }).then(res => {
-      console.log(this.state);
-      alert("Your changes have been saved");
-
-      //   // Adding the ratings to the ratingsAll array
-      //   let newRatingsAll = this.state.ratingsAll;
-      //   let newRating = this.state.reviewRating;
-      //   console.log("newRating: " + newRating)
-      //   newRatingsAll.push(newRating);
-      //   this.setState({ ratingsAll: newRatingsAll });
-
-      //   // Adding the reviews to the reviewsAll array
-      //   let newReviewsAll = this.state.reviewsAll;
-      //   let newReview = this.state.reviewText;
-      //   console.log("newReview: " + newReview)
-      //   newReviewsAll.push(newReview);
-      //   this.setState({ reviewsAll: newReviewsAll });
-
-      //   const newArrayData = {
-      //     ratingsAll: this.state.ratingsAll,
-      //     reviewsAll: this.state.reviewsAll
-      // }
-      // API.updateFieldUser(this.state.revieweeID, newArrayData)
-      //     .then(res => {
-      //         console.log("Rating and Review added to Reviewee")
-      //         console.log(res.data)
-      //     })
-      //     .catch(err => console.log(err))
-
-      this.props.history.replace(`/profile/${this.state.userId}`);
-    });
-  };
-
-  handleNoReview = event => {
-    event.preventDefault();
-    alert("No Review Submitted");
-    this.props.history.replace(`/profile/${this.state.userId}`);
-  };
+      // Calculate the average of the ratings to the nearest half
+      const arrAvgHalf = roundHalf(arrAvg);
+      function roundHalf(num) {
+        return Math.round(num * 2) / 2;
+      }
+      this.setState({
+        reviewsRatingAve: arrAvg,
+        reviewsRatingAveHalf: arrAvgHalf,
+        reviewsRatingTotNum: totNumRatings
+      });
+    }
+  }
 
   render() {
     const { reviewRating } = this.state;
@@ -327,4 +201,4 @@ class Review extends Component {
   }
 }
 
-export default withAuth(Review);
+export default withAuth(Rating);
