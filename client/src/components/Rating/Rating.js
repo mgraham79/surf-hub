@@ -68,7 +68,7 @@ class Rating extends Component {
               name="rate2"
               editing={false}
               renderStarIconHalf={() => <span></span>}
-              starCount={10}
+              starCount={5}
               value={reviewsRatingAveHalf}
             />
             <p>Total Number of Reviews: <span style="color:blue">{this.state.reviewsRatingTotNum}</span></p>

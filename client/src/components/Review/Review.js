@@ -282,7 +282,7 @@ class Review extends Component {
                           <div style={{ fontSize: 50 }}>
                             <StarRatingComponent
                               name="rate1"
-                              starCount={10}
+                              starCount={5}
                               value={reviewRating}
                               onStarClick={this.onStarClick.bind(this)}
                             />
