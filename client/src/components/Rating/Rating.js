@@ -23,7 +23,7 @@ class Rating extends Component {
 
   componentDidMount() {
     // Getting the reviews and ratings for revieweeID
-    API.getUser(this.state.revieweeID).then(res => {
+    API.getUser(props.revieweeID).then(res => {
       this.setState({
         userId: res.data._id,
         ratingsAll: res.data.ratingsAll

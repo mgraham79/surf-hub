@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import Nav from "./Nav"
 import FindInstructorButton from "./findInstructorButton/FindInstructorButton"
 import "./Profile.css"
+import ReactDOM from "react-dom";
+import StarRatingComponent from "react-star-rating-component";
 
 class Profile extends Component {
 
@@ -19,6 +21,10 @@ class Profile extends Component {
     exp: "",
     favBeaches: "",
     bio: "",
+    ratingsAll: [],
+    reviewsRatingAve: 0,
+    reviewsRatingAveHalf: 0,
+    reviewsRatingTotNum: 0
   };
 
   componentDidMount() {
@@ -33,13 +39,45 @@ class Profile extends Component {
         board: res.data.board,
         exp: res.data.exp,
         favBeaches: res.data.favBeaches,
-        bio: res.data.bio
+        bio: res.data.bio,
+        ratingsAll: res.data.ratingsAll
       })
     });
+
+
+
+    // Checking if th array is empty
+    if (this.state.ratingsAll.length === 0) {
+      this.setState({
+        reviewsRatingAve: 0,
+        reviewsRatingAveHalf: 0,
+        reviewsRatingTotNum: 0
+      });
+    } else {
+      // Set the ratingsAll array to a new name
+      const newRatingsAll = this.ratingsAll
+      // Calculate the total number of reviews
+      const totNumRatings = this.ratingsAll.length;
+      // Calculate the average of the ratings array
+      const arrAvg = newRatingsAll =>
+      newRatingsAll.reduce((a, b) => a + b, 0) / newRatingsAll.length;
+
+      // Calculate the average of the ratings to the nearest half
+      const arrAvgHalf = roundHalf(arrAvg);
+      function roundHalf(num) {
+        return Math.round(num * 2) / 2;
+      }
+      this.setState({
+        reviewsRatingAve: arrAvg,
+        reviewsRatingAveHalf: arrAvgHalf,
+        reviewsRatingTotNum: totNumRatings
+      });
+    }
   }
 
   render() {
     console.log(this.props)
+    const { reviewsRatingAveHalf } = this.state;
     return (
       <div>
         <Nav />
@@ -68,6 +106,26 @@ class Profile extends Component {
                       <span id="user-email">{this.state.email}</span>
                     </p>
                     <hr />
+                    
+                    <div className="w3-container">
+                    <p>
+                      
+                    <div className="starsRating">
+                    <b>Rating:</b>
+                      <div styles={{ fontSize: 50 }}>
+                        <StarRatingComponent
+                          name="rate2"
+                          editing={false}
+                          renderStarIconHalf={() => <span></span>}
+                          starCount={5}
+                          value={reviewsRatingAveHalf}
+                        />
+                        <p><b>Reviews:</b> <span styles="color:blue">{this.state.reviewsRatingTotNum}</span></p>
+                      </div>
+                    </div>
+                    </p>
+                    <hr />
+                    </div>
 
                     <p>
                       <b>
