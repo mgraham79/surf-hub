@@ -23,7 +23,7 @@ class Profile extends Component {
     bio: "",
     ratingsAll: [],
     reviewsRatingAve: 0,
-    reviewsRatingAveHalf: 0,
+    reviewsRatingAveInt: 0,
     reviewsRatingTotNum: 0
   };
 
@@ -45,39 +45,49 @@ class Profile extends Component {
     });
 
 
+    // The setTimeout is needed for ratingsAll to be defined
+    setTimeout(function() {
+      ratingsDelay();
+    }, 3000);
+    var ratingsDelay = () => {
+        // Checking if th array is empty
+        if (this.state.ratingsAll.length === 0) {
+          console.log("ratingsAll array empty")
+          this.setState({
+            reviewsRatingAve: 0,
+            reviewsRatingAveInt: 0,
+            reviewsRatingTotNum: 0
+          });
+        } else {
+          // Set the ratingsAll array to a new name
+          const newRatingsAll = this.state.ratingsAll
+          // Calculate the total number of reviews
+          const totNumRatings = this.state.ratingsAll.length;
+          // Calculate the average of the ratings array
+          const arrAvg = arr =>
+          arr.reduce((a, b) => a + b, 0) / arr.length;
 
-    // Checking if th array is empty
-    if (this.state.ratingsAll.length === 0) {
-      this.setState({
-        reviewsRatingAve: 0,
-        reviewsRatingAveHalf: 0,
-        reviewsRatingTotNum: 0
-      });
-    } else {
-      // Set the ratingsAll array to a new name
-      const newRatingsAll = this.ratingsAll
-      // Calculate the total number of reviews
-      const totNumRatings = this.ratingsAll.length;
-      // Calculate the average of the ratings array
-      const arrAvg = newRatingsAll =>
-      newRatingsAll.reduce((a, b) => a + b, 0) / newRatingsAll.length;
+          const ratingAve = arrAvg(newRatingsAll)
 
-      // Calculate the average of the ratings to the nearest half
-      const arrAvgHalf = roundHalf(arrAvg);
-      function roundHalf(num) {
-        return Math.round(num * 2) / 2;
-      }
-      this.setState({
-        reviewsRatingAve: arrAvg,
-        reviewsRatingAveHalf: arrAvgHalf,
-        reviewsRatingTotNum: totNumRatings
-      });
+          // Calculate the average of the ratings to the nearest integer
+          const arrAvgInt = roundInt(ratingAve);
+          function roundInt(num) {
+            return Math.round(num * 1) / 1;
+          }
+          console.log("ratingAve: " + ratingAve)
+          console.log("arrAvgInt: " + arrAvgInt)
+          this.setState({
+            reviewsRatingAve: arrAvg,
+            reviewsRatingAveInt: arrAvgInt,
+            reviewsRatingTotNum: totNumRatings
+          });
+        }
     }
   }
 
   render() {
     console.log(this.props)
-    const { reviewsRatingAveHalf } = this.state;
+    const { reviewsRatingAveInt } = this.state;
     return (
       <div>
         <Nav />
@@ -106,19 +116,21 @@ class Profile extends Component {
                       <span id="user-email">{this.state.email}</span>
                     </p>
                     <hr />
+                  </div>
                     
                     <div className="w3-container">
                     <p>
-                      
+                     
                     <div className="starsRating">
                     <b>Rating:</b>
-                      <div styles={{ fontSize: 50 }}>
+                      <div styles={{ fontSize:50 }}>
                         <StarRatingComponent
                           name="rate2"
                           editing={false}
+                          // did not work when using just renderStarIcon
                           renderStarIconHalf={() => <span></span>}
                           starCount={5}
-                          value={reviewsRatingAveHalf}
+                          value={reviewsRatingAveInt}
                         />
                         <p><b>Reviews:</b> <span styles="color:blue">{this.state.reviewsRatingTotNum}</span></p>
                       </div>
@@ -127,6 +139,7 @@ class Profile extends Component {
                     <hr />
                     </div>
 
+                    <div className="w3-container">
                     <p>
                       <b>
                         <i class="fa fa-home fa-fw w3-margin-right w3-large text-dark-blue"></i>Location: </b>
