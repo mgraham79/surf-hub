@@ -74,6 +74,20 @@ let userSchema = new Schema({
     trim: true
   }],
 
+  reviewersFirstNameAll: [{
+    type: String,
+    trim: true
+  }],
+
+  reviewersPictureAll: [{
+    type: String,
+    trim: true
+  }],
+
+  reviewsDateAll: [{
+    type: Date
+  }],
+
   board: {
     type: String,
     trim: true

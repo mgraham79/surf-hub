@@ -43,7 +43,15 @@ class Review extends Component {
     sessionEnd: Date(2018, 7),
     ended: false,
     ratingsAll: [],
-    reviewsAll: []
+    reviewsAll: [],
+    reviewersFirstNameAll: [],
+    reviewersPictureAll: [],
+    reviewsDateAll: [],
+    userIdReviewer: "",
+    picURLReviewer: "",
+    firstNameReviewer: "",
+    middleInitialReviewer: "",
+    lastNameReviewer: ""
   };
 
   onStarClick(nextValue, prevValue, name) {
@@ -100,12 +108,31 @@ class Review extends Component {
           exp: res.data.exp,
           ratingsAll: res.data.ratingsAll,
           reviewsAll: res.data.reviewsAll,
+          reviewersFirstNameAll: res.data.reviewersFirstNameAll,
+          reviewersPictureAll: res.data.reviewersPictureAll,
+          reviewsDateAll: res.data.reviewsDateAll,
           favBeaches: res.data.favBeaches,
           bio: res.data.bio,
           reserved: res.data.reserved
         });
       });
     };
+
+    // Getting info of the reviewer
+   
+    
+      API.getUser(this.props.user.id).then(res => {
+        this.setState({
+          userIdReviewer: res.data._id,
+          picURLReviewer: res.data.picURL,
+          firstNameReviewer: res.data.firstName,
+          middleInitialReviewer: res.data.middleInitial,
+          lastNameReviewer: res.data.lastName,
+        });
+      });
+  
+     
+
   } // end of component did mount
 
   handleInputChange = event => {
@@ -149,9 +176,30 @@ class Review extends Component {
         newReviewsAll.push(newReview);
         this.setState({ reviewsAll: newReviewsAll });
 
+        // Adding the reviewer's first name to the reviewersFirstNameAll array
+        let newReviewersFirstNameAll = this.state.reviewersFirstNameAll;
+        let newReviewerFirstName = this.state.firstNameReviewer;
+        newReviewersFirstNameAll.push(newReviewerFirstName);
+        this.setState({ reviewersFirstNameAll: newReviewersFirstNameAll });
+
+        // Adding the reviewer's picture to the reviewersPictureAll array
+        let newReviewersPictureAll = this.state.reviewersPictureAll;
+        let newReviewerPicture = this.state.picURLReviewer;
+        newReviewersPictureAll.push(newReviewerPicture);
+        this.setState({ reviewersPictureAll: newReviewersPictureAll });
+
+        // Adding the review's date to the reviewsDateAll array
+        let newReviewsDateAll = this.state.reviewsDateAll;
+        let newReviewDate = this.state.reviewDate;
+        newReviewsDateAll.push(newReviewDate);
+        this.setState({ reviewsDateAll: newReviewsDateAll });
+
         const newArrayData = {
           ratingsAll: this.state.ratingsAll,
-          reviewsAll: this.state.reviewsAll
+          reviewsAll: this.state.reviewsAll,
+          reviewersFirstNameAll: this.state.reviewersFirstNameAll,
+          reviewersPictureAll: this.state.reviewersPictureAll,
+          reviewsDateAll: this.state.reviewsDateAll
         };
         API.updateFieldUser(this.state.revieweeID, newArrayData)
           .then(res => {
