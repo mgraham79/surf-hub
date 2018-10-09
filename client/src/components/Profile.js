@@ -7,6 +7,8 @@ import FindInstructorButton from "./findInstructorButton/FindInstructorButton"
 import "./Profile.css"
 import ReactDOM from "react-dom";
 import StarRatingComponent from "react-star-rating-component";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 class Profile extends Component {
 
@@ -22,12 +24,17 @@ class Profile extends Component {
     favBeaches: "",
     bio: "",
     ratingsAll: [],
+    reviewsAll: [],
+    reviewersFirstNameAll: [],
+    reviewersPictureAll: [],
+    reviewsDateAll: [],
     reviewsRatingAve: 0,
     reviewsRatingAveInt: 0,
     reviewsRatingTotNum: 0
   };
 
   componentDidMount() {
+    
     API.getUser(this.props.user.id).then(res => {
       this.setState({
         picURL: res.data.picURL,
@@ -40,11 +47,16 @@ class Profile extends Component {
         exp: res.data.exp,
         favBeaches: res.data.favBeaches,
         bio: res.data.bio,
-        ratingsAll: res.data.ratingsAll
+        ratingsAll: res.data.ratingsAll,
+        reviewsAll:  res.data.reviewsAll,
+        reviewersFirstNameAll:  res.data.reviewersFirstNameAll,
+        reviewersPictureAll: res.data.reviewersPictureAll,
+        reviewsDateAll: res.data.reviewsDateAll,
       })
     });
-
-
+  
+    
+     
     // The setTimeout is needed for ratingsAll to be defined
     setTimeout(function() {
       ratingsDelay();
@@ -184,6 +196,56 @@ class Profile extends Component {
 
                 </div>
               </div>
+
+              <div className="w3-twothird">
+                <div className="w3-container w3-card w3-light-gray w3-margin-bottom">
+                  <h2 className="w3-text-grey w3-padding-16">
+                    <i className="fa fa-clipboard fa-fw w3-margin-right w3-xxlarge text-dark-blue"></i>My Reviews</h2>
+                    
+                    <div className="w3-card-4">
+                      <div header className="w3-container">
+                      <div className="row">
+                      <div className="col-sm-3 w3-center ">
+
+                       <img className="w3-circle w3-margin-top" src={this.state.reviewersPictureAll[0]} alt="Avatar" />
+                       <br />
+                       <b>
+                       <i className="w3-large text-dark-blue"></i>
+                       {this.state.reviewersFirstNameAll[0]}
+                       </b>
+                       </div>
+                       <div className="col-sm-9">
+                      
+                      
+                      <div className="starsRating1Review">
+                      {console.log("reviewsDateAll: "+ this.state.reviewsDateAll[0])}
+                      <div styles={{ fontSize:50 }}>
+                        <StarRatingComponent
+                          name="rate3"
+                          editing={false}
+                          // did not work when using just renderStarIcon
+                          renderStarIconHalf={() => <span></span>}
+                          starCount={5}
+                          value={this.state.ratingsAll[0]}
+                        />
+                        <span id="date-right">  <Moment  format="MMMM Do YYYY">
+                        {this.state.reviewsDateAll[0]}
+                        </Moment></span>
+                        <br />
+                        <p>{this.state.reviewsAll[0]}</p>
+                      </div>
+                    </div>
+                    </div>
+                   
+                      </div>
+                      </div>
+
+                    
+                    </div>
+
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
