@@ -13,7 +13,6 @@ import 'moment-timezone';
 class Profile extends Component {
 
   state = {
-    reviewCards: [],
     picURL: "",
     firstName: "",
     middleInitial: "",
@@ -95,27 +94,47 @@ class Profile extends Component {
             reviewsRatingTotNum: totNumRatings
           });
         }
+    }
 
-        // Creating review card constructor function
+    var createReview = () => {
+      let createReviewArr = []
+    for (var j = 0; j < this.state.ratingsAll.length; j++) {
+      createReviewArr.push(<div className="w3-card-4">)
+        createReviewArr.push(<div header className="w3-container">)
+        createReviewArr.push(<div className="row">)
+        createReviewArr.push(<div className="col-sm-3 w3-center ">)
 
-        var ReviewCard = function(cardRating, cardReview, cardDate, cardPic, cardFName) {
-          this.cardRating = cardRating;
-          this.cardReview = cardReview;
-          this.cardDate = cardDate;
-          this.cardPic = cardPic;
-          this.cardFName = cardFName;
-        }
-          
-        // creating an array review card objects
-        const newReviewCards = this.state.reviewCards
-        for (var k = 0; k < this.state.ratingsAll.length; k++) {
-          newReviewCards[k] = new ReviewCard(this.state.ratingsAll[k],this.state.reviewsAll[k],this.state.reviewsDateAll[k], this.state.reviewersPictureAll[k], this.state.reviewersFirstNameAll[k])
-        }
+         createReviewArr.push(<img className="w3-circle w3-margin-top" src={`this.state.reviewersPictureAll[${j}]`} alt="Avatar" />)
+         createReviewArr.push(<br />)
+         createReviewArr.push(<b>)
+         createReviewArr.push(<i className="w3-large text-dark-blue"></i>)
+         createReviewArr.push({`this.state.reviewersFirstNameAll[${j}]`})
+         createReviewArr.push(</b>)
+         createReviewArr.push(</div>)
+         createReviewArr.push(<div className="col-sm-9">)
+      
+         createReviewArr.push(<div className="starsRating1Review">)
+  
+         createReviewArr.push(<div styles={{ fontSize:50 }}>)
+         createReviewArr.push(<StarRatingComponent name="rate3" editing={false} renderStarIconHalf={() => <span></span>} starCount={5} value={`this.state.ratingsAll[${j}]`}/>)
+         createReviewArr.push(<span id="date-right">  <Moment  format="MMMM Do YYYY">)
+         createReviewArr.push({`this.state.reviewsDateAll[${j}]`})
+         createReviewArr.push(</Moment></span>)
+         createReviewArr.push( <br />)
+         createReviewArr.push(<p>{`this.state.reviewsAll[${j}]`}</p>)
+         createReviewArr.push(</div>)
+         createReviewArr.push(</div>)
+         createReviewArr.push(</div>)
+         createReviewArr.push(</div>)
+         createReviewArr.push(</div>)
 
-        this.setState({
-          reviewCards: newReviewCards,
-        });
-     
+      
+      createReviewArr.push(</div>)
+      createReviewArr.push(`}`)
+      }
+
+      return createReviewArr
+
     }
   }
 
@@ -224,49 +243,7 @@ class Profile extends Component {
                   <h2 className="w3-text-grey w3-padding-16">
                     <i className="fa fa-clipboard fa-fw w3-margin-right w3-xxlarge text-dark-blue"></i>My Reviews</h2>
                     
-                    
-                    {/* Start of Review Card Creation*/}
-                    {this.state.reviewCards.map(reviewCard => (
-                    <div className="w3-card-4">
-                      <div header className="w3-container">
-                      <div className="row">
-                      <div className="col-sm-3 w3-center ">
-
-                       <img className="w3-circle w3-margin-top" src={reviewCard.cardPic} alt="Avatar" />
-                       <br />
-                       <b>
-                       <i className="w3-large text-dark-blue"></i>
-                       {reviewCard.cardFName}
-                       </b>
-                       </div>
-                       <div className="col-sm-9">
-                    
-                      <div className="starsRating1Review">
-                      <div styles={{ fontSize:50 }}>
-                        <StarRatingComponent
-                          name="rate3"
-                          editing={false}
-                          // did not work when using just renderStarIcon
-                          renderStarIconHalf={() => <span></span>}
-                          starCount={5}
-                          value={reviewCard.cardRating}
-                        />
-                        <span id="date-right">  <Moment  format="MMMM Do YYYY">
-                        {reviewCard.cardDate}
-                        </Moment></span>
-                        <br />
-                        <p>{reviewCard.cardReview}</p>
-                      </div>
-                      </div>
-                      </div>
-                      </div>
-                      </div>
-
-                    
-                    </div>
-
-                    ))} {/* End of Review Card Creation*/}
-
+                    {this.createReview()}
                 </div>
               </div>
 

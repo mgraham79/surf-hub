@@ -13,7 +13,6 @@ import 'moment-timezone';
 class Profile extends Component {
 
   state = {
-    reviewCards: [],
     picURL: "",
     firstName: "",
     middleInitial: "",
@@ -95,27 +94,6 @@ class Profile extends Component {
             reviewsRatingTotNum: totNumRatings
           });
         }
-
-        // Creating review card constructor function
-
-        var ReviewCard = function(cardRating, cardReview, cardDate, cardPic, cardFName) {
-          this.cardRating = cardRating;
-          this.cardReview = cardReview;
-          this.cardDate = cardDate;
-          this.cardPic = cardPic;
-          this.cardFName = cardFName;
-        }
-          
-        // creating an array review card objects
-        const newReviewCards = this.state.reviewCards
-        for (var k = 0; k < this.state.ratingsAll.length; k++) {
-          newReviewCards[k] = new ReviewCard(this.state.ratingsAll[k],this.state.reviewsAll[k],this.state.reviewsDateAll[k], this.state.reviewersPictureAll[k], this.state.reviewersFirstNameAll[k])
-        }
-
-        this.setState({
-          reviewCards: newReviewCards,
-        });
-     
     }
   }
 
@@ -225,23 +203,23 @@ class Profile extends Component {
                     <i className="fa fa-clipboard fa-fw w3-margin-right w3-xxlarge text-dark-blue"></i>My Reviews</h2>
                     
                     
-                    {/* Start of Review Card Creation*/}
-                    {this.state.reviewCards.map(reviewCard => (
+                    {/* {for (var j = 0; j < this.state.ratingsAll.length; j++) { */}
                     <div className="w3-card-4">
                       <div header className="w3-container">
                       <div className="row">
                       <div className="col-sm-3 w3-center ">
 
-                       <img className="w3-circle w3-margin-top" src={reviewCard.cardPic} alt="Avatar" />
+                       <img className="w3-circle w3-margin-top" src={this.state.reviewersPictureAll[0]} alt="Avatar" />
                        <br />
                        <b>
                        <i className="w3-large text-dark-blue"></i>
-                       {reviewCard.cardFName}
+                       {this.state.reviewersFirstNameAll[0]}
                        </b>
                        </div>
                        <div className="col-sm-9">
                     
                       <div className="starsRating1Review">
+                      {console.log("reviewsDateAll: "+ this.state.reviewsDateAll[0])}
                       <div styles={{ fontSize:50 }}>
                         <StarRatingComponent
                           name="rate3"
@@ -249,13 +227,13 @@ class Profile extends Component {
                           // did not work when using just renderStarIcon
                           renderStarIconHalf={() => <span></span>}
                           starCount={5}
-                          value={reviewCard.cardRating}
+                          value={this.state.ratingsAll[0]}
                         />
                         <span id="date-right">  <Moment  format="MMMM Do YYYY">
-                        {reviewCard.cardDate}
+                        {this.state.reviewsDateAll[0]}
                         </Moment></span>
                         <br />
-                        <p>{reviewCard.cardReview}</p>
+                        <p>{this.state.reviewsAll[0]}</p>
                       </div>
                       </div>
                       </div>
@@ -264,9 +242,7 @@ class Profile extends Component {
 
                     
                     </div>
-
-                    ))} {/* End of Review Card Creation*/}
-
+                    {/* }} */}
                 </div>
               </div>
 
