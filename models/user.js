@@ -21,8 +21,7 @@ let userSchema = new Schema({
 
   lastName: {
     type: String,
-    trim: true,
-    required: "Last name is Required"
+    trim: true
   },
 
   middleInitial: {
