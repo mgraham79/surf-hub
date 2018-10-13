@@ -59,6 +59,10 @@ class ViewProfile extends Component {
       .catch(err => console.log(err))
   }
 
+  handleCreateReview = () => {
+    // Send the user to the review page
+    this.props.history.replace('/review');
+  }
 
   componentDidMount() {
     API.getUser(this.props.match.params.id).then(res => {
@@ -172,7 +176,7 @@ class ViewProfile extends Component {
       }
     }
     else {
-      var buttonSession = <button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-secondary" disabled>Create Lesson With This Instructor</button>
+      var buttonSession = <button type="button" onClick={this.handleCreateReview} className="btn-primary btn-danger">Create A Review For This Instructor</button>
     }
 
     const { reviewsRatingAveInt } = this.state;
