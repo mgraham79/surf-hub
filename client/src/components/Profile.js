@@ -176,7 +176,7 @@ class Profile extends Component {
                     <div className="w3-container">
                     <p>
                       <b>
-                        <i class="fa fa-home fa-fw w3-margin-right w3-large text-dark-blue"></i>Location: </b>
+                        <i className="fa fa-home fa-fw w3-margin-right w3-large text-dark-blue"></i>Location: </b>
                       <span id="user-location">{this.state.location}</span>
                     </p>
                     <hr />
