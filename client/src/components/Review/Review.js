@@ -262,7 +262,7 @@ class Review extends Component {
 
                       <p>
                         <b>
-                          <i class="fa fa-home fa-fw w3-margin-right w3-large text-dark-blue" />
+                          <i className="fa fa-home fa-fw w3-margin-right w3-large text-dark-blue" />
                           Location:{" "}
                         </b>
                         <span id="user-location">{this.state.location}</span>
