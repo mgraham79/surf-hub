@@ -109,8 +109,9 @@ class Profile extends Component {
         // creating an array review card objects
         const newReviewCards = this.state.reviewCards
         for (var k = 0; k < this.state.ratingsAll.length; k++) {
-          newReviewCards[k] = new ReviewCard(this.state.ratingsAll[k],this.state.reviewsAll[k],this.state.reviewsDateAll[k], this.state.reviewersPictureAll[k], this.state.reviewersFirstNameAll[k])
+           newReviewCards[this.state.ratingsAll.length -1 - k] = new ReviewCard(this.state.ratingsAll[k],this.state.reviewsAll[k],this.state.reviewsDateAll[k], this.state.reviewersPictureAll[k], this.state.reviewersFirstNameAll[k])
         }
+      
 
         this.setState({
           reviewCards: newReviewCards,
