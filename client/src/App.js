@@ -114,7 +114,8 @@ class App extends Component {
   handleEndSession = () => {
     var updateData = {
       sessionEnd: Date.now(),
-      ended: "true"
+      ended: "true",
+      sessionLoc: this.state.location.replace(/ /g, "_"),
     }
     API.updateFieldSession(this.state.availableSessionData._id, updateData)
       .then(result => {

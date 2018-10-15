@@ -36,7 +36,12 @@ const sessionSchema = new Schema({
   ended:{
     type: Boolean,
     default: false
-  }
+  },
+
+  sessionLoc: {
+    type: String,
+    trim: true
+  },
 
 });
 
