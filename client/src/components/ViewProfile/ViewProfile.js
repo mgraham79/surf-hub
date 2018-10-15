@@ -176,8 +176,20 @@ class ViewProfile extends Component {
       }
     }
     else {
-      var buttonSession = <button type="button" onClick={this.handleCreateReview} className="btn-primary btn-danger">Create A Review For This Instructor</button>
+      var buttonSession = <button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-secondary" disabled>Create Lesson With This Instructor</button>
     }
+
+    
+    // Review Button Logic
+    if (this.state.sessionStarted) {
+      var buttonReview;
+        buttonReview = <button type="button" onClick={this.handleCreateReview} className="btn-primary btn-success">Create A Review For This Instructor</button>
+    }
+    else {
+      buttonReview = <button type="button" onClick={this.handleCreateReview} className="btn-primary btn-secondary" disabled>Create A Review For This Instructor</button>
+    }
+
+
 
     const { reviewsRatingAveInt } = this.state;
     return (
@@ -275,6 +287,7 @@ class ViewProfile extends Component {
                 </div>
                 {buttonChat}
                 {buttonSession}
+                {buttonReview}
                 <br />
                 <br />
                 <br />
