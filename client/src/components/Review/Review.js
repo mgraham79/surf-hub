@@ -60,6 +60,7 @@ class Review extends Component {
 
   componentDidMount() {
     // Getting the session that was stored in local storage when the session ended (App.js)
+    console.log("sessionIdLocStor: " + localStorage.getItem("sessionIdLocStor"));
     API.getSession(localStorage.getItem("sessionIdLocStor")).then(res => {
       this.setState({
         sessionId: res.data._id,
@@ -74,6 +75,7 @@ class Review extends Component {
       if (this.state.reviewerID === "") {
         // The reviewer ID is the ID of the current user
         this.setState({ reviewerID: this.props.user.id });
+        console.log("reviewerID: " + this.props.user.id)
 
         // If the ID of the current user equals the clientID then the revieweeID equals the instructorID
         // else the reviewee ID equals the clientID
