@@ -39,7 +39,15 @@ class App extends Component {
     sessionAvailable: false,
     availableSessionData: {},
     instructor: this.props.isInstructor,
-    available:""
+    available:"",
+    instructorName: "",
+    instructorFirstName: "",
+    instructorMiddleInitial: "",
+    instructorLastName: "",
+    clientName: "",
+    clientFirstName: "",
+    clientMiddleInitial: "",
+    clientLastName: ""
   };
 
 
@@ -68,7 +76,10 @@ class App extends Component {
           instructor: result.data.instructor,
           location: result.data.location,
           available: result.data.available,
-          User: result.data.firstName
+          User: result.data.firstName,
+          instructorFirstName: result.data.firstName,
+          instructorMiddleInitial: result.data.middleInitial,
+          instructorLastName: result.data.lastName
         })
         if (result.data.instructor) {
           console.log(this.props.user.id)
@@ -112,10 +123,54 @@ class App extends Component {
   }
 
   handleEndSession = () => {
+    
+    // Client's name information
+    API.getUser(this.state.availableSessionData.clientID)
+      .then(res => {
+        this.setState({
+          clientFirstName: res.data.firstName,
+          clientMiddleInitial: res.data.middleInitial,
+          clientLastName: res.data.lastName
+        })
+        console.log(this.state)
+    });
+
+     // The setTimeout is needed for clientNames to be defined
+     setTimeout(function() {
+      clientNameDelay();
+    }, 1000);
+    var clientNameDelay = () => {
+    
+    
+        // Client's full name
+        // Checking for null value of middle initial
+        var clientFullName
+        if(!this.state.clientMiddleInitial) {
+          clientFullName = this.state.clientFirstName + " " + this.state.clientMiddleInitial + this.state.clientLastName
+        }
+        else {
+          clientFullName = this.state.clientFirstName + " " + this.state.clientMiddleInitial + " " + this.state.clientLastName
+        }
+        this.setState({clientName: clientFullName})
+        
+        // Instructor's full name
+        // Checking for null value of middle initial
+        var instructorFullName
+        if(!this.state.instructorMiddleInitial) {
+          instructorFullName = this.state.instructorFirstName + " " + this.state.instructorMiddleInitial + this.state.instructorLastName
+        }
+        else {
+          instructorFullName = this.state.instructorFirstName + " " + this.state.instructorMiddleInitial + " " + this.state.instructorLastName
+        }
+        this.setState({instructorName: instructorFullName})
+
+
     var updateData = {
       sessionEnd: Date.now(),
       ended: "true",
       sessionLoc: this.state.location.replace(/ /g, "_"),
+      clientName: this.state.clientName.replace(/ /g, "_"),
+      instructorName: this.state.instructorName.replace(/ /g, "_")
     }
     API.updateFieldSession(this.state.availableSessionData._id, updateData)
       .then(result => {
@@ -133,6 +188,7 @@ class App extends Component {
 
       // Send the user to the review page
       this.props.history.replace('/review');
+    }  // End of SetTimeout
   }
 
 

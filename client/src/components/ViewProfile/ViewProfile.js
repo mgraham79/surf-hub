@@ -87,6 +87,9 @@ class ViewProfile extends Component {
       })
     });
     
+   
+
+
 
      // The setTimeout is needed for ratingsAll to be defined
      setTimeout(function() {
