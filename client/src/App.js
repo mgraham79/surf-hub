@@ -293,9 +293,7 @@ class App extends Component {
                     Location
                     </th>
                   </tr>
-                  
                   {this.state.closedSessionInstr.map(isession => (
-                  // <div key={isession._id} className="row">
                   <tr>
                     <td align="center">
                       {isession.clientID}
@@ -320,18 +318,73 @@ class App extends Component {
                       {isession.sessionLoc.replace(/_/g," ")}
                     </td>
                   </tr>
-                  // </div>
                    ))}
                 </tbody>
               </table>
       </div>
-       
       </div>
       </div>
-      
       }
 
-
+      if(!this.state.instructor){
+        var studentSessions=  <div className="row">
+        <div id="instructTable" className="col col-lg-12">
+          <h2>Instructor Session Information</h2>
+              <div>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th align="center">
+                      Instructor ID
+                      </th>
+                      <th align="center">
+                      Instructor Name
+                      </th>
+                      <th align="center">
+                      Session Start
+                      </th>
+                      <th align="center">
+                      Session End
+                      </th>
+                      <th align="center">
+                      Duration (minutes)
+                      </th>
+                      <th align="center">
+                      Location
+                      </th>
+                    </tr>
+                    {this.state.closedSessionClient.map(csession => (
+                    <tr>
+                      <td align="center">
+                        {csession.instructorID}
+                      </td>
+                      <td align="center">
+                        {csession.instructorName.replace(/_/g," ")}
+                      </td>
+                      <td align="center">
+                       <Moment  format="MMMM Do YYYY LT">
+                          {csession.sessionStart}
+                        </Moment>
+                      </td>
+                      <td align="center">
+                        <Moment  format="MMMM Do YYYY LT">
+                        {csession.sessionEnd}
+                        </Moment>
+                      </td>
+                      <td align="center">
+                        <Moment diff={csession.sessionStart} unit="minutes">{csession.sessionEnd}</Moment>
+                      </td>
+                      <td align="center">
+                        {csession.sessionLoc.replace(/_/g," ")}
+                      </td>
+                    </tr>
+                     ))}
+                  </tbody>
+                </table>
+        </div>
+        </div>
+        </div>
+        }
 
 
     return (
@@ -355,6 +408,7 @@ class App extends Component {
             </div>
           </div>
           {instructorSessions}
+          {studentSessions}
         </div>
         
 
