@@ -287,7 +287,7 @@ class App extends Component {
                     Session End
                     </th>
                     <th align="center">
-                    Session Duration
+                    Duration (minutes)
                     </th>
                     <th align="center">
                     Location
@@ -304,13 +304,17 @@ class App extends Component {
                       {isession.clientName.replace(/_/g," ")}
                     </td>
                     <td align="center">
-                      {isession.sessionStart}
+                     <Moment  format="MMMM Do YYYY LT">
+                        {isession.sessionStart}
+                      </Moment>
                     </td>
                     <td align="center">
+                      <Moment  format="MMMM Do YYYY LT">
                       {isession.sessionEnd}
+                      </Moment>
                     </td>
                     <td align="center">
-                      {isession.sessionEnd}
+                      <Moment diff={isession.sessionStart} unit="minutes">{isession.sessionEnd}</Moment>
                     </td>
                     <td align="center">
                       {isession.sessionLoc.replace(/_/g," ")}
