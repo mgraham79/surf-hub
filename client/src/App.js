@@ -269,62 +269,59 @@ class App extends Component {
     if(this.props.isInstructor){
       var instructorSessions=  <div className="row">
       <div id="instructTable" className="col col-lg-12">
-        {this.state.closedSessionInstr.map(isession => (
-          <div key={isession._id} className="row">
+        <h2>Client Session Information</h2>
             <div>
               <table class="table">
                 <tbody>
                   <tr>
-                    <th>
+                    <th align="center">
                     Client ID
                     </th>
-                    <th>
+                    <th align="center">
                     Client Name
                     </th>
-                    <th>
+                    <th align="center">
                     Session Start
                     </th>
-                    <th>
+                    <th align="center">
                     Session End
                     </th>
-                    <th>
+                    <th align="center">
                     Session Duration
                     </th>
-                    <th>
+                    <th align="center">
                     Location
                     </th>
                   </tr>
+                  
+                  {this.state.closedSessionInstr.map(isession => (
+                  // <div key={isession._id} className="row">
                   <tr>
                     <td align="center">
-                      Client ID: <br />
                       {isession.clientID}
                     </td>
                     <td align="center">
-                      Client Name: <br />
                       {isession.clientName.replace(/_/g," ")}
                     </td>
                     <td align="center">
-                      Session Start: <br />
                       {isession.sessionStart}
                     </td>
                     <td align="center">
-                      Session End: <br />
                       {isession.sessionEnd}
                     </td>
                     <td align="center">
-                      Session Duration: <br />
                       {isession.sessionEnd}
                     </td>
                     <td align="center">
-                      Location: <br />
                       {isession.sessionLoc.replace(/_/g," ")}
                     </td>
                   </tr>
+                  // </div>
+                   ))}
                 </tbody>
               </table>
-            </div>
-          </div>
-        ))}
+      </div>
+       
       </div>
       </div>
       
