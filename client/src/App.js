@@ -14,6 +14,8 @@ import FindInstructorPage from "./components/FindInstructorPage/FindInstructorPa
 import API from "./utils/API"
 import Nav from "./components/Nav"
 import SocketFormInstructor from './components/SocketForm/SocketFormInstructor';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 const axios = require("axios")
 const Auth = new AuthService();
@@ -38,6 +40,8 @@ class App extends Component {
     beaches: [],
     sessionAvailable: false,
     availableSessionData: {},
+    closedSessionInstr: [],
+    closedSessionClient: [],
     instructor: this.props.isInstructor,
     available:"",
     instructorName: "",
@@ -47,7 +51,7 @@ class App extends Component {
     clientName: "",
     clientFirstName: "",
     clientMiddleInitial: "",
-    clientLastName: ""
+    clientLastName: "",
   };
 
 
@@ -92,9 +96,34 @@ class App extends Component {
               console.log(this.state)
             })
             .catch(err => console.log(err))
+
+            // Getting Session Data based on Instructor of a closed session
+            API.getClosedSessionByInstructorID(this.props.user.id)
+            .then(res => {
+              if (res.data) {
+                this.setState({ closedSessionInstr: res.data })
+              }
+              console.log("closedSessionInstr: " + this.state.closedSessionInstr)
+            })
+            .catch(err => console.log(err))
+
+        } else {
+           // Getting Session Data based on Client of a closed session
+           API.getClosedSessionByClientID(this.props.user.id)
+           .then(res => {
+             if (res.data) {
+               this.setState({ closedSessionClient: res.data })
+             }
+             console.log("closedSessionClient: " + this.state.closedSessionClient)
+           })
+           .catch(err => console.log(err))
         }
       })
       .catch(err => console.log(err))
+
+
+  
+
   }
 
   showPosition = (position) => {
@@ -236,6 +265,74 @@ class App extends Component {
     </ul>
     </div>
     }
+
+    if(this.props.isInstructor){
+      var instructorSessions=  <div className="row">
+      <div id="instructTable" className="col col-lg-12">
+        {this.state.closedSessionInstr.map(isession => (
+          <div key={isession._id} className="row">
+            <div>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <th>
+                    Client ID
+                    </th>
+                    <th>
+                    Client Name
+                    </th>
+                    <th>
+                    Session Start
+                    </th>
+                    <th>
+                    Session End
+                    </th>
+                    <th>
+                    Session Duration
+                    </th>
+                    <th>
+                    Location
+                    </th>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      Client ID: <br />
+                      {isession.clientID}
+                    </td>
+                    <td align="center">
+                      Client Name: <br />
+                      {isession.clientName.replace(/_/g," ")}
+                    </td>
+                    <td align="center">
+                      Session Start: <br />
+                      {isession.sessionStart}
+                    </td>
+                    <td align="center">
+                      Session End: <br />
+                      {isession.sessionEnd}
+                    </td>
+                    <td align="center">
+                      Session Duration: <br />
+                      {isession.sessionEnd}
+                    </td>
+                    <td align="center">
+                      Location: <br />
+                      {isession.sessionLoc.replace(/_/g," ")}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+      </div>
+      </div>
+      
+      }
+
+
+
+
     return (
       <div>
         <Nav />
@@ -256,8 +353,11 @@ class App extends Component {
               {conditionalChat}
             </div>
           </div>
-
+          {instructorSessions}
         </div>
+        
+
+
       </div>
     );
   }

@@ -13,6 +13,15 @@ router
 router
 .route("/open/:id")
 .get(sessionsController.findByInstructor)
+
+router
+.route("/closed/:id")
+.get(sessionsController.findByInstructorClosed)
+
+router
+.route("/client/:id")
+.get(sessionsController.findByClientClosed)
+
 // Matches with "/api/sessions/:id"
 router
   .route("/:id")

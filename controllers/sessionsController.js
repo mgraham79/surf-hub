@@ -21,6 +21,18 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findByInstructorClosed: function(req, res){
+    db.Session
+      .find({instructorID:req.params.id, ended:true})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findByClientClosed: function(req, res){
+    db.Session
+      .find({clientID:req.params.id, ended:true})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   create: function(req, res) {
     db.Session
       .create(req.body)
