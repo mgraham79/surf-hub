@@ -307,7 +307,7 @@ class ViewProfile extends Component {
                     
                     {/* Start of Review Card Creation*/}
                     {this.state.reviewCards.map(reviewCard => (
-                    <div className="w3-card-4">
+                    <div className="w3-card-4" key={reviewCard.reviewDate}>
                       <div header className="w3-container">
                       <div className="row">
                       <div className="col-sm-3 w3-center ">

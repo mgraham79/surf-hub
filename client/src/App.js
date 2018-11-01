@@ -294,7 +294,7 @@ class App extends Component {
                     </th>
                   </tr>
                   {this.state.closedSessionInstr.map(isession => (
-                  <tr>
+                  <tr key={isession.sessionStart}>
                     <td align="center">
                       {isession.clientID}
                     </td>
@@ -354,7 +354,7 @@ class App extends Component {
                       </th>
                     </tr>
                     {this.state.closedSessionClient.map(csession => (
-                    <tr>
+                    <tr  key={csession.sessionStart}>
                       <td align="center">
                         {csession.instructorID}
                       </td>
