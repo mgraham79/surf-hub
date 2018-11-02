@@ -7,10 +7,15 @@ import SocketFormComponent from "../SocketForm/SocketFormComponent"
 import "./ViewProfile.css";
 import { sockets } from "../../utils/Sockets"
 import FindInstructorButton from "../findInstructorButton/FindInstructorButton"
+import ReactDOM from "react-dom";
+import StarRatingComponent from "react-star-rating-component";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 class ViewProfile extends Component {
 
   state = {
+    reviewCards: [],
     instructorId: "",
     picURL: "",
     firstName: "",
@@ -25,7 +30,15 @@ class ViewProfile extends Component {
     connect: false,
     sessionStarted: false,
     instructorReserved: false,
-    chatting: false
+    chatting: false,
+    ratingsAll: [],
+    reviewsAll: [],
+    reviewersFirstNameAll: [],
+    reviewersPictureAll: [],
+    reviewsDateAll: [],
+    reviewsRatingAve: 0,
+    reviewsRatingAveInt: 0,
+    reviewsRatingTotNum: 0
   };
 
   handleCreateLesson = () => {
@@ -46,6 +59,10 @@ class ViewProfile extends Component {
       .catch(err => console.log(err))
   }
 
+  handleCreateReview = () => {
+    // Send the user to the review page
+    this.props.history.replace('/review');
+  }
 
   componentDidMount() {
     API.getUser(this.props.match.params.id).then(res => {
@@ -61,9 +78,78 @@ class ViewProfile extends Component {
         exp: res.data.exp,
         favBeaches: res.data.favBeaches,
         bio: res.data.bio,
-        instructorReserved: res.data.reserved
+        instructorReserved: res.data.reserved,
+        ratingsAll: res.data.ratingsAll,
+        reviewsAll:  res.data.reviewsAll,
+        reviewersFirstNameAll:  res.data.reviewersFirstNameAll,
+        reviewersPictureAll: res.data.reviewersPictureAll,
+        reviewsDateAll: res.data.reviewsDateAll,
       })
     });
+    
+   
+
+
+
+     // The setTimeout is needed for ratingsAll to be defined
+     setTimeout(function() {
+      ratingsDelay();
+    }, 3000);
+    var ratingsDelay = () => {
+        // Checking if th array is empty
+        if (this.state.ratingsAll.length === 0) {
+          console.log("ratingsAll array empty")
+          this.setState({
+            reviewsRatingAve: 0,
+            reviewsRatingAveInt: 0,
+            reviewsRatingTotNum: 0
+          });
+        } else {
+          // Set the ratingsAll array to a new name
+          const newRatingsAll = this.state.ratingsAll
+          // Calculate the total number of reviews
+          const totNumRatings = this.state.ratingsAll.length;
+          // Calculate the average of the ratings array
+          const arrAvg = arr =>
+          arr.reduce((a, b) => a + b, 0) / arr.length;
+
+          const ratingAve = arrAvg(newRatingsAll)
+
+          // Calculate the average of the ratings to the nearest integer
+          const arrAvgInt = roundInt(ratingAve);
+          function roundInt(num) {
+            return Math.round(num * 1) / 1;
+          }
+          console.log("ratingAve: " + ratingAve)
+          console.log("arrAvgInt: " + arrAvgInt)
+          this.setState({
+            reviewsRatingAve: arrAvg,
+            reviewsRatingAveInt: arrAvgInt,
+            reviewsRatingTotNum: totNumRatings
+          });
+        }
+
+        // Creating review card constructor function
+
+        var ReviewCard = function(cardRating, cardReview, cardDate, cardPic, cardFName) {
+          this.cardRating = cardRating;
+          this.cardReview = cardReview;
+          this.cardDate = cardDate;
+          this.cardPic = cardPic;
+          this.cardFName = cardFName;
+        }
+          
+        // creating an array review card objects
+        const newReviewCards = this.state.reviewCards
+        for (var k = 0; k < this.state.ratingsAll.length; k++) {
+          newReviewCards[this.state.ratingsAll.length -1 - k] = new ReviewCard(this.state.ratingsAll[k],this.state.reviewsAll[k],this.state.reviewsDateAll[k], this.state.reviewersPictureAll[k], this.state.reviewersFirstNameAll[k])
+        }
+
+        this.setState({
+          reviewCards: newReviewCards,
+        });
+     
+    }
   }
 
   handleButtonChat = () => {
@@ -96,6 +182,19 @@ class ViewProfile extends Component {
       var buttonSession = <button type="button" onClick={this.handleCreateLesson} className="btn-primary btn-secondary" disabled>Create Lesson With This Instructor</button>
     }
 
+    
+    // Review Button Logic
+    if (this.state.sessionStarted) {
+      var buttonReview;
+        buttonReview = <button type="button" onClick={this.handleCreateReview} className="btn-primary btn-success">Create A Review For This Instructor</button>
+    }
+    else {
+      buttonReview = <button type="button" onClick={this.handleCreateReview} className="btn-primary btn-secondary" disabled>Create A Review For This Instructor</button>
+    }
+
+
+
+    const { reviewsRatingAveInt } = this.state;
     return (
       <div>
         <Nav />
@@ -107,7 +206,7 @@ class ViewProfile extends Component {
               <div className="w3-third">
                 <div className="w3-white w3-text-grey w3-card-4">
                   <div className="w3-display-container">
-                    <img id="userphoto" src={this.state.picURL} alt="Avatar" />
+                    <img id="userphoto" src={this.state.picURL} alt="Avatar" />                  
                     <div className="w3-display-top w3-container w3-text-black">
                       <h2>
                         <b>
@@ -123,7 +222,30 @@ class ViewProfile extends Component {
                       <span id="user-email">{this.state.email}</span>
                     </p>
                     <hr />
+                    </div>
+                    
+                    <div className="w3-container">
+                    <p>
+                     
+                    <div className="starsRating">
+                    <b>Rating:</b>
+                      <div styles={{ fontSize:50 }}>
+                        <StarRatingComponent
+                          name="rate2"
+                          editing={false}
+                          // did not work when using just renderStarIcon
+                          renderStarIconHalf={() => <span></span>}
+                          starCount={5}
+                          value={reviewsRatingAveInt}
+                        />
+                        <p><b>Reviews:</b> <span styles="color:blue">{this.state.reviewsRatingTotNum}</span></p>
+                      </div>
+                    </div>
+                    </p>
+                    <hr />
+                    </div>
 
+                    <div className="w3-container">
                     <p>
                       <b>
                         <i class="fa fa-home fa-fw w3-margin-right w3-large text-dark-blue"></i>Location: </b>
@@ -168,6 +290,7 @@ class ViewProfile extends Component {
                 </div>
                 {buttonChat}
                 {buttonSession}
+                {buttonReview}
                 <br />
                 <br />
                 <br />
@@ -175,6 +298,60 @@ class ViewProfile extends Component {
                   {(this.state.chatting === true) ? <SocketFormComponent instructor={this.props.match.params.id} /> : <div> </div>}
                 </div>
               </div>
+
+              <div className="w3-twothird">
+                <div className="w3-container w3-card w3-light-gray w3-margin-bottom">
+                  <h2 className="w3-text-grey w3-padding-16">
+                    <i className="fa fa-clipboard fa-fw w3-margin-right w3-xxlarge text-dark-blue"></i>Reviews</h2>
+                    
+                    
+                    {/* Start of Review Card Creation*/}
+                    {this.state.reviewCards.map(reviewCard => (
+                    <div className="w3-card-4" key={reviewCard.reviewDate}>
+                      <div header className="w3-container">
+                      <div className="row">
+                      <div className="col-sm-3 w3-center ">
+
+                       <img className="w3-circle w3-margin-top" src={reviewCard.cardPic} alt="Avatar" />
+                       <br />
+                       <b>
+                       <i className="w3-large text-dark-blue"></i>
+                       {reviewCard.cardFName}
+                       </b>
+                       </div>
+                       <div className="col-sm-9">
+                    
+                      <div className="starsRating1Review">
+                      <div styles={{ fontSize:50 }}>
+                        <StarRatingComponent
+                          name="rate3"
+                          editing={false}
+                          // did not work when using just renderStarIcon
+                          renderStarIconHalf={() => <span></span>}
+                          starCount={5}
+                          value={reviewCard.cardRating}
+                        />
+                        <span id="date-right">  <Moment  format="MMMM Do YYYY">
+                        {reviewCard.cardDate}
+                        </Moment></span>
+                        <br />
+                        <p>{reviewCard.cardReview}</p>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+
+                    
+                    </div>
+
+                    ))} {/* End of Review Card Creation*/}
+
+                </div>
+              </div>
+
+
+
             </div>
           </div>
         </div>

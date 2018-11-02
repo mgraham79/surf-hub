@@ -27,3 +27,11 @@
    #myBio {
      padding-bottom: 100px;
    }
+
+   .w3-container {
+     margin-bottom: 10px;
+   }
+
+   #date-right {
+    float: right;
+   }

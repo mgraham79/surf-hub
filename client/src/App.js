@@ -14,6 +14,8 @@ import FindInstructorPage from "./components/FindInstructorPage/FindInstructorPa
 import API from "./utils/API"
 import Nav from "./components/Nav"
 import SocketFormInstructor from './components/SocketForm/SocketFormInstructor';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 const axios = require("axios")
 const Auth = new AuthService();
@@ -38,8 +40,18 @@ class App extends Component {
     beaches: [],
     sessionAvailable: false,
     availableSessionData: {},
+    closedSessionInstr: [],
+    closedSessionClient: [],
     instructor: this.props.isInstructor,
-    available:""
+    available:"",
+    instructorName: "",
+    instructorFirstName: "",
+    instructorMiddleInitial: "",
+    instructorLastName: "",
+    clientName: "",
+    clientFirstName: "",
+    clientMiddleInitial: "",
+    clientLastName: "",
   };
 
 
@@ -68,7 +80,10 @@ class App extends Component {
           instructor: result.data.instructor,
           location: result.data.location,
           available: result.data.available,
-          User: result.data.firstName
+          User: result.data.firstName,
+          instructorFirstName: result.data.firstName,
+          instructorMiddleInitial: result.data.middleInitial,
+          instructorLastName: result.data.lastName
         })
         if (result.data.instructor) {
           console.log(this.props.user.id)
@@ -81,9 +96,34 @@ class App extends Component {
               console.log(this.state)
             })
             .catch(err => console.log(err))
+
+            // Getting Session Data based on Instructor of a closed session
+            API.getClosedSessionByInstructorID(this.props.user.id)
+            .then(res => {
+              if (res.data) {
+                this.setState({ closedSessionInstr: res.data })
+              }
+              console.log("closedSessionInstr: " + this.state.closedSessionInstr)
+            })
+            .catch(err => console.log(err))
+
+        } else {
+           // Getting Session Data based on Client of a closed session
+           API.getClosedSessionByClientID(this.props.user.id)
+           .then(res => {
+             if (res.data) {
+               this.setState({ closedSessionClient: res.data })
+             }
+             console.log("closedSessionClient: " + this.state.closedSessionClient)
+           })
+           .catch(err => console.log(err))
         }
       })
       .catch(err => console.log(err))
+
+
+  
+
   }
 
   showPosition = (position) => {
@@ -112,9 +152,54 @@ class App extends Component {
   }
 
   handleEndSession = () => {
+    
+    // Client's name information
+    API.getUser(this.state.availableSessionData.clientID)
+      .then(res => {
+        this.setState({
+          clientFirstName: res.data.firstName,
+          clientMiddleInitial: res.data.middleInitial,
+          clientLastName: res.data.lastName
+        })
+        console.log(this.state)
+    });
+
+     // The setTimeout is needed for clientNames to be defined
+     setTimeout(function() {
+      clientNameDelay();
+    }, 1000);
+    var clientNameDelay = () => {
+    
+    
+        // Client's full name
+        // Checking for null value of middle initial
+        var clientFullName
+        if(!this.state.clientMiddleInitial) {
+          clientFullName = this.state.clientFirstName + " " + this.state.clientMiddleInitial + this.state.clientLastName
+        }
+        else {
+          clientFullName = this.state.clientFirstName + " " + this.state.clientMiddleInitial + " " + this.state.clientLastName
+        }
+        this.setState({clientName: clientFullName})
+        
+        // Instructor's full name
+        // Checking for null value of middle initial
+        var instructorFullName
+        if(!this.state.instructorMiddleInitial) {
+          instructorFullName = this.state.instructorFirstName + " " + this.state.instructorMiddleInitial + this.state.instructorLastName
+        }
+        else {
+          instructorFullName = this.state.instructorFirstName + " " + this.state.instructorMiddleInitial + " " + this.state.instructorLastName
+        }
+        this.setState({instructorName: instructorFullName})
+
+
     var updateData = {
       sessionEnd: Date.now(),
-      ended: "true"
+      ended: "true",
+      sessionLoc: this.state.location.replace(/ /g, "_"),
+      clientName: this.state.clientName.replace(/ /g, "_"),
+      instructorName: this.state.instructorName.replace(/ /g, "_")
     }
     API.updateFieldSession(this.state.availableSessionData._id, updateData)
       .then(result => {
@@ -132,6 +217,7 @@ class App extends Component {
 
       // Send the user to the review page
       this.props.history.replace('/review');
+    }  // End of SetTimeout
   }
 
 
@@ -179,6 +265,128 @@ class App extends Component {
     </ul>
     </div>
     }
+
+    if(this.props.isInstructor){
+      var instructorSessions=  <div className="row">
+      <div id="instructTable" className="col col-lg-12">
+        <h2>Client Session Information</h2>
+            <div>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <th align="center">
+                    Client ID
+                    </th>
+                    <th align="center">
+                    Client Name
+                    </th>
+                    <th align="center">
+                    Session Start
+                    </th>
+                    <th align="center">
+                    Session End
+                    </th>
+                    <th align="center">
+                    Duration (minutes)
+                    </th>
+                    <th align="center">
+                    Location
+                    </th>
+                  </tr>
+                  {this.state.closedSessionInstr.map(isession => (
+                  <tr key={isession.sessionStart}>
+                    <td align="center">
+                      {isession.clientID}
+                    </td>
+                    <td align="center">
+                      {isession.clientName.replace(/_/g," ")}
+                    </td>
+                    <td align="center">
+                     <Moment  format="MMMM Do YYYY LT">
+                        {isession.sessionStart}
+                      </Moment>
+                    </td>
+                    <td align="center">
+                      <Moment  format="MMMM Do YYYY LT">
+                      {isession.sessionEnd}
+                      </Moment>
+                    </td>
+                    <td align="center">
+                      <Moment diff={isession.sessionStart} unit="minutes">{isession.sessionEnd}</Moment>
+                    </td>
+                    <td align="center">
+                      {isession.sessionLoc.replace(/_/g," ")}
+                    </td>
+                  </tr>
+                   ))}
+                </tbody>
+              </table>
+      </div>
+      </div>
+      </div>
+      }
+
+      if(!this.state.instructor){
+        var studentSessions=  <div className="row">
+        <div id="instructTable" className="col col-lg-12">
+          <h2>Instructor Session Information</h2>
+              <div>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th align="center">
+                      Instructor ID
+                      </th>
+                      <th align="center">
+                      Instructor Name
+                      </th>
+                      <th align="center">
+                      Session Start
+                      </th>
+                      <th align="center">
+                      Session End
+                      </th>
+                      <th align="center">
+                      Duration (minutes)
+                      </th>
+                      <th align="center">
+                      Location
+                      </th>
+                    </tr>
+                    {this.state.closedSessionClient.map(csession => (
+                    <tr  key={csession.sessionStart}>
+                      <td align="center">
+                        {csession.instructorID}
+                      </td>
+                      <td align="center">
+                        {csession.instructorName.replace(/_/g," ")}
+                      </td>
+                      <td align="center">
+                       <Moment  format="MMMM Do YYYY LT">
+                          {csession.sessionStart}
+                        </Moment>
+                      </td>
+                      <td align="center">
+                        <Moment  format="MMMM Do YYYY LT">
+                        {csession.sessionEnd}
+                        </Moment>
+                      </td>
+                      <td align="center">
+                        <Moment diff={csession.sessionStart} unit="minutes">{csession.sessionEnd}</Moment>
+                      </td>
+                      <td align="center">
+                        {csession.sessionLoc.replace(/_/g," ")}
+                      </td>
+                    </tr>
+                     ))}
+                  </tbody>
+                </table>
+        </div>
+        </div>
+        </div>
+        }
+
+
     return (
       <div>
         <Nav />
@@ -199,8 +407,12 @@ class App extends Component {
               {conditionalChat}
             </div>
           </div>
-
+          {instructorSessions}
+          {studentSessions}
         </div>
+        
+
+
       </div>
     );
   }

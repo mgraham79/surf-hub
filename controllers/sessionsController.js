@@ -21,6 +21,18 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findByInstructorClosed: function(req, res){
+    db.Session
+      .find({instructorID:req.params.id, ended:true})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findByClientClosed: function(req, res){
+    db.Session
+      .find({clientID:req.params.id, ended:true})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   create: function(req, res) {
     db.Session
       .create(req.body)
@@ -36,7 +48,8 @@ module.exports = {
     if (req.body.instructorID) updateSessionObject.instructorID = req.body.instructorID;
     if (req.body.sessionStart) updateSessionObject.sessionStart = req.body.sessionStart;
     if (req.body.sessionEnd) updateSessionObject.sessionEnd = req.body.sessionEnd;
-    if (req.body.ended) updateSessionObject.ended= req.body.ended
+    if (req.body.ended) updateSessionObject.ended= req.body.ended;
+    if (req.body.sessionLoc) updateSessionObject.sessionLoc= req.body.sessionLoc;
 
     db.Session.findOneAndUpdate({ _id: req.params.id }, updateSessionObject, {
       new: true

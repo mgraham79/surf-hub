@@ -74,7 +74,7 @@ class SocketForm extends Component {
               className="form-control"
             />
           </div>
-          <button type="submit" className="btn-primary" onClick={this.submitForm}>Submit</button>
+          <button type="submit" className="btn-primary" style={{ marginBottom: "50px" }}onClick={this.submitForm}>Submit</button>
         </form>
       </section>
     );

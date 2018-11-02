@@ -47,9 +47,17 @@ updateFieldSession: function(id, updateField) {
 saveSession: function(sessionData) {
   return axios.post("/api/sessions", sessionData);
 },
-//Gets a session based on Instructor ID
+//Gets a open session based on Instructor ID
 getOpenSessionByInstructorID: function(id){
   return axios.get("/api/sessions/open/"+id)
+},
+//Gets a closed session based on Instructor ID
+getClosedSessionByInstructorID: function(id){
+  return axios.get("/api/sessions/closed/"+id)
+},
+//Gets a closed session based on Instructor ID
+getClosedSessionByClientID: function(id){
+  return axios.get("/api/sessions/client/"+id)
 },
 
 // Gets all beaches

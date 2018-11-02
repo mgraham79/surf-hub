@@ -21,8 +21,7 @@ let userSchema = new Schema({
 
   lastName: {
     type: String,
-    trim: true,
-    required: "Last name is Required"
+    trim: true
   },
 
   middleInitial: {
@@ -46,7 +45,8 @@ let userSchema = new Schema({
   email: {
     type: String,
     trim: true,
-    validate: validators.isEmail()
+    validate: validators.isEmail(),
+    unique: true
   },
 
   picURL: {
@@ -71,6 +71,20 @@ let userSchema = new Schema({
   reviewsAll: [{
     type: String,
     trim: true
+  }],
+
+  reviewersFirstNameAll: [{
+    type: String,
+    trim: true
+  }],
+
+  reviewersPictureAll: [{
+    type: String,
+    trim: true
+  }],
+
+  reviewsDateAll: [{
+    type: Date
   }],
 
   board: {

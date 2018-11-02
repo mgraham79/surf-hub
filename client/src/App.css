@@ -26,3 +26,13 @@
 .container-messages {
   max-width: 50%;
 }
+
+#instructTable {
+  background-color: lightgray;
+  width: 510px;
+  height: 435px;
+  overflow: scroll;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}

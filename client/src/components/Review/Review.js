@@ -32,16 +32,26 @@ class Review extends Component {
     revieweeID: "",
     reviewText: "",
     reviewRating: 0,
-    reviewDate:  Date(2018,7),
-    sessionDateForReview: Date(2018,7),
+    reviewDate: Date(2018, 7),
+    sessionDateForReview: Date(2018, 7),
     sessionId: "",
     clientName: "",
     clientID: "",
     instructorName: "",
     instructorID: "",
-    sessionStart:  Date(2018,7),
-    sessionEnd:  Date(2018,7),
-    ended: false
+    sessionStart: Date(2018, 7),
+    sessionEnd: Date(2018, 7),
+    ended: false,
+    ratingsAll: [],
+    reviewsAll: [],
+    reviewersFirstNameAll: [],
+    reviewersPictureAll: [],
+    reviewsDateAll: [],
+    userIdReviewer: "",
+    picURLReviewer: "",
+    firstNameReviewer: "",
+    middleInitialReviewer: "",
+    lastNameReviewer: ""
   };
 
   onStarClick(nextValue, prevValue, name) {
@@ -50,6 +60,7 @@ class Review extends Component {
 
   componentDidMount() {
     // Getting the session that was stored in local storage when the session ended (App.js)
+    console.log("sessionIdLocStor: " + localStorage.getItem("sessionIdLocStor"));
     API.getSession(localStorage.getItem("sessionIdLocStor")).then(res => {
       this.setState({
         sessionId: res.data._id,
@@ -61,52 +72,70 @@ class Review extends Component {
         sessionEnd: res.data.sessionEnd,
         ended: res.data.ended
       });
-    });
-
-
-    API.getUser(this.props.user.id).then(res => {
-      this.setState({
-        userId: res.data._id,
-        picURL: res.data.picURL,
-        firstName: res.data.firstName,
-        middleInitial: res.data.middleInitial,
-        lastName: res.data.lastName,
-        email: res.data.email,
-        location: res.data.location,
-        board: res.data.board,
-        exp: res.data.exp,
-        favBeaches: res.data.favBeaches,
-        bio: res.data.bio,
-        reserved: res.data.reserved
-      });
-      if(this.state.reviewerID === ""){
+      if (this.state.reviewerID === "") {
         // The reviewer ID is the ID of the current user
         this.setState({ reviewerID: this.props.user.id });
+        console.log("reviewerID: " + this.props.user.id)
 
         // If the ID of the current user equals the clientID then the revieweeID equals the instructorID
         // else the reviewee ID equals the clientID
         // If the current user is the client
-        if(this.props.user.id === this.state.clientID) {
-         this.setState({ revieweeID: this.state.instructorID });
-         // If the current user is the instructor
+        if (this.props.user.id === this.state.clientID) {
+          this.setState({ revieweeID: this.state.instructorID });
+          // If the current user is the instructor
         } else {
-          console.log("here")
-         this.setState({ revieweeID: this.state.clientID });
+          this.setState({ revieweeID: this.state.clientID });
         }
-   
-        console.log("clientID = "+ this.state.clientID)
-        console.log("reviewerID = "+ this.state.reviewerID)
-        console.log("revieweeID = "+ this.state.revieweeID)
       }
-          // Setting the date from the session
-     const dses = new Date(this.state.sessionEnd)
-     this.setState({ sessionDateForReview: dses });
-     console.log("sessionDateForReview: "+ dses)
-
-
-
+      // Setting the date from the session
+      const dses = this.state.sessionEnd;
+      this.setState({ sessionDateForReview: dses });
     });
-  }
+
+    // The setTimeout is needed for revieweeID to be defined
+    setTimeout(function() {
+      profileInfo();
+    }, 1000);
+    var profileInfo = () => {
+      API.getUser(this.state.revieweeID).then(res => {
+        this.setState({
+          userId: res.data._id,
+          picURL: res.data.picURL,
+          firstName: res.data.firstName,
+          middleInitial: res.data.middleInitial,
+          lastName: res.data.lastName,
+          email: res.data.email,
+          location: res.data.location,
+          board: res.data.board,
+          exp: res.data.exp,
+          ratingsAll: res.data.ratingsAll,
+          reviewsAll: res.data.reviewsAll,
+          reviewersFirstNameAll: res.data.reviewersFirstNameAll,
+          reviewersPictureAll: res.data.reviewersPictureAll,
+          reviewsDateAll: res.data.reviewsDateAll,
+          favBeaches: res.data.favBeaches,
+          bio: res.data.bio,
+          reserved: res.data.reserved
+        });
+      });
+    };
+
+    // Getting info of the reviewer
+   
+    
+      API.getUser(this.props.user.id).then(res => {
+        this.setState({
+          userIdReviewer: res.data._id,
+          picURLReviewer: res.data.picURL,
+          firstNameReviewer: res.data.firstName,
+          middleInitialReviewer: res.data.middleInitial,
+          lastNameReviewer: res.data.lastName,
+        });
+      });
+  
+     
+
+  } // end of component did mount
 
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
@@ -115,46 +144,82 @@ class Review extends Component {
 
     // Updating the input's state
     this.setState({
-        [name]: value
+      [name]: value
     });
+
     // console.log(this.state)
-
-      
-};
-
+  };
 
   handleReviewSubmit = event => {
     event.preventDefault();
 
-
- 
     // Setting the reviewDate state when the form is submitted.
-     const dnow = new Date();
+    const dnow = new Date(Date.now()).toISOString();
+    this.setState({ reviewDate: dnow });
 
-     console.log("reviewDate: "+ dnow)
-     console.log("reviewDateInitial " + new Date(2018,7))
+    // The setTimeout is needed for revieweeID to be defined
+    setTimeout(function() {
+      saveDelay();
+    }, 1000);
+    var saveDelay = () => {
+      API.saveReview({ ...this.state }).then(res => {
+        //console.log(this.state);
+        alert("Your changes have been saved");
 
-     this.setState({ reviewDate: dnow });
+        // Adding the ratings to the ratingsAll array
+        let newRatingsAll = this.state.ratingsAll;
+        let newRating = this.state.reviewRating;
+        newRatingsAll.push(newRating);
+        this.setState({ ratingsAll: newRatingsAll });
 
-    
-     
+        // Adding the reviews to the reviewsAll array
+        let newReviewsAll = this.state.reviewsAll;
+        let newReview = this.state.reviewText;
+        newReviewsAll.push(newReview);
+        this.setState({ reviewsAll: newReviewsAll });
 
- 
+        // Adding the reviewer's first name to the reviewersFirstNameAll array
+        let newReviewersFirstNameAll = this.state.reviewersFirstNameAll;
+        let newReviewerFirstName = this.state.firstNameReviewer;
+        newReviewersFirstNameAll.push(newReviewerFirstName);
+        this.setState({ reviewersFirstNameAll: newReviewersFirstNameAll });
 
-    API.saveReview({ ...this.state }).then(res => {
-       console.log(this.state);
-      alert("Your changes have been saved");
-      this.props.history.replace(`/profile/${this.state.userId}`);
-    });
-    
+        // Adding the reviewer's picture to the reviewersPictureAll array
+        let newReviewersPictureAll = this.state.reviewersPictureAll;
+        let newReviewerPicture = this.state.picURLReviewer;
+        newReviewersPictureAll.push(newReviewerPicture);
+        this.setState({ reviewersPictureAll: newReviewersPictureAll });
+
+        // Adding the review's date to the reviewsDateAll array
+        let newReviewsDateAll = this.state.reviewsDateAll;
+        let newReviewDate = this.state.reviewDate;
+        newReviewsDateAll.push(newReviewDate);
+        this.setState({ reviewsDateAll: newReviewsDateAll });
+
+        const newArrayData = {
+          ratingsAll: this.state.ratingsAll,
+          reviewsAll: this.state.reviewsAll,
+          reviewersFirstNameAll: this.state.reviewersFirstNameAll,
+          reviewersPictureAll: this.state.reviewersPictureAll,
+          reviewsDateAll: this.state.reviewsDateAll
+        };
+        API.updateFieldUser(this.state.revieweeID, newArrayData)
+          .then(res => {
+            console.log("Rating and Review added to Reviewee");
+            console.log(res.data);
+          })
+          .catch(err => console.log(err));
+
+        this.props.history.replace(`/profile/${this.state.userId}`);
+      });
+    };
   };
 
   handleNoReview = event => {
     event.preventDefault();
-    alert("Your changes have been saved");
-      this.props.history.replace(`/profile/${this.state.userId}`);
+    alert("No Review Submitted");
+    this.props.history.replace(`/profile/${this.state.userId}`);
   };
-
 
   render() {
     const { reviewRating } = this.state;
@@ -199,7 +264,7 @@ class Review extends Component {
 
                       <p>
                         <b>
-                          <i class="fa fa-home fa-fw w3-margin-right w3-large text-dark-blue" />
+                          <i className="fa fa-home fa-fw w3-margin-right w3-large text-dark-blue" />
                           Location:{" "}
                         </b>
                         <span id="user-location">{this.state.location}</span>
@@ -246,34 +311,49 @@ class Review extends Component {
                       <i className="fa fa-clipboard fa-fw w3-margin-right w3-xxlarge text-dark-blue" />
                       Review
                     </h2>
-                    <form onChange={this.handleInputChange} className="submitReviwew">
-                    <div className="reviewMargin">Write a review</div>
-                    <textarea
-                      rows="5"
-                      cols="55"
-                      className="myReview"
-                      name="reviewText"
-                      value={this.state.reviewText}
-                      placeholder="Write your review here"
-                    />
-                    <div>
-                      <div className="reviewMargin">
-                        <h3>
-                          Select a Star for an Overall Rating: {reviewRating}
-                        </h3>
-                        <div style={{ fontSize: 50 }}>
-                          <StarRatingComponent
-                            name="rate1"
-                            starCount={10}
-                            value={reviewRating}
-                            onStarClick={this.onStarClick.bind(this)}
-                          />
+                    <form
+                      onChange={this.handleInputChange}
+                      className="submitReviwew"
+                    >
+                      <div className="reviewMargin">Write a review</div>
+                      <textarea
+                        rows="5"
+                        cols="55"
+                        className="myReview"
+                        name="reviewText"
+                        value={this.state.reviewText}
+                        placeholder="Write your review here"
+                      />
+                      <div>
+                        <div className="reviewMargin">
+                          <h3>
+                            Select a Star for an Overall Rating: {reviewRating}
+                          </h3>
+                          <div style={{ fontSize: 50 }}>
+                            <StarRatingComponent
+                              name="rate1"
+                              starCount={5}
+                              value={reviewRating}
+                              onStarClick={this.onStarClick.bind(this)}
+                            />
+                          </div>
                         </div>
+                        <button
+                          className="btn btn-primary"
+                          id="submit-review"
+                          onClick={this.handleReviewSubmit}
+                        >
+                          Submit
+                        </button>
+                        <br />
+                        <button
+                          className="btn btn-primary"
+                          id="submit-no-review"
+                          onClick={this.handleNoReview}
+                        >
+                          No thanks, I do not want to give a review
+                        </button>
                       </div>
-                      <button className="btn btn-primary" id="submit-review" onClick={this.handleReviewSubmit}>Submit</button>
-                      <br></br>
-                      <button className="btn btn-primary" id="submit-no-review" onClick={this.handleNoReview}>No thanks, I do not want to give a review</button>
-                    </div>
                     </form>
                   </div>
                 </div>
