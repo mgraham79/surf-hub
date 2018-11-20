@@ -293,7 +293,7 @@ class App extends Component {
                     Location
                     </th>
                   </tr>
-                  {this.state.closedSessionInstr.map(isession => (
+                  {this.state.closedSessionInstr.slice(0).reverse().map(isession => (
                   <tr key={isession.sessionStart}>
                     <td align="center">
                       {isession.clientID}
@@ -353,7 +353,7 @@ class App extends Component {
                       Location
                       </th>
                     </tr>
-                    {this.state.closedSessionClient.map(csession => (
+                    {this.state.closedSessionClient.slice(0).reverse().map(csession => (
                     <tr  key={csession.sessionStart}>
                       <td align="center">
                         {csession.instructorID}
